@@ -128,3 +128,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+"server/client_secret_*.json"  git add .gitignore git commit -m "Add secrets file to .gitignore"
