@@ -9,6 +9,7 @@ function SignUpForm() {
   });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isSignUpClicked, setIsSignUpClicked] = useState(false);
 
   const handleInputChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -16,17 +17,18 @@ function SignUpForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsSignUpClicked(true);
     const errors = validate(formValues);
     setFormErrors(errors);
     setIsSubmit(true);
   };
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 && isSubmit && isSignUpClicked) {
       console.log(formValues);
       // ممكن هنا نحط رسالة انه تم التسجيل او شيئ مشابه
     }
-  }, [formErrors]);
+  }, [formErrors , isSignUpClicked]);
 
   const validate = (values) => {
     const errors = {};
@@ -71,7 +73,11 @@ function SignUpForm() {
             <div className="w-1/2">
               <label className="text-lg font-medium">First name</label>
               <input
-                className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:border-formColor focus:outline-none"
+                className={`w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
+                  formErrors.email
+                    ? "border-red-500"
+                    : "border-gray-100 focus:border-formColor"
+                }`}
                 type="text"
                 name="firstName"
                 value={formValues.firstName}
@@ -79,15 +85,19 @@ function SignUpForm() {
                 placeholder="Enter your first name"
                 aria-label="First name"
               />
-              {formErrors.firstName && (
-                <p className="text-red-500 text-sm">{formErrors.firstName}</p>
+              {isSignUpClicked && formErrors.firstName && (
+                <p className="text-red-500 text-sm mt-1">
+                  {formErrors.firstName}
+                </p>
               )}
             </div>
 
             <div className="w-1/2">
               <label className="text-lg font-medium">Last name</label>
               <input
-                className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:border-formColor focus:outline-none"
+                className={`w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
+                formErrors.email ? "border-red-500" : "border-gray-100 focus:border-formColor"
+              }`}
                 type="text"
                 name="lastName"
                 value={formValues.lastName}
@@ -95,8 +105,8 @@ function SignUpForm() {
                 placeholder="Enter your last name"
                 aria-label="Last name"
               />
-              {formErrors.lastName && (
-                <p className="text-red-500 text-sm">{formErrors.lastName}</p>
+              {isSignUpClicked && formErrors.lastName && (
+                <p className="text-red-500 text-sm mt-1">{formErrors.lastName}</p>
               )}
             </div>
           </div>
@@ -104,7 +114,9 @@ function SignUpForm() {
           <div className="mt-4">
             <label className="text-lg font-medium">Email</label>
             <input
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:border-formColor focus:outline-none"
+              className={`w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
+                formErrors.email ? "border-red-500" : "border-gray-100 focus:border-formColor"
+              }`}
               type="email"
               name="email"
               value={formValues.email}
@@ -112,8 +124,8 @@ function SignUpForm() {
               placeholder="Enter your email"
               aria-label="Email"
             />
-            {formErrors.email && (
-              <p className="text-red-500 text-sm">{formErrors.email}</p>
+            {isSignUpClicked && formErrors.email && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
             )}
           </div>
 
@@ -121,15 +133,17 @@ function SignUpForm() {
             <label className="text-lg font-medium">Password</label>
             <input
               type="password"
-              className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:border-formColor focus:outline-none"
+              className={`w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
+                formErrors.email ? "border-red-500" : "border-gray-100 focus:border-formColor"
+              }`}
               name="password"
               value={formValues.password}
               onChange={handleInputChange}
               placeholder="Enter your password"
               aria-label="Password"
             />
-            {formErrors.password && (
-              <p className="text-red-500 text-sm">{formErrors.password}</p>
+            {isSignUpClicked && formErrors.password && (
+              <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>
             )}
           </div>
 

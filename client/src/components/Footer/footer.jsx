@@ -6,7 +6,7 @@ const Footer = () => {
     <>
     <footer className="bg-footerColor pt-12 pb-8 text-white">
       <div className="container ">
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grig-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grig-cols-3 ml-10 gap-8">
           {/* project Details section */}
           <div className="space-y-5">
             <h1 className="text-3xl font-bold uppercase">AuraMoms</h1>

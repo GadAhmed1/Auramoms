@@ -25,6 +25,11 @@ export default {
         DarkLightGreenColor: "#3a5755", // Dark light green color
         DarkHeavyPinkColor: "#743f55", // Dark heavy pink color
         DarkLightGrayColor: "#3a3a3a", // Dark light gray color
+        footerColor:'#406048', // White green color
+        stloginColor:'#6bd9a8',
+        ndloginColor:'#7dbf8e',
+        formColor:"#7dbf8e",
+        cardColor:"#7dbf8e",
       },
     },
   },
