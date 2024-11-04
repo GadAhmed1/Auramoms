@@ -6,10 +6,10 @@ const VerticalSidebar = () => {
   const [activeItem, setActiveItem] = useState("home");
 
   const items = [
-    { id: "home", icon: Home },
-    { id: "loved", icon: Heart },
-    { id: "cart", icon: ShoppingCart },
-    { id: "user", icon: User },
+    { id: "home", icon: Home, label: "Home" },
+    { id: "loved", icon: Heart, label: "Loved Items" },
+    { id: "cart", icon: ShoppingCart, label: "Shopping Cart" },
+    { id: "user", icon: User, label: "User Profile" },
   ];
 
   const sidebarVariants = {
@@ -27,7 +27,7 @@ const VerticalSidebar = () => {
       initial="hidden"
       animate="visible"
       variants={sidebarVariants}
-      className="h-screen w-16 bg-white border-r border-gray-200 fixed flex flex-col items-center py-4 justify-center"
+      className="h-screen w-16 md:w-20 lg:w-24 bg-white border-r border-gray-200 fixed flex flex-col items-center py-4 justify-center"
     >
       {/* Sidebar icons */}
       <div className="flex flex-col space-y-6">
@@ -35,7 +35,7 @@ const VerticalSidebar = () => {
           <motion.div
             key={item.id}
             className={`transition-all duration-200 p-2 ${
-              activeItem === item.id ? "border-r-2 border-orange-500" : ""
+              activeItem === item.id ? "border-r-4 border-orange-500" : ""
             }`}
             whileHover={{ scale: 1.05 }} // Slightly enlarge on hover
           >
@@ -49,6 +49,7 @@ const VerticalSidebar = () => {
               variants={iconVariants}
               whileHover="hover"
               whileTap="tap"
+              aria-label={item.label} // Adds accessibility for screen readers
             >
               <item.icon className="w-6 h-6" />
             </motion.button>
