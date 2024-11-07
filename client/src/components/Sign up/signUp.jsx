@@ -15,5 +15,5 @@ const SignUp = () => {
     // </div>
   );
 };
-
+// عامل نفسي بعمل تعديلات :)
 export default SignUp;
