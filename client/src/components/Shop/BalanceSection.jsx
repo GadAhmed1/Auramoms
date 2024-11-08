@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { FiEye, FiShoppingCart, FiEyeOff } from "react-icons/fi"; // Icons for toggling
-import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
+import { FiEye, FiShoppingCart, FiEyeOff } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import ReactDOM from "react-dom";
 
 const BalanceCard = () => {
-  const [isHidden, setIsHidden] = useState(false); // State to toggle visibility of balance
-  const [isCollapsed, setIsCollapsed] = useState(false); // State to toggle collapsing of the card
+  const [isHidden, setIsHidden] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const moneyValue = "$1280.00";
 
@@ -15,13 +16,13 @@ const BalanceCard = () => {
     exit: { opacity: 0, y: -20 },
   };
 
-  return (
+  return ReactDOM.createPortal(
     <motion.div
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 100 }}
       transition={{ duration: 0.5 }}
-      className="fixed right-4 top-4 p-4 w-72 h-screen font-Cabin mt-20"
+      className="fixed right-4 top-4 p-4 w-72 h-screen font-Cabin mt-20 z-[9999]"
     >
       {/* Cart Icon in the Top Right to collapse/expand the card */}
       <div className="absolute right-4 top-4">
@@ -88,7 +89,8 @@ const BalanceCard = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 };
 

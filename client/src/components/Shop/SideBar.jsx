@@ -27,10 +27,10 @@ const VerticalSidebar = () => {
       initial="hidden"
       animate="visible"
       variants={sidebarVariants}
-      className="h-screen w-16 md:w-20 lg:w-24 bg-white border-r border-gray-200 fixed flex flex-col items-center py-4 justify-center"
+      className="h-screen w-16 md:w-20 lg:w-24 bg-white border-r border-gray-200 fixed flex flex-col items-center py-4 justify-center rounded-lg"
     >
       {/* Sidebar icons */}
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col space-y-6 ">
         {items.map((item) => (
           <motion.div
             key={item.id}

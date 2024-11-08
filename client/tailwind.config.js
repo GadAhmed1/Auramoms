@@ -30,6 +30,10 @@ export default {
         ndloginColor:'#46644c',
         formColor:"#46644c",
         cardColor:"#46644c",
+        cardTextColor:"#648a6b",
+        DarkGround1:"#121212",
+        DarkGround2:"#1e1e1e",
+
       },
     },
   },

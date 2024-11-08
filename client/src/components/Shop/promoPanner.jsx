@@ -11,11 +11,10 @@ const PromoBanner = () => {
         backgroundPosition: "center",
       }}
     >
-      {/* Background overlay for text visibility */}
-      <div className="absolute inset-0 bg-black opacity-30"></div>
+      
 
       {/* Content container */}
-      <div className="relative z-10 p-6 md:p-8 flex flex-col items-center text-center space-y-4">
+      <div className=" z-10 p-6 md:p-8 flex flex-col items-center text-center space-y-4">
         <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
           GET UP TO 60% WINTER OFF
         </h2>
