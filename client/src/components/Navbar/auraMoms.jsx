@@ -4,7 +4,7 @@ const auraMoms = () => {
   return (
     <>
       <NavLink to="/">
-        <h1 className="text-3xl font-bold   text-black">AuraMoms</h1>
+        <h1 className="text-3xl font-bold   text-black dark:text-white">AuraMoms</h1>
       </NavLink>
     </>
   );

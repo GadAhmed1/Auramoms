@@ -3,24 +3,29 @@ import pannerPhoto from "../../../public/image/pannerPhoto.jpg";
 const PromoBanner = () => {
   return (
     <div
-      className="bg-gray-100 p-6 rounded-lg shadow-md flex flex-col items-center text-center space-y-4"
+      className="relative bg-gray-100 rounded-lg shadow-md overflow-hidden mx-auto w-full max-w-lg lg:max-w-xl"
       style={{
         backgroundImage: `url(${pannerPhoto})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
-        maxWidth: "600px",
       }}
     >
-      <div>
-        <h2 className="text-2xl font-bold ">GET UP TO 60% WINTER OFF</h2>
-        <p className="text-zinc-700 font-poppins font-semibold py-4">
+      {/* Background overlay for text visibility */}
+      <div className="absolute inset-0 bg-black opacity-30"></div>
+
+      {/* Content container */}
+      <div className="relative z-10 p-6 md:p-8 flex flex-col items-center text-center space-y-4">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white">
+          GET UP TO 60% WINTER OFF
+        </h2>
+        <p className="text-white text-sm md:text-base font-semibold">
           Start from 1 till 20 February 2025
         </p>
+        <button className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 active:scale-95 transition-transform duration-200">
+          Get it now
+        </button>
       </div>
-      <button className="bg-black text-white py-2 px-4 rounded-lg hover:scale-105 active:scale-75 transition-all ease-in-out">
-        Get it now
-      </button>
     </div>
   );
 };

@@ -1,45 +1,34 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
+// Component for individual navigation items
 const NavItem = ({ className = "" }) => {
   return (
-    <div
-      className={`${className} flex space-x-12 max-md:hidden text-black dark:text-white capitalize`}
-    >
-      <FlyOut to="/" FlyoutContent>
-        <p>home</p>
-      </FlyOut>
-      <FlyOut to="/about" FlyoutContent>
-        <p>about</p>
-      </FlyOut>
-      <FlyOut to="/contact" FlyoutContent>
-        <p>contact</p>
-      </FlyOut>
-      <FlyOut to="/Shop" FlyoutContent>
-        <p>Shop</p>
-      </FlyOut>
+    <div className={`${className} flex space-x-12 max-md:hidden text-black dark:text-white capitalize`}>
+      <FlyOut to="/" label="home" />
+      <FlyOut to="/about" label="about" />
+      <FlyOut to="/contact" label="contact" />
+      <FlyOut to="/shop" label="shop" />
     </div>
   );
 };
 
-const FlyOut = ({ children, to, FlyoutContent }) => {
-  const [open, setOpen] = useState(false);
+// FlyOut component to handle hover and navigation link animations
+const FlyOut = ({ children, to, label }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
       className="relative w-fit h-fit"
     >
       <NavLink to={to} className="relative">
-        {children}
+        <p>{label}</p>
         <span
-          style={{ transform: open ? "scaleX(1)" : "scaleX(0)" }}
-          className="absolute -bottom-2 -left-2 h-[5.5px] -right-2 
-            rounded-full bg-[black] transition-all
-           duration-300 ease-in-out dark:bg-white"
+          style={{ transform: isOpen ? "scaleX(1)" : "scaleX(0)" }}
+          className="absolute -bottom-2 -left-2 h-[5px] -right-2 
+            rounded-full bg-black transition-transform duration-300 ease-in-out dark:bg-white"
         />
       </NavLink>
     </div>

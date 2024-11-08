@@ -42,14 +42,14 @@ const ProductCard = () => {
       {/* Product details */}
       <div className="text-center">
         <span className="text-cardColor font-semibold">Special Sneaker</span>
-        <h1 className="text-xl font-bold">Nike Invincible 3</h1>
+        <h1 className="text-xl font-bold text-black dark:text-white">Nike Invincible 3</h1>
       </div>
 
       <p className="text-gray-700 text-sm text-center dark:text-gray-400">
         Invincible 3 For Road Running Shoes
       </p>
 
-      <h6 className="text-lg font-semibold">$199.00</h6>
+      <h6 className="text-lg font-semibold text-black dark:text-white">$199.00</h6>
 
       {/* Add to Cart and Favorite buttons */}
       <div className="flex items-center gap-4 mt-4">
