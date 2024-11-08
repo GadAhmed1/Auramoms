@@ -6,28 +6,17 @@ import ProductPage from "./ProductPage";
 import PromoPanner from "./promoPanner";
 import { FiMenu } from "react-icons/fi"; // Icon for sidebar toggle
 
+
 const Shop = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
 
   return (
-    <main className="flex flex-col md:flex-row min-h-screen bg-gray-100">
-      {/* Sidebar with Toggle for Mobile View */}
+    <main className="flex flex-col md:flex-row min-h-screen bg-gray-100 mr-4">
       <aside
-        className={`${
-          isSidebarOpen ? "block" : "hidden"
-        } md:block bg-gray-200 p-4 md:w-64 shadow-lg`}
       >
         <Sidebar />
       </aside>
-
-      {/* Toggle Button for Sidebar in Mobile View */}
-      <button
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className="p-3 bg-gray-800 text-white md:hidden fixed top-4 left-4 z-50 rounded-full shadow-lg"
-      >
-        <FiMenu size={24} />
-      </button>
-
+ 
       {/* Main Content Area */}
       <div className="flex-1 p-4 space-y-6">
         {/* Promo Banner */}
