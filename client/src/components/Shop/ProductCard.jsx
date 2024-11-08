@@ -9,7 +9,7 @@ const ProductCard = () => {
 
   return (
     <div
-      className="flex flex-col gap-4 items-center p-4 border rounded-lg shadow-lg w-80 transition-all duration-300 dark:bg-gray-800 text-white"
+      className="flex flex-col gap-4 items-center p-4 border rounded-lg shadow-lg w-80 transition-all duration-300 dark:bg-gray-800 text-white border-none"
     >
       {/* Container for the image and Quick View button */}
       <div

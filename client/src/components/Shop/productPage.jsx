@@ -71,8 +71,12 @@ const ProductPage = () => {
       {/* Product details*/}
       <div className="flex flex-col gap-4 lg:w-2/3">
         <div>
-          <span className="text-cardTextColor font-semibold">Special Sneaker</span>
-          <h1 className="text-3xl font-bold text-black dark:text-white">Nike Invincible 3</h1>
+          <span className="text-cardTextColor font-semibold">
+            Special Sneaker
+          </span>
+          <h1 className="text-3xl font-bold text-black dark:text-white">
+            Nike Invincible 3
+          </h1>
         </div>
 
         <p className="text-gray-700 text-sm dark:text-gray-300">
@@ -81,30 +85,37 @@ const ProductPage = () => {
           energized for your next run.
         </p>
 
-        <h6 className="text-2xl font-semibold text-black dark:text-white">$ 199.00</h6>
+        <h6 className="text-2xl font-semibold text-black dark:text-white">
+          $ 199.00
+        </h6>
 
         {/* Color selection*/}
-        <div className="flex gap-4">
-          <label className="font-semibold text-black dark:text-white">
-            Color:
-          </label>
-          <button
-            className={`py-2 px-4 rounded-lg text-black dark:text-white ${
-              activeColor === "black" ? "border-2 border-black" : ""
-            }`}
-            onClick={() => handleColorChange("black")}
-          >
-            Black
-          </button>
-          <button
-            className={`py-2 px-4 rounded-lg text-black dark:text-white ${
-              activeColor === "white" ? "border-2 border-black" : ""
-            }`}
-            onClick={() => handleColorChange("white")}
-          >
-            White
-          </button>
-        </div>
+        <div className="flex gap-4 mt-4">
+  <label className="font-semibold text-black dark:text-white">Color :</label>
+  <div className="flex gap-4">
+    {/* Black Color Option */}
+    <button
+      className={`text-lg font-medium ${
+        activeColor === "black" ? "text-black dark:text-white border-b-2 border-black" : "text-gray-600 dark:text-gray-300"
+      }`}
+      onClick={() => handleColorChange("black")}
+    >
+      Black
+    </button>
+    
+    {/* White Color Option */}
+    <button
+      className={`text-lg font-medium ${
+        activeColor === "white" ? "text-black dark:text-white border-b-2 border-black" : "text-gray-600 dark:text-gray-300"
+      }`}
+      onClick={() => handleColorChange("white")}
+    >
+      White
+    </button>
+  </div>
+</div>
+
+
 
         {/* Quantity control and addition to the cart*/}
         <div className="flex flex-row items-center gap-12">
@@ -115,7 +126,9 @@ const ProductPage = () => {
             >
               -
             </button>
-            <span className="py-4 px-6 rounded-lg text-black dark:text-white">{amount}</span>
+            <span className="py-4 px-6 rounded-lg text-black dark:text-white">
+              {amount}
+            </span>
             <button
               className="bg-gray-200 py-2 px-4 rounded-lg text-cardColor text-3xl font-bold"
               onClick={() => setAmount((prev) => prev + 1)}
@@ -143,5 +156,3 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
-
-
