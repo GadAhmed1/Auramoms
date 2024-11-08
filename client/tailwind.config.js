@@ -27,9 +27,9 @@ export default {
         DarkLightGrayColor: "#3a3a3a", // Dark light gray color
         footerColor:'#406048', // White green color
         stloginColor:'#6bd9a8',
-        ndloginColor:'#7dbf8e',
-        formColor:"#7dbf8e",
-        cardColor:"#7dbf8e",
+        ndloginColor:'#46644c',
+        formColor:"#46644c",
+        cardColor:"#46644c",
       },
     },
   },
