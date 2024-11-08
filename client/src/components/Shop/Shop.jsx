@@ -6,6 +6,7 @@ import ProductPage from "./productPage";
 import PromoPanner from "./promoPanner";
 import { FiMenu } from "react-icons/fi"; // Icon for sidebar toggle
 
+
 const Shop = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
 
@@ -34,7 +35,7 @@ const Shop = () => {
           <PromoPanner />
         </section>
 
-        {/* Balance Section */}
+        {/* Balance Section  :( تم ايقافها حتي اشعار اخر */}
         <section className="w-full bg-white shadow-md p-6 rounded-lg transition-all duration-300">
           {/* <BalanceSection /> */}
         </section>
