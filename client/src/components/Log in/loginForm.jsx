@@ -1,33 +1,33 @@
 import { useState, useEffect } from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [isSignInClicked, setIsSignInClicked] = useState(false);
+  const navigate = useNavigate();
 
-  const handelEmailChange = (e) => {
+  const handleEmailChange = (e) => {
     setFormValues({ ...formValues, email: e.target.value });
   };
 
-  const handelPassChange = (e) => {
+  const handlePassChange = (e) => {
     setFormValues({ ...formValues, password: e.target.value });
   };
 
-  const handelSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSignInClicked(true);
     setFormErrors(validate(formValues));
     setIsSubmit(true);
   };
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit && isSignInClicked) {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
+      // إعادة توجيه المستخدم بعد تسجيل الدخول بنجاح
+      // navigate();
     }
-  }, [formErrors, isSignInClicked]);
+  }, [formErrors, isSubmit, navigate]);
 
   const validate = (values) => {
     const errors = {};
@@ -41,8 +41,8 @@ function Form() {
 
     if (!values.password) {
       errors.password = "Password is required!";
-    } else if (values.password.length < 6) {
-      errors.password = "Password must be at least 6 characters long!";
+    } else if (values.password.length < 8) {
+      errors.password = "Password must be at least 8 characters long!";
     }
 
     return errors;
@@ -52,11 +52,11 @@ function Form() {
     <div>
       <form
         className="bg-white px-10 py-6 rounded-3xl border-2 border-gray-100"
-        onSubmit={handelSubmit}
+        onSubmit={handleSubmit}
       >
-        <h1 className="text-4xl font-semibold">Login to your account</h1>
+        <h1 className="text-3xl font-semibold">Login to your account</h1>
         <p className="font-medium text-lg text-gray-500 mt-4">
-          Please enter your Details
+          Please enter your details
         </p>
 
         <div className="mt-5">
@@ -64,14 +64,16 @@ function Form() {
             <label className="text-lg font-medium">Email</label>
             <input
               className={`w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
-                formErrors.email ? "border-red-500" : "border-gray-100 focus:border-formColor"
+                formErrors.email
+                  ? "border-red-500"
+                  : "border-gray-100 focus:border-formColor"
               }`}
               type="email"
               value={formValues.email}
-              onChange={handelEmailChange}
+              onChange={handleEmailChange}
               placeholder="Enter your email"
             />
-            {isSignInClicked && formErrors.email && (
+            {isSubmit && formErrors.email && (
               <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
             )}
           </div>
@@ -81,13 +83,15 @@ function Form() {
             <input
               type="password"
               className={`w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
-                formErrors.password ? "border-red-500" : "border-gray-100 focus:border-formColor"
+                formErrors.password
+                  ? "border-red-500"
+                  : "border-gray-100 focus:border-formColor"
               }`}
               value={formValues.password}
-              onChange={handelPassChange}
+              onChange={handlePassChange}
               placeholder="Enter your password"
             />
-            {isSignInClicked && formErrors.password && (
+            {isSubmit && formErrors.password && (
               <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>
             )}
           </div>
@@ -103,7 +107,10 @@ function Form() {
                 Remember me
               </label>
             </div>
-            <button type="button" className="font-medium text-base text-formColor">
+            <button
+              type="button"
+              className="font-medium text-base text-formColor"
+            >
               Forgot Password
             </button>
           </div>
@@ -115,27 +122,15 @@ function Form() {
             >
               Sign in
             </button>
-
-            <button
-              type="button"
-              className="flex rounded-xl py-3 border-2 border-gray-100 justify-center gap-3 items-center active:scale-[.98] active:duration-75 transition-all"
-            >
-              <FcGoogle className="scale-150" />
-              Sign in with Google
-            </button>
-
-            <button
-              type="button"
-              className="flex rounded-xl py-3 border-2 border-gray-100 justify-center gap-3 items-center active:scale-[.98] active:duration-75 transition-all"
-            >
-              <FaFacebook className="scale-150 text-blue-600" />
-              Sign in with Facebook
-            </button>
           </div>
 
           <div className="mt-8 flex justify-center items-center">
-            <p className="font-medium text-base">Don&#39;t have an account?</p>
-            <button type="button" className="ml-3 text-formColor text-base font-medium">
+            <p className="font-medium text-base">Don&#39;t have an account ?</p>
+            <button
+              type="button"
+              className="ml-3 text-formColor text-base font-medium"
+              onClick={() => navigate("/Sign_up")}
+            >
               Sign up
             </button>
           </div>

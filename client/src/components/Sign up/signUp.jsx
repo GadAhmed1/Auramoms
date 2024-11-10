@@ -1,4 +1,5 @@
 import SignUpForm from "./signUpForm";
+import backGround from "../../../public/image/blob2_bg.svg";
 
 const SignUp = () => {
   return (
@@ -8,12 +9,19 @@ const SignUp = () => {
     //     <div className="w-full h-1/3 absolute bottom-0 bg-white/10 backdrop-blur-lg" />
     //   </div>
 
-      <div className="w-full flex items-center justify-center mt-6 ">
-        {/* لو هتشغل الكرة حط هنا lg:w-1/2 */}
-        <SignUpForm />
-      </div>
+    <div
+      className="w-full flex items-center justify-center pt-5 bg-SignUpPageColor dark:bg-DarkGround2 "
+      style={{
+        backgroundImage: `url(${backGround})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* لو هتشغل الكرة حط هنا lg:w-1/2 */}
+      <SignUpForm />
+    </div>
     // </div>
   );
 };
-// عامل نفسي بعمل تعديلات :)
 export default SignUp;
