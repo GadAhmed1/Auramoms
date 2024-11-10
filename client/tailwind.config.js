@@ -11,6 +11,8 @@ export default {
         Mate: ["Mate", "serif"],
       },
       colors: {
+        SignUpPageColor: "#f1f1f1", // Similer to White but darker
+        SignUpDarkColor: "#0c111d", // Similer to White but darker
         DarkBackground: "#0f172a", // Dark background color
         DarkText: "#e5e5e5", // Text color in dark mode
         DarkAccent: "#262626", // Accent color for dark mode
@@ -25,15 +27,14 @@ export default {
         DarkLightGreenColor: "#3a5755", // Dark light green color
         DarkHeavyPinkColor: "#743f55", // Dark heavy pink color
         DarkLightGrayColor: "#3a3a3a", // Dark light gray color
-        footerColor:'#406048', // White green color
-        stloginColor:'#6bd9a8',
-        ndloginColor:'#46644c',
-        formColor:"#46644c",
-        cardColor:"#46644c",
-        cardTextColor:"#648a6b",
-        DarkGround1:"#121212",
-        DarkGround2:"#1e1e1e",
-
+        footerColor: "#406048", // White green color
+        stloginColor: "#6bd9a8", // Light green color
+        ndloginColor: "#46644c", // Dark olive green color
+        formColor: "#46644c", // Dark olive green color (same as ndloginColor for consistency)
+        cardColor: "#46644c", // Dark olive green color (used for card backgrounds)
+        cardTextColor: "#648a6b", // Light green-gray color
+        DarkGround1: "#121212", // Deep black color (dark mode primary background)
+        DarkGround2: "#1e1e1e", // Charcoal dark gray color (secondary background)
       },
     },
   },
