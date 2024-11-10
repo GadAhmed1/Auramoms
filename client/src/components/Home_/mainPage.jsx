@@ -15,6 +15,7 @@ function HomePage() {
       <Benefit />
       <WhoWeAre />
       <Footer />
+      <Divider1/>
     </div>
   );
 }
