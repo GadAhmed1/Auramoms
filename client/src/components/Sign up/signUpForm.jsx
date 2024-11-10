@@ -34,7 +34,7 @@ function SignUpForm() {
       // إعادة توجيه المستخدم بعد تسجيل الدخول بنجاح
       // navigate();
     }
-  }, [formErrors,navigate]);
+  }, [formErrors, navigate, formValues, isSubmit]);
 
   const validate = (values) => {
     const errors = {};
