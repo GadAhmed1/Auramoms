@@ -2,10 +2,6 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 function TheCenterPart() {
-  const FaceBook = useRef();
-  const insta = useRef();
-  const tiktok = useRef();
-
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -14,13 +10,12 @@ function TheCenterPart() {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // Check on mount
+    handleResize();
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Variants for text animation
-  const textVariant = {
+  const textVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
@@ -29,8 +24,7 @@ function TheCenterPart() {
     },
   };
 
-  // Variants for button animation
-  const buttonVariant = {
+  const buttonVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
@@ -39,8 +33,7 @@ function TheCenterPart() {
     },
   };
 
-  // Variants for social media icons animation
-  const iconVariant = {
+  const iconVariants = {
     hidden: { opacity: 0, scale: 0.5 },
     visible: {
       opacity: 1,
@@ -59,13 +52,13 @@ function TheCenterPart() {
         className="dark:text-DarkText"
         initial="hidden"
         animate="visible"
-        variants={textVariant}
+        variants={textVariants}
       >
         {/* Big Text Animation */}
         <motion.div className="TheBigTxt">
           <h3
             className="leading-normal font-extrabold"
-            style={{ fontSize: isSmallScreen ? "1.5rem" : "3rem" }} // Adjust font size based on screen width
+            style={{ fontSize: isSmallScreen ? "1.5rem" : "3rem" }}
           >
             Empowering Moms with <br /> Every Thoughtful Product Choice
           </h3>
@@ -82,7 +75,7 @@ function TheCenterPart() {
         </motion.div>
 
         {/* Button Animation */}
-        <motion.div className="mt-10 mb-7" variants={buttonVariant}>
+        <motion.div className="mt-10 mb-7" variants={buttonVariants}>
           <motion.button
             className="select-none border-2 border-[#416048] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#416048] hover:bg-transparent hover:text-black transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
@@ -97,34 +90,31 @@ function TheCenterPart() {
           className="select-none FindUs text-xl flex gap-3 mb-2 ml-2 pb-10 mt-48"
           initial="hidden"
           animate="visible"
-          variants={iconVariant}
+          variants={iconVariants}
         >
           <p>Find Us On:</p>
           <div className="flex gap-3 items-center icons">
             <motion.a
               whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
-              ref={FaceBook}
               className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
               href="#"
-              variants={iconVariant}
+              variants={iconVariants}
             >
               <img src="./icons/findusIcons/pinterest.svg" alt="Pinterest" />
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
-              ref={insta}
               className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
               href="#"
-              variants={iconVariant}
+              variants={iconVariants}
             >
               <img src="./icons/findusIcons/instagram.svg" alt="Instagram" />
             </motion.a>
             <motion.a
               whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
-              ref={tiktok}
               className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
               href="#"
-              variants={iconVariant}
+              variants={iconVariants}
             >
               <img src="./icons/findusIcons/tiktok.svg" alt="TikTok" />
             </motion.a>

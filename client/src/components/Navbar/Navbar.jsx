@@ -8,24 +8,32 @@ import AuraMoms from "./auraMoms.jsx";
 import { CiShoppingCart } from "react-icons/ci"; // Normal import, no lazy loading
 import { NavLink } from "react-router-dom";
 
+
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false); // Start with Navbar visible
 
-  const toggleMenu = useCallback(() => {
-    setIsOpen((prevState) => !prevState);
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) setHidden(true);
+      else setHidden(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
       <motion.nav
-        variants={{
-          hidden: { y: "-100%" }, // Moves the navbar out of view upwards
-          visible: { y: 0 }, // Brings the navbar back into view
-        }}
+        initial={hidden ? "hidden" : "visible"}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="flex sticky top-0 w-full justify-between items-center px-4 h-24 text-[#799263] font-Cabin dark:bg-DarkBackground shadow-md bg-[#fff] z-50"
+        className="flex sticky top-0 w-full justify-between items-center px-4 h-24 text-[#799263] font-Cabin dark:bg-[#46644c] shadow-md bg-[#fff] z-50"
       >
         <AuraMoms />
         <NavItem />

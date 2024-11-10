@@ -10,10 +10,10 @@ function HomePage() {
   return (
     <div className="dark:bg-DarkBackground">
       <TheCenterPatInHeroSection />
-      <WhoWeAre />
-      <TheGreenMan />
       <PopularProducts />
+      <TheGreenMan />
       <Benefit />
+      <WhoWeAre />
       <Footer />
     </div>
   );
