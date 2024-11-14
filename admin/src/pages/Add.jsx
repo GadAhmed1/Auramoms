@@ -1,154 +1,207 @@
-import { FaPlus } from "react-icons/fa"; // استيراد أيقونة "FaPlus" من مكتبة "react-icons/fa" لاستخدامها كزر للإضافة
-import area1 from "../assets/upload_area1.svg"; // استيراد صورة "area1" من المسار المحدد لاستخدامها كصورة افتراضية في منطقة التحميل
-import { useState } from "react"; // استيراد "useState" من مكتبة React لتتبع الحالة المحلية للمكونات
-import axios from "axios"; // استيراد مكتبة "axios" لإجراء طلبات HTTP بشكل ميسر
-import { toast } from "react-toastify"; // استيراد دالة "toast" من مكتبة "react-toastify" لإظهار الرسائل المنبثقة
-import "react-toastify/dist/ReactToastify.css"; // استيراد ملف CSS الخاص بمكتبة "react-toastify" لتنسيق الرسائل المنبثقة
+import { useState } from "react";
 
-// مكون فرعي لرفع الصور
-const ImageUpload = ({ label, image, setImage, id }) => (
-  <div className="flex flex-col gap-y-2 max-w-24 h-24 mb-5 text-center"> {/* تنظيم العرض بشكل عمودي مع محاذاة مركزية */}
-    <p>{label}</p> {/* عرض تسمية تحميل الصورة */}
-    <label htmlFor={id} className="h-20"> {/* عنصر label لتحديد منطقة التحميل */}
-      <img className="w-36" src={image ? URL.createObjectURL(image) : area1} alt="" /> {/* عرض الصورة المحملة أو صورة افتراضية */}
-    </label>
-    <input
-      onChange={(e) => setImage(e.target.files[0])} // تحديث الصورة عند تغييرها
-      type="file" // تعيين نوع الإدخال كملف
-      hidden // إخفاء عنصر الإدخال الفعلي
-      required // جعل الحقل مطلوبًا
-      id={id} // تعيين معرف فريد للعنصر
-    />
-  </div>
-);
-
-// المكون الرئيسي لإضافة المنتجات
-const Add = ({ url }) => {
-  const [images, setImages] = useState(Array(5).fill(null)); // حالة الصور، مبدئيًا تحتوي على أربع صور فارغة
-
-  const [data, setData] = useState({ // حالة البيانات لتتبع تفاصيل المنتج
-    name: "", // اسم المنتج
-    description: "", // وصف المنتج
-    price: "", // سعر المنتج
-    category: "", // فئة المنتج
+const AddProduct = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    description: "",
+    price: "",
+    category: "",
+    color: "",
+    images: {
+      image: null,
+      image2: null,
+      image3: null,
+      image4: null,
+      image5: null,
+    },
   });
 
-  const handleImageChange = (index) => (e) => { // دالة لمعالجة تغيير الصور
-    const newImages = [...images]; // إنشاء نسخة من حالة الصور الحالية
-    newImages[index] = e.target.files[0]; // تحديث الصورة في المؤشر المحدد
-    setImages(newImages); // تعيين الحالة الجديدة للصور
-  };
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
 
-  const handleInputChange = (e) => { // دالة لمعالجة تغييرات الإدخال
-    const { name, value } = e.target; // استخراج الخصائص من الهدف
-    setData((prevData) => ({ // تحديث حالة البيانات
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
       ...prevData,
-      [name]: value, // تحديث القيمة المحددة
+      [name]: value,
     }));
   };
 
-  const handleSubmit = async (e) => { // دالة معالجة إرسال النموذج
-    e.preventDefault(); // منع السلوك الافتراضي للنموذج
-    try {
-      const formData = new FormData(); // إنشاء كائن FormData لإرسال البيانات
-      Object.keys(data).forEach((key) => formData.append(key, data[key])); // إضافة البيانات الأساسية إلى FormData
-      images.forEach((image) => { // إضافة الصور إلى FormData
-        if (image) formData.append("images", image); // إضافة الصورة إذا كانت موجودة
-      });
+  const handleImageChange = (e) => {
+    const { name, files } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      images: {
+        ...prevData.images,
+        [name]: files[0],
+      },
+    }));
+  };
 
-      const res = await axios.post(`${url}/products/add`, formData); // إجراء طلب POST لإضافة المنتج
-      if (res.data.success) { // إذا كانت الاستجابة ناجحة
-        setData({ name: "", description: "", price: "", category: "" }); // إعادة تعيين حالة البيانات
-        setImages(Array(4).fill(null)); // إعادة تعيين الصور
-        toast.success(res.data.message); // عرض رسالة نجاح
+  const validateInputs = () => {
+    const errors = {};
+    if (!formData.name.trim()) errors.name = "Product Name is required";
+    if (!formData.description.trim()) errors.description = "Description is required";
+    if (!formData.price || isNaN(formData.price) || formData.price <= 0)
+      errors.price = "Please enter a valid price";
+    if (!formData.category) errors.category = "Category is required";
+    return errors;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const errors = validateInputs();
+    setValidationErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      setLoading(false);
+      return;
+    }
+
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (key === "images") {
+        Object.keys(formData[key]).forEach((imageKey) => {
+          if (formData[key][imageKey]) {
+            formDataToSend.append(imageKey, formData[key][imageKey]);
+          }
+        });
       } else {
-        toast.error(res.data.message); // عرض رسالة خطأ
+        formDataToSend.append(key, formData[key]);
       }
-    } catch (error) { // معالجة الأخطاء
-      toast.error("An error occurred. Please try again."); // عرض رسالة خطأ عند حدوث استثناء
+    });
+
+    try {
+      const response = await fetch("http://localhost:4000/products/add", {
+        method: "POST",
+        body: formDataToSend,
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert("Product added successfully!");
+      } else {
+        setError(result.message || "Failed to add product");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
-  return ( // العودة إلى واجهة المستخدم
-    <div className="p-4 sm:p-10 w-full bg-primary/20"> {/* تصميم الحاوية مع padding وخلفية */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-5 max-w-[555px]"> {/* تصميم النموذج */}
-        <h4 className="bold-22 pb-2 uppercase">Products Upload</h4> {/* عنوان النموذج */}
-
-        <div className="flexBetween"> {/* تنظيم تحميل الصور بشكل متساوي */}
-          {images.map((image, index) => ( // رسم مكون تحميل الصور لكل صورة
-            <ImageUpload
-              key={index} // تعيين مفتاح فريد للمكون
-              label={`Image ${index + 1}`} // تسمية كل صورة
-              image={image} // تمرير الصورة الحالية
-              setImage={handleImageChange(index)} // تمرير دالة تغيير الصورة
-              id={`image${index + 1}`} // تعيين معرف فريد لكل إدخال صورة
-            />
+  return (
+    <div className="max-w-4xl mx-auto m-10 p-10 bg-white rounded-lg shadow-lg">
+      <h1 className="text-4xl font-bold mb-10 text-center text-pink-500">Add a New Product</h1>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Upload Images */}
+        <div className="grid grid-cols-2 gap-6">
+          {["image", "image2", "image3", "image4", "image5"].map((image, index) => (
+            <div key={index} className="flex flex-col ">
+              <label htmlFor={image} className="block text-lg font-medium">
+                Image {index + 1}
+              </label>
+              <input
+                type="file"
+                id={image}
+                name={image}
+                onChange={handleImageChange}
+                accept="image/*"
+                className="mt-2 block w-full text-sm  text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-gray-100 hover:file:bg-gray-200"
+              />
+            </div>
           ))}
         </div>
 
-        <div className="flex flex-col gap-y-2"> {/* تنظيم الحقول بشكل عمودي */}
-          <p>Product name</p> {/* تسمية حقل اسم المنتج */}
+        {/* Product Name */}
+        <div>
+          <label htmlFor="name" className="block text-lg font-medium">Product Name</label>
           <input
-            onChange={handleInputChange} // معالجة تغييرات الإدخال
-            value={data.name} // ربط القيمة مع الحالة
-            type="text" // تعيين نوع الإدخال كنص
-            placeholder="Type here..." // نص توضيحي
-            name="name" // اسم الحقل
-            className="ring-1 ring-slate-900/10 py-1 px-3 outline-none" // تنسيق الحقل
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+          {validationErrors.name && <p className="text-red-500">{validationErrors.name}</p>}
+        </div>
+
+        {/* Description */}
+        <div>
+          <label htmlFor="description" className="block text-lg font-medium">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            rows="4"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+          {validationErrors.description && <p className="text-red-500">{validationErrors.description}</p>}
+        </div>
+
+        {/* Price */}
+        <div>
+          <label htmlFor="price" className="block text-lg font-medium">Price</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+          />
+          {validationErrors.price && <p className="text-red-500">{validationErrors.price}</p>}
+        </div>
+
+        {/* Category */}
+        <div>
+          <label htmlFor="category" className="block text-lg font-medium">Category</label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value="">Select Category</option>
+            <option value="skin care">Skin Care</option>
+            <option value="Health and personal care devices">Health and Personal Care Devices</option>
+            <option value="Hair Care">Hair Care</option>
+          </select>
+          {validationErrors.category && <p className="text-red-500">{validationErrors.category}</p>}
+        </div>
+
+        {/* Color */}
+        <div>
+          <label htmlFor="color" className="block text-lg font-medium">Color</label>
+          <input
+            type="text"
+            id="color"
+            name="color"
+            value={formData.color}
+            onChange={handleChange}
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
         </div>
 
-        <div className="flex flex-col gap-y-2"> {/* تنظيم حقل الوصف */}
-          <p>Product Description</p> {/* تسمية حقل الوصف */}
-          <textarea
-            onChange={handleInputChange} // معالجة تغييرات الإدخال
-            value={data.description} // ربط القيمة مع الحالة
-            name="description" // اسم الحقل
-            className="ring-1 ring-slate-900/10 py-1 px-3 outline-none resize-none" // تنسيق حقل النص
-            rows="6" // تحديد عدد الصفوف
-            placeholder="Write Content Here..." // نص توضيحي
-            required // جعل الحقل مطلوبًا
-          ></textarea>
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            disabled={loading}
+            className="px-8 py-3 bg-pink-500 text-white font-semibold rounded-lg shadow-md hover:bg-pink-600 transition duration-300"
+          >
+            {loading ? "Uploading..." : "Add Product"}
+          </button>
         </div>
 
-        <div className="flex items-center gap-x-6 text-gray-900/70 medium-15"> {/* تنظيم حقل الفئة والسعر */}
-          <div className="flex flex-col gap-y-2"> {/* حقل الفئة */}
-            <p>Product Category</p> {/* تسمية حقل الفئة */}
-            <select
-              name="category" // اسم الحقل
-              onChange={handleInputChange} // معالجة تغييرات الإدخال
-              value={data.category} // ربط القيمة مع الحالة
-              className="outline-none ring-1 ring-slate-900/10 pl-2" // تنسيق حقل القائمة المنسدلة
-            >
-              <option value="Skin Care">Skin Care</option> {/* خيار الفئة: العناية بالبشرة */}
-              <option value="Health and personal care devices">Health and personal care devices</option> {/* خيار الفئة: الصحة */}
-              <option value="Hair Care">Hair Care</option> {/* خيار الفئة: الأطفال */}
-            </select>
-          </div>
-
-          <div className="flex flex-col gap-y-2"> {/* حقل السعر */}
-            <p>Product Price</p> {/* تسمية حقل السعر */}
-            <input
-              onChange={handleInputChange} // معالجة تغييرات الإدخال
-              value={data.price} // ربط القيمة مع الحالة
-              className="ring-1 ring-slate-900/10 pl-2 w-24 outline-none" // تنسيق الحقل
-              type="number" // تعيين نوع الإدخال كرقم
-              placeholder="$20" // نص توضيحي
-              name="price" // اسم الحقل
-            />
-          </div>
-        </div>
-
-        <button
-          type="submit" // تعيين نوع الزر كزر إرسال
-          className="btn-dark w-full flexCenter gap-x-2 !py-2 rounded" // تنسيق الزر
-        >
-          <FaPlus /> {/* إضافة الأيقونة إلى الزر */}
-          Add Product {/* نص الزر */}
-        </button>
+        {error && <p className="text-red-500 text-center">{error}</p>}
       </form>
     </div>
   );
 };
 
-export default Add; // تصدير المكون "Add" للاستخدام في مكان آخر
+export default AddProduct;
