@@ -8,8 +8,6 @@ import AuraMoms from "./auraMoms.jsx";
 import { CiShoppingCart } from "react-icons/ci"; // Normal import, no lazy loading
 import { NavLink } from "react-router-dom";
 
-
-
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false); // Start with Navbar visible
@@ -33,7 +31,7 @@ const Navbar = () => {
         initial={hidden ? "hidden" : "visible"}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="flex sticky top-0 w-full justify-between items-center px-4 h-24 text-[#799263] font-Cabin dark:bg-[#46644c] shadow-md bg-[#fff] z-50"
+        className="flex sticky top-0 w-full justify-between items-center px-4 h-24 text-[#799263] font-Cabin dark:bg-slate-800 shadow-md bg-[#fff] z-50"
       >
         <AuraMoms />
         <NavItem />
@@ -42,7 +40,7 @@ const Navbar = () => {
           <CiShoppingCart className="cursor-pointer text-2xl hover:text-gray-500 transition-all" />
           <ThemeMode />
           <NavLink to="/Sign_up">
-            <NavButton className="bg-[#46644c] dark:bg-[#46644c] hover:scale-105 duration-300">
+            <NavButton className="bg-[#46644c] dark:bg-transparent hover:scale-105 duration-300">
               signUp
             </NavButton>
           </NavLink>
