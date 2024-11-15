@@ -49,21 +49,21 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-b from-white to-gray-50 py-12 px-4">
-      <motion.div
+    <section className="min-h-screen bg-white py-12 px-4 dark:bg-gray-900 text-gray-100">
+    <motion.div
         className="max-w-6xl mx-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden dark:bg-gray-800">
           <div className="grid lg:grid-cols-2 gap-0">
             <motion.div className="p-8 lg:p-12" {...fadeIn}>
               <div className="max-w-md mx-auto">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-gray-100">
                   Get in Touch
                 </h1>
-                <p className="text-gray-600 mb-8">
+                <p className="text-gray-600 mb-8 dark:text-gray-400">
                   We'd love to hear from you. Fill out the form and we'll get
                   back to you shortly.
                 </p>
@@ -75,7 +75,7 @@ const ContactSection = () => {
                     value={formData.fullName}
                     onChange={handleChange}
                     placeholder="Full Name"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none dark:bg-gray-700 text-gray-100 dark:border-gray-600 dark:focus:ring-2 dark:focus:ring-blue-300"
                     required
                   />
                   <div className="grid grid-cols-2 gap-4">
@@ -85,7 +85,7 @@ const ContactSection = () => {
                       value={formData.city}
                       onChange={handleChange}
                       placeholder="City"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none dark:bg-gray-700 text-gray-100  dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-300"
                       required
                     />
                     <input
@@ -94,7 +94,7 @@ const ContactSection = () => {
                       value={formData.postcode}
                       onChange={handleChange}
                       placeholder="Postcode"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none dark:bg-gray-700 text-gray-100  dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-300"
                       required
                     />
                   </div>
@@ -104,7 +104,7 @@ const ContactSection = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Email Address"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none dark:bg-gray-700 text-gray-100  dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-300"
                     required
                   />
                   <input
@@ -113,7 +113,7 @@ const ContactSection = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     placeholder="Phone Number"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none dark:bg-gray-700 text-gray-100  dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-300"
                     required
                   />
                   <textarea
@@ -122,7 +122,7 @@ const ContactSection = () => {
                     onChange={handleChange}
                     placeholder="Your Message"
                     rows="4"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none resize-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none resize-none dark:bg-gray-700 text-gray-100  dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-300"
                     required
                   ></textarea>
                   <motion.button
@@ -139,19 +139,19 @@ const ContactSection = () => {
                 <div className="mt-8 flex flex-col space-y-4">
                   <a
                     href="mailto:contact@example.com"
-                    className="flex items-center text-gray-600 hover:text-blue-600 transition-colors"
+                    className="flex items-center text-gray-600 hover:text-blue-600 transition-colors dark:text-gray-400 dark:hover:text-blue-500"
                   >
                     <Mail className="w-5 h-5 mr-3" />
                     <span>contact@example.com</span>
                   </a>
                   <a
                     href="tel:+1234567890"
-                    className="flex items-center text-gray-600 hover:text-blue-600 transition-colors"
+                    className="flex items-center text-gray-600 hover:text-blue-600 transition-colors dark:text-gray-400 dark:hover:text-blue-500"
                   >
                     <Phone className="w-5 h-5 mr-3" />
                     <span>+1 (234) 567-890</span>
                   </a>
-                  <div className="flex items-center text-gray-600">
+                  <div className="flex items-center text-gray-600 dark:text-gray-400">
                     <MapPin className="w-5 h-5 mr-3" />
                     <span>123 Business Avenue, New York, NY 10001</span>
                   </div>
@@ -164,7 +164,7 @@ const ContactSection = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="absolute inset-0 bg-gray-900/10"></div>
+              <div className="absolute inset-0 bg-gray-900/10 dark:bg-gray-900/20"></div>
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.119763973046!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1645564764428!5m2!1sen!2s"
                 className="absolute inset-0 w-full h-full"

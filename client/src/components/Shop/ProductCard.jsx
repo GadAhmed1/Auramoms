@@ -67,7 +67,7 @@ const ProductCard = () => {
         <button
           onClick={() => setIsFavorite(!isFavorite)}
           className={`text-3xl transition-transform duration-150 ${
-            isFavorite ? "text-red-500" : "text-cardColor"
+            isFavorite ? "text-cardColor" : "text-cardColor"
           }`}
         >
           {isFavorite ? <FaHeart /> : <FaRegHeart />}

@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
 
 function SignUpForm() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
   const [formValues, setFormValues] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
     country: "",
@@ -25,43 +23,45 @@ function SignUpForm() {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validate(formValues);
     setFormErrors(errors);
     setIsSubmit(true);
-  };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      axios
-        .post("http://localhost:4000/users/register", formValues, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          if (response.data.success) {
-            setMessage("Registration successful!");
-            navigate("/");
-          } else {
-            setMessage(response.data.message || "Registration failed!");
+    if (Object.keys(errors).length === 0) {
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/users/register",
+          {
+            ...formValues,
+            country: selected,
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setMessage("An error occurred during registration.");
-        });
+        );
+
+        if (response.data.success) {
+          setMessage("Registration successful!");
+          setTimeout(() => navigate("/"), 2000); // توجيه بعد ثانيتين
+        } else {
+          setMessage(response.data.message || "Registration failed!");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setMessage(
+          error.response?.data?.message ||
+            "An error occurred during registration."
+        );
+      }
     }
-  }, [formErrors, navigate, formValues, isSubmit]);
+  };
 
   const validate = (values) => {
     const errors = {};
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const phoneRegex = /^[0-9]{10,15}$/;
 
-    if (!values.firstName) errors.firstName = "First name is required!";
-    if (!values.lastName) errors.lastName = "Last name is required!";
+    if (!values.firstname) errors.firstname = "First name is required!";
+    if (!values.lastname) errors.lastname = "Last name is required!";
     if (!values.email) {
       errors.email = "Email is required!";
     } else if (!emailRegex.test(values.email)) {
@@ -74,7 +74,7 @@ function SignUpForm() {
       errors.password = "Password must be at least 8 characters!";
     }
 
-    if (!values.country) errors.country = "Country is required!";
+    if (!selected) errors.country = "Country is required!";
     if (!values.phone) {
       errors.phone = "Phone number is required!";
     } else if (!phoneRegex.test(values.phone)) {
@@ -102,39 +102,37 @@ function SignUpForm() {
         className="bg-white px-9 py-4 rounded-3xl border-2 border-gray-100"
         onSubmit={handleSubmit}
       >
-        
         <h1 className="text-4xl font-semibold">Sign up</h1>
-        
+
         <p className="font-medium text-lg text-gray-500 mt-4">
           Join us now and enjoy the unique luxury experience you deserve!
         </p>
-        
 
         <div className="mt-5 flex gap-4">
           <div className="w-1/2">
             <label className="text-lg font-medium">First name</label>
             <input
-              className={getInputClass("firstName")}
+              className={getInputClass("firstname")}
               type="text"
-              name="firstName"
-              value={formValues.firstName}
+              name="firstname"
+              value={formValues.firstname}
               onChange={handleInputChange}
               placeholder="Enter your first name"
             />
-            {renderError("firstName")}
+            {renderError("firstname")}
           </div>
 
           <div className="w-1/2">
             <label className="text-lg font-medium">Last name</label>
             <input
-              className={getInputClass("lastName")}
+              className={getInputClass("lastname")}
               type="text"
-              name="lastName"
-              value={formValues.lastName}
+              name="lastname"
+              value={formValues.lastname}
               onChange={handleInputChange}
               placeholder="Enter your last name"
             />
-            {renderError("lastName")}
+            {renderError("lastname")}
           </div>
         </div>
 
@@ -165,34 +163,30 @@ function SignUpForm() {
         </div>
 
         <div className="mt-5 flex gap-4">
-          <div className="w-1/2">
-            <label className="text-lg font-medium">Country</label>
-            <ReactFlagsSelect
-              selected={selected}
-              onSelect={(code) => {
-                setSelected(code);
-                setFormValues({ ...formValues, country: code });
-              }}
-              searchable
-              className="w-full mt-1"
+        <div className="w-1/2">
+          <label className="text-lg font-medium">Country</label>
+          <ReactFlagsSelect
+            selected={selected}
+            onSelect={(code) => setSelected(code)}
+            searchable
+            className="w-full mt-1"
               selectButtonClassName="w-full border-2 rounded-xl px-4 py-3 bg-transparent focus:outline-none border-gray-100 focus:border-formColor"
-              placeholder="Select your country"
-            />
-            {renderError("country")}
-          </div>
+          />
+          {renderError("country")}
+        </div>
 
-          <div className="w-1/2">
-            <label className="text-lg font-medium">Phone</label>
-            <input
-              className={getInputClass("phone")}
-              type="text"
-              name="phone"
-              value={formValues.phone}
-              onChange={handleInputChange}
-              placeholder="Enter your phone number"
-            />
-            {renderError("phone")}
-          </div>
+        <div className="w-1/2">
+          <label className="text-lg font-medium">Phone</label>
+          <input
+            className={getInputClass("phone")}
+            type="text"
+            name="phone"
+            value={formValues.phone}
+            onChange={handleInputChange}
+            placeholder="Enter your phone number"
+          />
+          {renderError("phone")}
+        </div>
         </div>
 
         <div className="mt-5 flex justify-between items-center">
@@ -222,10 +216,8 @@ function SignUpForm() {
         >
           Sign up
         </button>
-        {message && (
-          <div className="mt-4 text-center text-lg text-red-500">{message}</div>
-        )}
 
+        {message && <p className="text-center mt-4 text-green-500">{message}</p>}
         <div className="mt-8 flex justify-center">
           <p className="font-medium text-base ">Already have an account ?</p>
           <button
@@ -234,7 +226,7 @@ function SignUpForm() {
           >
             Login
           </button>
-        </div>
+          </div>
       </form>
     </div>
   );
