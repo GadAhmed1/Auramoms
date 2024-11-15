@@ -1,71 +1,69 @@
-import { motion } from 'framer-motion';
-import { Users, Heart, Globe, Award, Zap, Shield } from 'lucide-react';
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion";
+import { Users, Heart, Globe, Award, Zap, Shield } from "lucide-react";
+import FAQs from "./FAQS";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.6 }
-};
-
-const scaleIn = {
-  initial: { opacity: 0, scale: 0.8 },
-  whileInView: { opacity: 1, scale: 1 },
-  viewport: { once: true },
-  transition: { duration: 0.5 }
+  transition: { duration: 0.6 },
 };
 
 const values = [
   {
     icon: Heart,
-    title: 'Compassion',
-    description: 'Treating every individual with care and understanding.',
+    title: "Compassion",
+    description: "Treating every individual with care and understanding.",
   },
   {
     icon: Shield,
-    title: 'Integrity',
-    description: 'Maintaining the highest standards of honesty and ethics.',
+    title: "Integrity",
+    description: "Maintaining the highest standards of honesty and ethics.",
   },
   {
     icon: Users,
-    title: 'Community',
-    description: 'Building strong relationships and fostering connection.',
+    title: "Community",
+    description: "Building strong relationships and fostering connection.",
   },
   {
     icon: Award,
-    title: 'Quality',
-    description: 'Delivering excellence in everything we do.',
+    title: "Quality",
+    description: "Delivering excellence in everything we do.",
   },
   {
     icon: Globe,
-    title: 'Sustainability',
-    description: 'Creating positive impact for future generations.',
+    title: "Sustainability",
+    description: "Creating positive impact for future generations.",
   },
   {
     icon: Zap,
-    title: 'Innovation',
-    description: 'Continuously evolving and improving our approach.',
+    title: "Innovation",
+    description: "Continuously evolving and improving our approach.",
   },
 ];
 
 const team = [
   {
-    name: 'Sarah Johnson',
-    role: 'Founder & CEO',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400',
-    bio: 'Visionary leader with 15+ years in wellness and community building.',
+    name: "Sarah Johnson",
+    role: "Founder & CEO",
+    image:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
+    bio: "Visionary leader with 15+ years in wellness and community building.",
   },
   {
-    name: 'Michael Chen',
-    role: 'Head of Operations',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400',
-    bio: 'Operations expert bringing efficiency to our wellness programs.',
+    name: "Michael Chen",
+    role: "Head of Operations",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+    bio: "Operations expert bringing efficiency to our wellness programs.",
   },
   {
-    name: 'Emily Rodriguez',
-    role: 'Wellness Director',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400',
-    bio: 'Certified wellness coach passionate about holistic health.',
+    name: "Emily Rodriguez",
+    role: "Wellness Director",
+    image:
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400",
+    bio: "Certified wellness coach passionate about holistic health.",
   },
 ];
 
@@ -77,7 +75,8 @@ const AboutUs = () => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1571624436279-b272aff752b5?auto=format&fit=crop&q=80&w=1920')",
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1571624436279-b272aff752b5?auto=format&fit=crop&q=80&w=1920')",
           }}
         >
           <div className="absolute inset-0 bg-black/50" />
@@ -113,7 +112,10 @@ const AboutUs = () => {
           <motion.div {...fadeIn}>
             <h2 className="text-3xl md:text-4xl font-bold mb-8">Our Mission</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We believe in the transformative power of self-care and community support. Our mission is to create an inclusive space where individuals can nurture their well-being, connect with others, and thrive in their wellness journey.
+              We believe in the transformative power of self-care and community
+              support. Our mission is to create an inclusive space where
+              individuals can nurture their well-being, connect with others, and
+              thrive in their wellness journey.
             </p>
           </motion.div>
         </div>
@@ -190,20 +192,24 @@ const AboutUs = () => {
       {/* Story Section */}
       <section className="py-24 bg-muted/30">
         <div className="max-w-4xl mx-auto px-4">
-          <motion.div
-            className="text-center"
-            {...fadeIn}
-          >
+          <motion.div className="text-center" {...fadeIn}>
             <h2 className="text-3xl md:text-4xl font-bold mb-8">Our Story</h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Founded in 2020 amidst global changes, AuraMoms emerged from a vision to create a sanctuary for holistic well-being. What began as a small community has grown into a movement, touching lives and fostering connections across the globe.
+              Founded in 2020 amidst global changes, AuraMoms emerged from a
+              vision to create a sanctuary for holistic well-being. What began
+              as a small community has grown into a movement, touching lives and
+              fostering connections across the globe.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Today, we continue to evolve and grow, guided by our commitment to authentic care and continuous innovation in wellness practices. Our journey is a testament to the power of community and the transformative impact of mindful living.
+              Today, we continue to evolve and grow, guided by our commitment to
+              authentic care and continuous innovation in wellness practices.
+              Our journey is a testament to the power of community and the
+              transformative impact of mindful living.
             </p>
           </motion.div>
         </div>
       </section>
+      <FAQs />
     </div>
   );
 };

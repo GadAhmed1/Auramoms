@@ -30,7 +30,7 @@ function BenefitYouWillGet() {
                     </motion.button>
                 </div>
             </div>
-            <div className="ImagePart">
+            <div className="ImageP  art">
                 <img className="TheCupeImage" src="./image/TheCupe.png" alt="" />
             </div>
         </div>

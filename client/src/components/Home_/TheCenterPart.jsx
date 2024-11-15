@@ -1,6 +1,6 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
+import { NavLink } from "react-router-dom";
 function TheCenterPart() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -76,13 +76,16 @@ function TheCenterPart() {
 
         {/* Button Animation */}
         <motion.div className="mt-10 mb-7" variants={buttonVariants}>
-          <motion.button
-            className="select-none border-2 border-[#416048] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#416048] hover:bg-transparent hover:text-black transition-colors duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Start Now
-          </motion.button>
+          <NavLink to="/Shop">
+            {" "}
+            <motion.button
+              className="select-none border-2 border-[#416048] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#416048] hover:bg-transparent hover:text-black transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Shop Now
+            </motion.button>
+          </NavLink>
         </motion.div>
 
         {/* Social Media Icons Animation */}
@@ -105,7 +108,8 @@ function TheCenterPart() {
             <motion.a
               whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
               className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
-              href="#"
+              href="https://www.instagram.com/auramomsbrand?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
               variants={iconVariants}
             >
               <img src="./icons/findusIcons/instagram.svg" alt="Instagram" />
@@ -113,7 +117,8 @@ function TheCenterPart() {
             <motion.a
               whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
               className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
-              href="#"
+              href="https://www.tiktok.com/@auramoms2?_t=8qMmhY31JCs&_r=1"
+              target="_blank"
               variants={iconVariants}
             >
               <img src="./icons/findusIcons/tiktok.svg" alt="TikTok" />
