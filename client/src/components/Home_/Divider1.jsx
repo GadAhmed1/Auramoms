@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 const Divider1 = () => {
   return (
@@ -9,7 +8,7 @@ const Divider1 = () => {
             initial={{ y: -100, opacity: 0 }}
             transition={{ duration: 1, ease: "backInOut" }}
             whileInView={{ y: 0, opacity: 1 }}
-            className="text-center z-50 text-black text-5xl font-PlayWrite max-md:text-2xl leading-loose max-md:leading-[3rem]"
+            className="text-center z-10 text-black text-5xl font-PlayWrite max-md:text-2xl leading-loose max-md:leading-[3rem]"
           >
             Find What you Need
             <br /> to hance Your Life
