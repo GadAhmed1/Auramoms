@@ -9,7 +9,7 @@ const Shop = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar initially closed on mobile
 
   return (
-    <main className="flex flex-col md:flex-row  bg-gray-100 dark:bg-DarkGround2">
+    <main className="flex flex-col md:flex-row bg-gray-100 dark:bg-DarkGround2">
       {/* Sidebar */}
       <aside
         className={`${
@@ -30,9 +30,11 @@ const Shop = () => {
       {/* Main Content Area */}
       <div className="flex-1 p-6 md:p-8 space-y-8">
         {/* Promo Banner */}
-        <section className="w-full  text-white p-6 rounded-lg shadow-lg mb-6 transition-all duration-500 dark:bg-DarkBackground">
+        <section className="w-full text-white p-6 rounded-lg shadow-lg mb-6 transition-all duration-500 dark:bg-DarkBackground">
           <PromoPanner />
         </section>
+
+        {/* Product Section */}
         <ProductList />
       </div>
     </main>
