@@ -10,6 +10,7 @@ const EditProduct = ({ url }) => {
     name: "",
     description: "",
     color: "",
+    category: "",
     price: "",
     image: "",
     image2: "",
@@ -57,73 +58,96 @@ const EditProduct = ({ url }) => {
 
   return (
     <section className="m-10 shadow-xl px-10 w-full">
-    <h4 className="text-2xl font-bold uppercase text-pink-500 my-6">Edit Product</h4>
-    <div className="w-full">
-      <form onSubmit={handleSubmit} className="space-y-5 w-full">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Name:
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={product.name}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md shadow-sm"
-          />
-        </div>
-  
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Description:
-          </label>
-          <textarea
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md shadow-sm"
-            rows="4"
-          />
-        </div>
-  
-        <div className="w-full">
-          <label className="block text-sm font-medium text-gray-700">
-            Color:
-          </label>
-          <input
-            type="text"
-            name="color"
-            value={product.color}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md shadow-sm"
-          />
-        </div>
-  
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Price:
-          </label>
-          <input
-            type="number"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md shadow-sm"
-          />
-        </div>
-  
-        <div className="flex">
-          <button
-            type="submit"
-            className="px-6 py-2 w-full bg-pink-400 transition-all text-white rounded-md hover:bg-pink-700"
-          >
-            Save Changes
-          </button>
-        </div>
-      </form>
-    </div>
-  </section>
-    );
+      <h4 className="text-2xl font-bold uppercase text-pink-500 my-6">
+        Edit Product
+      </h4>
+      <div className="w-full">
+        <form onSubmit={handleSubmit} className="space-y-5 w-full">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Name:
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md shadow-sm"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Description:
+            </label>
+            <textarea
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md shadow-sm"
+              rows="4"
+            />
+          </div>
+
+          <div className="w-full">
+            <label className="block text-sm font-medium text-gray-700">
+              Color:
+            </label>
+            <input
+              type="text"
+              name="color"
+              value={product.color}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md shadow-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="category" className="block text-lg font-medium">
+              Category
+            </label>
+            <select
+              id="category"
+              name="category"
+              value={product.category}
+              onChange={handleChange}
+              className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+            >
+              <option value="">Select Category</option>
+              <option value="skin care">Skin Care</option>
+              <option value="Health and personal care devices">
+                Health and Personal Care Devices
+              </option>
+              <option value="Hair Care">Hair Care</option>
+              <option value="Face Skincare Set">Face Skincare Set</option>
+            </select>
+         
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Price:
+            </label>
+            <input
+              type="number"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md shadow-sm"
+            />
+          </div>
+
+          <div className="flex">
+            <button
+              type="submit"
+              className="px-6 py-2 w-full bg-pink-400 transition-all text-white rounded-md hover:bg-pink-700"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
 };
 
 export default EditProduct;

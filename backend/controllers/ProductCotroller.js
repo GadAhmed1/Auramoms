@@ -122,10 +122,10 @@ const removeProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, color, price } = req.body;
+    const { name, description, category , color, price } = req.body;
     const updatedProduct = await productModel.findByIdAndUpdate(
       id,
-      { name, description, color, price },
+      { name, description,category, color, price },
       { new: true }
     );
     if (updatedProduct) {

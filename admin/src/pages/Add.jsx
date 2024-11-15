@@ -171,6 +171,7 @@ const AddProduct = () => {
             <option value="skin care">Skin Care</option>
             <option value="Health and personal care devices">Health and Personal Care Devices</option>
             <option value="Hair Care">Hair Care</option>
+            <option value="Face Skincare Set">Face Skincare Set</option>
           </select>
           {validationErrors.category && <p className="text-red-500">{validationErrors.category}</p>}
         </div>
