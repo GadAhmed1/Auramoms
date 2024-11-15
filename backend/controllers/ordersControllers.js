@@ -75,6 +75,7 @@ const placeOrder = async (req, res) => {
 
         res.json({
             success: true,
+            items,
             id: paymentMethod === 'paypal' ? order.result.id : order.id,
             approveLink: order.result.links.find(link => link.rel === 'approve').href,
             clientSecret: paymentMethod === 'stripe' ? order.client_secret : null,
@@ -172,4 +173,6 @@ const allOrders = async (req, res) => {
     }
 }
 
-export { placeOrder, verifyOrder, userOrders  , allOrders};
+
+
+export { placeOrder, verifyOrder, userOrders, allOrders };

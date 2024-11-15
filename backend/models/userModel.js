@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
     cartData: { type: Object, default: {} }, // Cart data field, default to an empty object
     favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'product' }],
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'order' }],
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
 }, { timestamps: true });
 
 // Get the existing user model or create a new one if it doesn't exist
