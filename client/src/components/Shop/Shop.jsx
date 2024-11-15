@@ -33,10 +33,7 @@ const Shop = () => {
         <section className="w-full  text-white p-6 rounded-lg shadow-lg mb-6 transition-all duration-500 dark:bg-DarkBackground">
           <PromoPanner />
         </section>
-        {/* Product Section */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 p-4 mt-6">
-          <ProductList />
-        </section>
+        <ProductList />
       </div>
     </main>
   );
