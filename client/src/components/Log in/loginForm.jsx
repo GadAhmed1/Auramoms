@@ -1,59 +1,62 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
-function Form() {
+function LoginForm() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
 
-  const handleEmailChange = (e) => {
-    setFormValues({ ...formValues, email: e.target.value });
+  // تحديث القيم المدخلة في الحقول
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
-  const handlePassChange = (e) => {
-    setFormValues({ ...formValues, password: e.target.value });
-  };
-
+  // عند إرسال النموذج
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormErrors(validate(formValues));
+    const errors = validate(formValues);
+    setFormErrors(errors);
     setIsSubmit(true);
   };
 
+  // إرسال الطلب عند عدم وجود أخطاء
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      const loginUser = async () => {
-        try {
-          const response = await axios.post("http://localhost:4000/users/login", formValues, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+    const loginUser = async () => {
+      try {
+        const response = await axios.post("http://localhost:4000/users/login", formValues, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-          // لو الـ login ناجح
-          if (response.status === 200) {
-            alert("Login successful!");
-            // تخزين التوكن في localStorage
-            localStorage.setItem("token", response.data.accessToken);
-            // إعادة توجيه المستخدم
-            navigate("/dashboard");
-          }
-        } catch (error) {
-          // لو فيه خطأ في الطلب أو البيانات
-          if (error.response) {
-            alert(error.response.data.message || "Login failed. Please check your credentials.");
-          } else {
-            alert("Something went wrong. Please try again.");
-          }
+        // التحقق من نجاح الطلب
+        if (response.status === 200) {
+          alert("Login successful!");
+          // تخزين التوكن في localStorage
+          localStorage.setItem("token", response.data.accessToken);
+          // إعادة توجيه المستخدم إلى الصفحة الرئيسية
+          navigate("/");
         }
-      };
+      } catch (error) {
+        // التعامل مع الأخطاء
+        if (error.response) {
+          alert(error.response.data.message || "Login failed. Please check your credentials.");
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      }
+    };
 
+    // استدعاء الدالة إذا لم يكن هناك أخطاء
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
       loginUser();
     }
   }, [formErrors, isSubmit, navigate, formValues]);
 
+  // دالة التحقق من المدخلات
   const validate = (values) => {
     const errors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -80,76 +83,69 @@ function Form() {
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-semibold">Login to your account</h1>
-        <p className="font-medium text-lg text-gray-500 mt-4">
-          Please enter your details
-        </p>
+        <p className="font-medium text-lg text-gray-500 mt-4">Please enter your details</p>
 
+        {/* حقل البريد الإلكتروني */}
         <div className="mt-5">
-          <div className="relative mb-4">
-            <label className="text-lg font-medium">Email</label>
-            <input
-              className={`w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
-                formErrors.email
-                  ? "border-red-500"
-                  : "border-gray-100 focus:border-formColor"
-              }`}
-              type="email"
-              value={formValues.email}
-              onChange={handleEmailChange}
-              placeholder="Enter your email"
-            />
-            {isSubmit && formErrors.email && (
-              <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
-            )}
-          </div>
+          <label className="text-lg font-medium">Email</label>
+          <input
+            type="email"
+            name="email"
+            className="w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-formColor"
+            value={formValues.email}
+            onChange={handleInputChange}
+            placeholder="Enter your email"
+          />
+          {isSubmit && formErrors.email && (
+            <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+          )}
+        </div>
 
-          <div className="relative mb-4">
-            <label className="text-lg font-medium">Password</label>
-            <input
-              type="password"
-              className={`w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
-                formErrors.password
-                  ? "border-red-500"
-                  : "border-gray-100 focus:border-formColor"
-              }`}
-              value={formValues.password}
-              onChange={handlePassChange}
-              placeholder="Enter your password"
-            />
-            {isSubmit && formErrors.password && (
-              <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>
-            )}
-          </div>
+        {/* حقل كلمة المرور */}
+        <div className="mt-4">
+          <label className="text-lg font-medium">Password</label>
+          <input
+            type="password"
+            name="password"
+            className="w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-formColor"
+            value={formValues.password}
+            onChange={handleInputChange}
+            placeholder="Enter your password"
+          />
+          {isSubmit && formErrors.password && (
+            <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>
+          )}
+        </div>
 
-          <div className="mt-5 flex justify-between items-center">
-            <div>
+        <div className="mt-8 flex justify-between items-center">
+            <div className="flex justify-center items-center">
               <input
                 type="checkbox"
                 id="remember"
-                className="ml-2 font-medium text-base accent-formColor"
+                className="ml-2 font-medium text-xs accent-formColor"
               />
-              <label htmlFor="remember" className="ml-2 font-medium text-base">
+              <label htmlFor="remember" className="  ml-2  font-medium text-xs">
                 Remember me
               </label>
             </div>
-            <button
+            {/* <button
               type="button"
               className="font-medium text-base text-formColor"
             >
               Forgot Password
-            </button>
+             </button> */} {/*but it in another update*/}
           </div>
 
-          <div className="mt-8 flex flex-col gap-y-4">
-            <button
-              type="submit"
-              className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl bg-formColor text-white text-lg font-bold"
-            >
-              Sign in
-            </button>
-          </div>
+          <div className="mt-1 flex flex-col gap-y-4"></div>
 
-          <div className="mt-8 flex justify-center items-center">
+        {/* زر تسجيل الدخول */}
+        <button
+          type="submit"
+          className="w-full py-3 mt-5 rounded-xl bg-formColor text-white text-lg font-bold hover:scale-[1.01] active:scale-[.98] transition-all"
+        >
+          Login
+        </button>
+        <div className="mt-8 flex justify-center items-center">
             <p className="font-medium text-base">Don&#39;t have an account ?</p>
             <button
               type="button"
@@ -159,10 +155,9 @@ function Form() {
               Sign up
             </button>
           </div>
-        </div>
       </form>
     </div>
   );
 }
 
-export default Form;
+export default LoginForm;
