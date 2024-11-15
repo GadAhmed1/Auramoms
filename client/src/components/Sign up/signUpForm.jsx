@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -16,6 +19,7 @@ function SignUpForm() {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -30,9 +34,24 @@ function SignUpForm() {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-      // إعادة توجيه المستخدم بعد تسجيل الدخول بنجاح
-      // navigate();
+      axios
+        .post("http://localhost:4000/users/register", formValues, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          if (response.data.success) {
+            setMessage("Registration successful!");
+            navigate("/");
+          } else {
+            setMessage(response.data.message || "Registration failed!");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          setMessage("An error occurred during registration.");
+        });
     }
   }, [formErrors, navigate, formValues, isSubmit]);
 
@@ -55,8 +74,7 @@ function SignUpForm() {
       errors.password = "Password must be at least 8 characters!";
     }
 
-    if (!values.country)
-      errors.country = "Country is required!";
+    if (!values.country) errors.country = "Country is required!";
     if (!values.phone) {
       errors.phone = "Phone number is required!";
     } else if (!phoneRegex.test(values.phone)) {
@@ -84,10 +102,13 @@ function SignUpForm() {
         className="bg-white px-9 py-4 rounded-3xl border-2 border-gray-100"
         onSubmit={handleSubmit}
       >
+        
         <h1 className="text-4xl font-semibold">Sign up</h1>
+        
         <p className="font-medium text-lg text-gray-500 mt-4">
           Join us now and enjoy the unique luxury experience you deserve!
         </p>
+        
 
         <div className="mt-5 flex gap-4">
           <div className="w-1/2">
@@ -201,11 +222,16 @@ function SignUpForm() {
         >
           Sign up
         </button>
+        {message && (
+          <div className="mt-4 text-center text-lg text-red-500">{message}</div>
+        )}
 
         <div className="mt-8 flex justify-center">
           <p className="font-medium text-base ">Already have an account ?</p>
-          <button className="ml-3 text-formColor text-base font-medium"
-          onClick={() => navigate("/Log_in")}>
+          <button
+            className="ml-3 text-formColor text-base font-medium"
+            onClick={() => navigate("/Log_in")}
+          >
             Login
           </button>
         </div>

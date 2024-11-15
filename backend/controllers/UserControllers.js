@@ -183,4 +183,4 @@ const logout = (req, res) => {
     }
 };
 
-export { loginUSER, registerUSER, getAllUsers, logout };
+export { loginUSER, registerUSER, getAllUsers, logout };
