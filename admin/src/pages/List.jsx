@@ -10,7 +10,7 @@ const List = ({ url }) => {
 
   const fetchList = async () => {
     try {
-      const res = await axios.get(${url}/products/list);
+      const res = await axios.get(`${url}/products/list`);
       console.log(res.data);
       if (res.data.success) {
         setList(res.data.data);
@@ -24,7 +24,7 @@ const List = ({ url }) => {
 
   const removeProduct = async (productId) => {
     try {
-      const res = await axios.post(${url}/products/remove, { id: productId });
+      const res = await axios.post(`${url}/products/remove`, { id: productId });
       await fetchList();
       if (res.data.success) {
         toast.success(res.data.message);
@@ -80,7 +80,7 @@ const List = ({ url }) => {
                     <img
                       className="rounded-lg ring-slate-900 m-1 object-cover h-16 w-16 sm:h-20 sm:w-20"
                       src={img}
-                      alt={Product Image ${idx + 1}}
+                      alt={`Product Image ${idx + 1}`}
                     />
                   </td>
                 ))}
@@ -102,7 +102,7 @@ const List = ({ url }) => {
                 <td className="p-2">
                   <div className="flex items-center gap-2">
                     <Link
-                      to={/edit-product/${product._id}}
+                      to={`/edit-product/${product._id}`}
                       className="text-blue-500 text-3xl"
                       aria-label="Edit Product"
                     >

@@ -1,116 +1,140 @@
 import productModel from "../models/productModel.js"; // استيراد نموذج المنتج من ملف النموذج
-import fs from "fs"; // استيراد مكتبة fs للتعامل مع نظام الملفات
-import multer from 'multer'; // استيراد مكتبة multer للتعامل مع تحميل الملفات
-import path from 'path'; // استيراد مكتبة path للتعامل مع مسارات الملفات
 import userModel from "../models/userModel.js";
+import dotenv from "dotenv";
+import { v2 as cloudinary } from 'cloudinary';
+import multer from 'multer';
+dotenv.config();
 
-// إعدادات multer لتحديد مكان تخزين الملفات واسمها
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads'); // تحديد مسار التخزين للملفات المحملة (تأكد من عدم بدء المسار بـ "/")
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}_${file.originalname}`); // إنشاء اسم فريد لكل ملف لتجنب تكرار الأسماء
-  },
+
+// تكوين Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// فلترة الملفات لتحديد نوعية الملفات المسموح بها (الصور فقط)
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif/; // تحديد الأنواع المسموح بها (JPEG, JPG, PNG, GIF)
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase()); // التحقق من الامتداد
-  const mimetype = allowedTypes.test(file.mimetype); // التحقق من نوع MIME
-  if (extname && mimetype) {
-    cb(null, true); // إذا كان الملف مسموحًا به، استمر
-  } else {
-    cb(new Error('Only images (jpeg, jpg, png, gif) are allowed')); // إذا لم يكن مسموحًا به، ارجع بخطأ
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+const uploadImage = async (file) => {
+  if (!file || !file.path) {
+    console.error('No file or path found');
+    return null;
+  }
+
+  console.log('Uploading image:', file.originalname);
+
+  try {
+    const result = await cloudinary.uploader.upload(file.path, {
+      resource_type: 'auto',
+      folder: 'uploads/',
+    });
+    return result.secure_url;
+  } catch (error) {
+    console.error('Error uploading image to Cloudinary:', error);
+    throw new Error('Failed to upload image to Cloudinary');
   }
 };
 
-// إعداد multer مع التخزين والفلاتر
-const upload = multer({
-  storage: storage, // تحديد إعدادات التخزين
-  limits: { fileSize: 1024 * 1024 * 5 }, // الحد الأقصى لحجم الملف 5 ميجابايت
-  fileFilter: fileFilter, // تطبيق فلتر الملفات
-}).fields([ // تحديد الحقول المتعددة للتحميل
-  { name: 'image', maxCount: 1 },   // حقل الصورة الأولى
-  { name: 'image2', maxCount: 1 },  // حقل الصورة الثانية
-  { name: 'image3', maxCount: 1 },  // حقل الصورة الثالثة
-  { name: 'image4', maxCount: 1 },  // حقل الصورة الرابعة
-  { name: 'image5', maxCount: 1 },  // حقل الصورة الرابعة
-]);
 
-// دالة إضافة منتج
-const addProduct = (req, res) => {
-  upload(req, res, async (err) => { // استدعاء الدالة لتحميل الملفات
-    if (err) { // إذا حدث خطأ أثناء التحميل
-      return res.status(400).json({ success: false, message: 'Failed to upload images', error: err.message }); // إرجاع خطأ
-    }
+// إضافة منتج جديد
+ const addProduct = async (req, res) => {
+  try {
+    const { name, description, price, category, color } = req.body;
 
-    const { name, description, price, category } = req.body; // استخراج البيانات من الجسم
+    // تحقق من الملفات المرسلة
+    console.log('Files received:', req.files);
 
-    // اجلب جميع الصور
-    const images = {
-      image: req.files?.image?.[0]?.filename || '',  // الصورة الأولى
-      image2: req.files?.image2?.[0]?.filename || '', // الصورة الثانية
-      image3: req.files?.image3?.[0]?.filename || '', // الصورة الثالثة
-      image4: req.files?.image4?.[0]?.filename || '', // الصورة الرابعة
-      image5: req.files?.image5?.[0]?.filename || '', // الصورة الرابعة
-    };
+    // رفع الصور إلى Cloudinary وتخزين الروابط باستخدام file.path
+    const imagePaths = {};
+    imagePaths.image = req.files?.image ? await uploadImage(req.files.image[0]) : "null";
+    imagePaths.image2 = req.files?.image2 ? await uploadImage(req.files.image2[0]) : "null";
+    imagePaths.image3 = req.files?.image3 ? await uploadImage(req.files.image3[0]) : "null";
+    imagePaths.image4 = req.files?.image4 ? await uploadImage(req.files.image4[0]) : "null";
+    imagePaths.image5 = req.files?.image5 ? await uploadImage(req.files.image5[0]) : "null";
 
-
-
-    const product = new productModel({ // إنشاء منتج جديد باستخدام النموذج
+    // إنشاء منتج جديد في MongoDB
+    const newProduct = new productModel({
       name,
       description,
       price,
       category,
-      ...images, // أضف جميع الصور للنموذج
+      color,
+      ...imagePaths,
     });
 
-    try {
-      await product.save(); // حفظ المنتج في قاعدة البيانات
-      res.json({ success: true, message: 'Product Added Successfully', product }); // إرجاع استجابة ناجحة
-    } catch (error) { // التعامل مع الأخطاء أثناء الحفظ
-      res.status(400).json({ success: false, message: 'Failed to add product', error: error.message }); // إرجاع خطأ
-    }
-  });
-};
-
-// دالة عرض المنتجات
-const listProduct = async (req, res) => {
-  try {
-    const products = await productModel.find({}); // استرجاع جميع المنتجات من قاعدة البيانات
-    res.json({ success: true, data: products }); // إرجاع استجابة ناجحة مع قائمة المنتجات
-  } catch (error) { // التعامل مع الأخطاء أثناء الاسترجاع
-    res.status(400).json({ success: false, message: "Failed to list products", error: error.message }); // إرجاع خطأ
+    await newProduct.save();
+    res.status(201).json({ success: true, message: 'Product uploaded successfully', data: newProduct });
+  } catch (error) {
+    console.error('Error adding product:', error);
+    res.status(500).json({ success: false, message: 'Failed to upload product', error: error.message });
   }
 };
 
-// دالة إزالة منتج
-const removeProduct = async (req, res) => {
+
+
+const listProduct = async (req, res) => {
   try {
-    const product = await productModel.findById(req.body.id); // العثور على المنتج بناءً على معرفه
-    if (!product) { // إذا لم يتم العثور على المنتج
-      return res.status(404).json({ success: false, message: "Product not found" }); // إرجاع خطأ
+    const products = await productModel.find({});
+    res.json({ success: true, data: products });
+  } catch (error) {
+    res.status(400).json({ success: false, message: "Failed to list products", error: error.message });
+  }
+};
+
+const fetchProductById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const product = await productModel.findById(id);
+
+    if (product) {
+      res.json({
+        success: true,
+        data: product
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      });
     }
-
-    // حذف الصور المرتبطة بالمنتج
-    const images = [product.image, product.image2, product.image3, product.image4]; // تجميع أسماء الصور
-    images.forEach(image => {
-      const imagePath = path.join('uploads', image); // تحديد المسار الكامل للصورة
-      if (fs.existsSync(imagePath)) { // التحقق مما إذا كانت الصورة موجودة
-        fs.unlink(imagePath, (err) => { // حذف الصورة من النظام
-          if (err) { // التعامل مع الأخطاء أثناء الحذف
-            console.error(`Failed to delete image ${image}:`, err); // تسجيل الخطأ في الكونسول
-          }
-        });
-      }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching product details'
     });
+  }
+}
 
-    await productModel.findByIdAndDelete(req.body.id); // حذف المنتج من قاعدة البيانات
-    res.json({ success: true, message: "Product Removed Successfully" }); // إرجاع استجابة ناجحة
-  } catch (error) { // التعامل مع الأخطاء أثناء الحذف
-    res.status(400).json({ success: false, message: "Failed to remove product", error: error.message }); // إرجاع خطأ
+
+const removeProduct = async (req, res) => {
+  const { id } = req.body;
+  try {
+    await productModel.findByIdAndDelete(id);
+    res.json({ success: true, message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to delete product' });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description, color, price } = req.body;
+    const updatedProduct = await productModel.findByIdAndUpdate(
+      id,
+      { name, description, color, price },
+      { new: true }
+    );
+    if (updatedProduct) {
+      res.json({ success: true, message: "Product updated successfully", data: updatedProduct });
+    } else {
+      res.json({ success: false, message: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error", error });
   }
 };
 
@@ -191,4 +215,4 @@ const removeFavProduct = async (req, res) => {
 };
 
 
-export { addProduct, listProduct, removeProduct, addFav, showFavProducts, removeFavProduct }; // تصدير الدوال للاستخدام في أماكن أخرى
+export { addProduct, updateProduct, fetchProductById, listProduct, removeProduct, addFav, showFavProducts, removeFavProduct }; // تصدير الدوال للاستخدام في أماكن أخرى

@@ -25,10 +25,10 @@ dotenv.config(); // تحميل القيم من .env إلى process.env
 
 // تهيئة تطبيق Express
 const app = express(); // إنشاء تطبيق Express
-const PORT = 4000 || 6000; // تحديد رقم المنفذ من المتغيرات البيئية أو تعيينه إلى 4000
+const PORT = 4000; // تحديد رقم المنفذ من المتغيرات البيئية أو تعيينه إلى 4000
 
 // الاتصال بقاعدة البيانات
-connection(); // استدعاء دالة الاتصال بقاعدة البيانات
+connection(); // استدعاء دالة الاتصال بقاعدة البيانات 
 
 // Middleware - مقسمة لسهولة القراءة
 // إعدادات الأمان والأداء
@@ -42,28 +42,25 @@ app.use(cookieParser()); // تمكين تحليل الكوكيز من الطلب
 app.use(cors(corsOptions)); // تمكين CORS باستخدام الخيارات المخصصة المحددة في corsOptions
 
 // إعدادات المسارات الثابتة
-app.use("/images", express.static(join(__dirname, "uploads"))); // استخدام مسار ثابت لخدمة الملفات الموجودة في مجلد "uploads"
-
-// مسارات التطبيق
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));// مسارات التطبيق
 app.use("/users", userROUTE); // مسار للمستخدمين باستخدام userROUTE
 app.use("/products", productRouter); // مسار للمنتجات باستخدام productRouter
 app.use("/carts", cartRouter); // مسار لعربات التسوق باستخدام cartRouter
-app.use("/orders" , orderRouter);
+app.use("/orders", orderRouter);
 
 // مسار محمي باستخدام checkToken middleware
 app.get('/protected', checkToken, (req, res) => {
     res.json({ message: 'Access granted', user: req.user }); // رد JSON عند الوصول بنجاح مع بيانات المستخدم
 });
 
-// مسار التعامل مع الأخطاء (404)
-app.all("*", (req, res) => { // التعامل مع أي مسار غير موجود
-    res.status(404); // تعيين حالة الرد إلى 404 (غير موجود)
-    if (req.accepts("html")) { // إذا كان العميل يقبل HTML
-        res.sendFile(path.join(__dirname, "views", "404.html")); // إرسال صفحة 404 HTML
-    } else if (req.accepts("json")) { // إذا كان العميل يقبل JSON
-        res.json({ message: "404 Not Found" }); // رد JSON يشير إلى أن المسار غير موجود
-    } else { // في حالة أخرى
-        res.sendFile(path.join(__dirname, "views", "index.html")); // إرسال صفحة HTML كاستجابة افتراضية
+app.all("*", (req, res) => {
+    res.status(404); 
+    if (req.accepts("html")) {
+        res.sendFile(path.join(__dirname, "views", "404.html")); 
+    } else if (req.accepts("json")) { 
+        res.json({ message: "404 Not Found" });
+    } else { 
+        res.sendFile(path.join(__dirname, "views", "index.html"));
     }
 });
 
@@ -71,3 +68,6 @@ app.all("*", (req, res) => { // التعامل مع أي مسار غير موج�
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`); // بدء تشغيل الخادم وإعلام المستخدم بأن السيرفر يعمل
 });
+
+
+

@@ -49,7 +49,7 @@ html {
     @apply relative after:w-full after:h-[2px] after:bg-black after:absolute after:-bottom-1 after:right-0 after:left-0;
   }
   .active-link {
-    @apply text-blue-700 relative flex-1 after:w-full after:h-[1px] after:bg-blue-700 after:absolute after:-bottom-3 after:right-0;
+    @apply text-pink-600 relative flex-1 after:w-full after:h-[1px] after:bg-pink-600 after:absolute after:-bottom-3 after:right-0;
   }
   .active-ctg {
     @apply border-8 border-solid border-black p-1;
