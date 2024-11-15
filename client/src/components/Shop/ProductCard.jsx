@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
   const handleModalClose = () => setShowModal(false);
 
   return (
-    <div className="flex flex-col gap-4 items-center p-4 border rounded-lg shadow-lg w-80 transition-all duration-300 dark:bg-gray-800 text-white">
+    <div className="flex flex-col gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       {/* Product Image */}
       <div
         className="relative w-full h-48"
@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
         <img
           src={product.image}
           alt={product.name}
-          className={`w-full h-full object-cover rounded-md transition-transform duration-500 ${
+          className={`w-full rounded-2xl h-full object-contain  transition-transform duration-500 ${
             showQuickView ? "scale-105" : "scale-100"
           }`}
         />
@@ -49,11 +49,6 @@ const ProductCard = ({ product }) => {
             : product.name}
         </h1>
       </div>
-      <p className="text-sm text-center text-balance text-gray-700 dark:text-gray-400">
-        {product.description.length > 100
-          ? product.description.substring(0, 100) + "..."
-          : product.description}
-      </p>
       <h6 className="text-lg font-semibold text-black dark:text-white">
         ${product.price.toFixed(2)}
       </h6>
@@ -84,7 +79,7 @@ const ProductCard = ({ product }) => {
               ✖
             </button>
             <div>
-              <h1 className="text-2xl font-bold">{product.name}</h1>
+              <h1 className="text-2xl font-bold text-white">{product.name}</h1>
               <p className="mt-4">{product.description}</p>
             </div>
           </div>
