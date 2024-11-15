@@ -27,24 +27,26 @@ const VerticalSidebar = () => {
       initial="hidden"
       animate="visible"
       variants={sidebarVariants}
-      className="h-screen w-16 md:w-20 lg:w-24 bg-white border-r border-gray-200 fixed flex flex-col items-center py-4 justify-center rounded-lg"
+      className="h-full w-16 md:w-20 lg:w-24 bg-white dark:bg-gray-900 border-r-transparent  border-gray-200 dark:border-gray-700 fixed flex flex-col items-center py-4 justify-center rounded-lg"
     >
       {/* Sidebar icons */}
-      <div className="flex flex-col space-y-6 ">
+      <div className="flex flex-col space-y-6">
         {items.map((item) => (
           <motion.div
             key={item.id}
             className={`transition-all duration-200 p-2 ${
-              activeItem === item.id ? "border-r-4 border-orange-500" : ""
+              activeItem === item.id
+                ? "border-r-4 border-orange-500 dark:border-orange-400"
+                : ""
             }`}
-            whileHover={{ scale: 1.05 }} // Slightly enlarge on hover
+            whileHover={{ scale: 1.05 }}
           >
             <motion.button
               onClick={() => setActiveItem(item.id)}
               className={`p-3 rounded-full transition-colors duration-200 ${
                 activeItem === item.id
-                  ? "bg-orange-500 text-white"
-                  : "bg-gray-100 text-gray-400"
+                  ? "bg-orange-500 dark:bg-orange-400 text-white"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-300"
               }`}
               variants={iconVariants}
               whileHover="hover"
