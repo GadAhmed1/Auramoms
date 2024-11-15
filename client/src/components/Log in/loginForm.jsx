@@ -27,7 +27,7 @@ function Form() {
       // إعادة توجيه المستخدم بعد تسجيل الدخول بنجاح
       // navigate();
     }
-  }, [formErrors, isSubmit, navigate]);
+  }, [formErrors, isSubmit, navigate, formValues]);
 
   const validate = (values) => {
     const errors = {};
