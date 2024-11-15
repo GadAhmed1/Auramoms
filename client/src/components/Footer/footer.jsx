@@ -8,7 +8,7 @@ import {
   FaCcPaypal,
 } from "react-icons/fa";
 import { FaLocationDot, FaXTwitter } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   const iconClasses = "text-3xl hover:scale-125 duration-300 cursor-pointer";
@@ -43,17 +43,17 @@ const Footer = () => {
             <h1 className="text-3xl font-bold">Quick Links</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-Cabin">
               <ul className="space-y-2 text-lg font-varela">
-                <Link to="/">
+                <NavLink to="/">
                   <li className={listItemClasses}>Home</li>
-                </Link>
-                <Link to="/AboutUs">
+                </NavLink>
+                <NavLink to="/AboutUs">
                   <li className={listItemClasses}>About</li>
-                </Link>
+                </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
-                <Link to="/ContactUS">
+                <NavLink to="/ContactUS">
                   <li className={listItemClasses}>Contact</li>
-                </Link>
+                </NavLink>
                 <li className={listItemClasses}>Blog</li>
               </ul>
             </div>

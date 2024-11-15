@@ -43,30 +43,6 @@ const values = [
   },
 ];
 
-const team = [
-  {
-    name: "Sarah Johnson",
-    role: "Founder & CEO",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
-    bio: "Visionary leader with 15+ years in wellness and community building.",
-  },
-  {
-    name: "Michael Chen",
-    role: "Head of Operations",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
-    bio: "Operations expert bringing efficiency to our wellness programs.",
-  },
-  {
-    name: "Emily Rodriguez",
-    role: "Wellness Director",
-    image:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400",
-    bio: "Certified wellness coach passionate about holistic health.",
-  },
-];
-
 const AboutUs = () => {
   return (
     <div className="bg-background">
@@ -76,7 +52,7 @@ const AboutUs = () => {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1571624436279-b272aff752b5?auto=format&fit=crop&q=80&w=1920')",
+              "url('../../../public/image/Free shipping world wide.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/50" />
@@ -93,7 +69,7 @@ const AboutUs = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            Empowering Wellness
+            AuraMoms
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-gray-200"
@@ -101,7 +77,7 @@ const AboutUs = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Creating spaces for growth, healing, and transformation
+            The story of AURA MOMS{" "}
           </motion.p>
         </motion.div>
       </section>
@@ -112,17 +88,80 @@ const AboutUs = () => {
           <motion.div {...fadeIn}>
             <h2 className="text-3xl md:text-4xl font-bold mb-8">Our Mission</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              We believe in the transformative power of self-care and community
-              support. Our mission is to create an inclusive space where
-              individuals can nurture their well-being, connect with others, and
-              thrive in their wellness journey.
+              At AuraMoms, we believe that self-care isn’t a luxury—it’s a
+              necessity. Born from the desire to empower moms and women
+              everywhere, our mission is to help you embrace wellness and beauty
+              rituals that fit seamlessly into your busy life. Whether you’re a
+              mom balancing the demands of family and work, or a woman striving
+              for moments of peace in your daily routine, we’re here to bring
+              blissful self-care directly to your doorstep.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Goals Section */}
       <section className="py-24 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-center mb-16"
+            {...fadeIn}
+          >
+            Our Goals
+          </motion.h2>
+          <p className="text-lg text-muted-foreground leading-relaxed text-center mb-8">
+            We envision a world where every woman, no matter her role or
+            schedule, can carve out time to care for herself. Through our
+            thoughtfully curated collections, we offer more than just
+            products—we provide experiences that help women feel radiant,
+            confident, and renewed.
+          </p>
+        </div>
+      </section>
+
+      {/* Unique Features Section */}
+      <section className="py-24 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold mb-8"
+            {...fadeIn}
+          >
+            What Makes Us Unique
+          </motion.h2>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            AuraMoms combines the luxury of high-end beauty and wellness tools
+            with the accessibility of everyday use. Our collections—like
+            BlissMoms Massage Collection, AuraMoms Hair Bliss, Glow Rituals, and
+            AuraSkin Solutions—are crafted with the modern woman in mind.
+            Inspired by European wellness traditions and cutting-edge beauty
+            tech, AuraMoms brings a blend of elegance, functionality, and
+            sustainability. We source eco-friendly materials and partner with
+            innovative creators to ensure that our products are as kind to the
+            planet as they are to your body.
+          </p>
+        </div>
+      </section>
+
+      {/* Product Design Section */}
+      <section className="py-24 bg-muted/30">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold mb-8"
+            {...fadeIn}
+          >
+            Our Product Design
+          </motion.h2>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            To bring our vision to life, we developed unique material
+            combinations, offering exceptionally soft designs and unprecedented
+            battery life. Encased in velvety, body-safe silicone, our products
+            provide a full year of use on a single charge.
+          </p>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-16"
@@ -148,68 +187,10 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
-
-      {/* Team Section */}
-      <section className="py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-center mb-16"
-            {...fadeIn}
-          >
-            Meet Our Team
-          </motion.h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                className="group relative"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.5 }}
-              >
-                <div className="relative overflow-hidden rounded-xl aspect-[3/4]">
-                  <motion.img
-                    src={member.image}
-                    alt={member.name}
-                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="text-sm leading-relaxed">{member.bio}</p>
-                  </div>
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="text-xl font-semibold">{member.name}</h3>
-                  <p className="text-muted-foreground">{member.role}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+      {/* FAQ Section */}
+      <section>
+        <FAQs />
       </section>
-
-      {/* Story Section */}
-      <section className="py-24 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4">
-          <motion.div className="text-center" {...fadeIn}>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8">Our Story</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Founded in 2020 amidst global changes, AuraMoms emerged from a
-              vision to create a sanctuary for holistic well-being. What began
-              as a small community has grown into a movement, touching lives and
-              fostering connections across the globe.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Today, we continue to evolve and grow, guided by our commitment to
-              authentic care and continuous innovation in wellness practices.
-              Our journey is a testament to the power of community and the
-              transformative impact of mindful living.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-      <FAQs />
     </div>
   );
 };
