@@ -42,7 +42,8 @@ const AddProduct = () => {
   const validateInputs = () => {
     const errors = {};
     if (!formData.name.trim()) errors.name = "Product Name is required";
-    if (!formData.description.trim()) errors.description = "Description is required";
+    if (!formData.description.trim())
+      errors.description = "Description is required";
     if (!formData.price || isNaN(formData.price) || formData.price <= 0)
       errors.price = "Please enter a valid price";
     if (!formData.category) errors.category = "Category is required";
@@ -94,30 +95,36 @@ const AddProduct = () => {
 
   return (
     <div className="max-w-4xl mx-auto m-10 p-10 bg-white rounded-lg shadow-lg">
-      <h1 className="text-4xl font-bold mb-10 text-center text-pink-500">Add a New Product</h1>
+      <h1 className="text-4xl font-bold mb-10 text-center text-pink-500">
+        Add a New Product
+      </h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Upload Images */}
         <div className="grid grid-cols-2 gap-6">
-          {["image", "image2", "image3", "image4", "image5"].map((image, index) => (
-            <div key={index} className="flex flex-col ">
-              <label htmlFor={image} className="block text-lg font-medium">
-                Image {index + 1}
-              </label>
-              <input
-                type="file"
-                id={image}
-                name={image}
-                onChange={handleImageChange}
-                accept="image/*"
-                className="mt-2 block w-full text-sm  text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-gray-100 hover:file:bg-gray-200"
-              />
-            </div>
-          ))}
+          {["image", "image2", "image3", "image4", "image5"].map(
+            (image, index) => (
+              <div key={index} className="flex flex-col ">
+                <label htmlFor={image} className="block text-lg font-medium">
+                  Image {index + 1}
+                </label>
+                <input
+                  type="file"
+                  id={image}
+                  name={image}
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  className="mt-2 block w-full text-sm  text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-gray-100 hover:file:bg-gray-200"
+                />
+              </div>
+            )
+          )}
         </div>
 
         {/* Product Name */}
         <div>
-          <label htmlFor="name" className="block text-lg font-medium">Product Name</label>
+          <label htmlFor="name" className="block text-lg font-medium">
+            Product Name
+          </label>
           <input
             type="text"
             id="name"
@@ -126,12 +133,16 @@ const AddProduct = () => {
             onChange={handleChange}
             className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
-          {validationErrors.name && <p className="text-red-500">{validationErrors.name}</p>}
+          {validationErrors.name && (
+            <p className="text-red-500">{validationErrors.name}</p>
+          )}
         </div>
 
         {/* Description */}
         <div>
-          <label htmlFor="description" className="block text-lg font-medium">Description</label>
+          <label htmlFor="description" className="block text-lg font-medium">
+            Description
+          </label>
           <textarea
             id="description"
             name="description"
@@ -140,12 +151,16 @@ const AddProduct = () => {
             rows="4"
             className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
-          {validationErrors.description && <p className="text-red-500">{validationErrors.description}</p>}
+          {validationErrors.description && (
+            <p className="text-red-500">{validationErrors.description}</p>
+          )}
         </div>
 
         {/* Price */}
         <div>
-          <label htmlFor="price" className="block text-lg font-medium">Price</label>
+          <label htmlFor="price" className="block text-lg font-medium">
+            Price
+          </label>
           <input
             type="number"
             id="price"
@@ -154,12 +169,16 @@ const AddProduct = () => {
             onChange={handleChange}
             className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
           />
-          {validationErrors.price && <p className="text-red-500">{validationErrors.price}</p>}
+          {validationErrors.price && (
+            <p className="text-red-500">{validationErrors.price}</p>
+          )}
         </div>
 
         {/* Category */}
         <div>
-          <label htmlFor="category" className="block text-lg font-medium">Category</label>
+          <label htmlFor="category" className="block text-lg font-medium">
+            Category
+          </label>
           <select
             id="category"
             name="category"
@@ -169,15 +188,21 @@ const AddProduct = () => {
           >
             <option value="">Select Category</option>
             <option value="skin care">Skin Care</option>
-            <option value="Health and personal care devices">Health and Personal Care Devices</option>
+            <option value="Health and personal care devices">
+              Health and Personal Care Devices
+            </option>
             <option value="Hair Care">Hair Care</option>
           </select>
-          {validationErrors.category && <p className="text-red-500">{validationErrors.category}</p>}
+          {validationErrors.category && (
+            <p className="text-red-500">{validationErrors.category}</p>
+          )}
         </div>
 
         {/* Color */}
         <div>
-          <label htmlFor="color" className="block text-lg font-medium">Color</label>
+          <label htmlFor="color" className="block text-lg font-medium">
+            Color
+          </label>
           <input
             type="text"
             id="color"

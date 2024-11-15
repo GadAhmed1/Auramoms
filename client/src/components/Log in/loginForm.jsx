@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 function Form() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
@@ -23,9 +24,33 @@ function Form() {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-      // إعادة توجيه المستخدم بعد تسجيل الدخول بنجاح
-      // navigate();
+      const loginUser = async () => {
+        try {
+          const response = await axios.post("http://localhost:4000/users/login", formValues, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          // لو الـ login ناجح
+          if (response.status === 200) {
+            alert("Login successful!");
+            // تخزين التوكن في localStorage
+            localStorage.setItem("token", response.data.accessToken);
+            // إعادة توجيه المستخدم
+            navigate("/dashboard");
+          }
+        } catch (error) {
+          // لو فيه خطأ في الطلب أو البيانات
+          if (error.response) {
+            alert(error.response.data.message || "Login failed. Please check your credentials.");
+          } else {
+            alert("Something went wrong. Please try again.");
+          }
+        }
+      };
+
+      loginUser();
     }
   }, [formErrors, isSubmit, navigate, formValues]);
 
