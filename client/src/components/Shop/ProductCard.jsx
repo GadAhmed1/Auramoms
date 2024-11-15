@@ -43,12 +43,16 @@ const ProductCard = ({ product }) => {
         <span className="text-cardTextColor font-semibold">
           {product.category}
         </span>
-        <h1 className="text-xl font-bold text-black dark:text-white">
-          {product.name}
+        <h1 className="text-xl font-bold  text-black dark:text-white">
+          {product.name.length > 20
+            ? product.name.substring(0, 20) + "..."
+            : product.name}
         </h1>
       </div>
-      <p className="text-sm text-center text-gray-700 dark:text-gray-400">
-        {product.description}
+      <p className="text-sm text-center text-balance text-gray-700 dark:text-gray-400">
+        {product.description.length > 100
+          ? product.description.substring(0, 100) + "..."
+          : product.description}
       </p>
       <h6 className="text-lg font-semibold text-black dark:text-white">
         ${product.price.toFixed(2)}
