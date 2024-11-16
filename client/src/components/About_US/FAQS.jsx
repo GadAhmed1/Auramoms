@@ -11,10 +11,7 @@ const FAQs = () => {
     <section className="py-24 dark:bg-DarkBackground ">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
-          <h6 className="text-lg text-indigo-600 dark:text-indigo-400 font-medium text-center mb-2">
-            FAQs
-          </h6>
-          <h2 className="text-4xl font-manrope text-center font-bold text-gray-900 dark:text-gray-100 leading-[3.25rem]">
+          <h2 className="text-4xl font-manrope text-center font-bold text-gray-900 dark:text-gray-100 leading-[3.25rem] font-Lora">
             Frequently asked questions
           </h2>
         </div>
@@ -52,7 +49,7 @@ const FAQs = () => {
                 className="accordion-toggle group inline-flex items-center justify-between leading-8 text-gray-900 dark:text-gray-100 w-full transition duration-500 text-left hover:text-indigo-600 dark:hover:text-indigo-400"
                 onClick={() => toggleAccordion(index)}
               >
-                <h5 className="font-bold">{item.question}</h5>
+                <h5 className="font-bold font-Lora">{item.question}</h5>
                 <svg
                   className={`text-gray-500 dark:text-gray-400 transition duration-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 ${
                     activeAccordion === index ? "rotate-180" : ""
@@ -78,7 +75,7 @@ const FAQs = () => {
                 animate={{ height: activeAccordion === index ? "auto" : 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <p className=" text-gray-900 dark:text-gray-300 leading-6 p-2 text-base font-semibold">
+                <p className=" text-gray-900 dark:text-gray-300 leading-6 p-2 text-base font-semibold font-playpen">
                   {item.answer}
                 </p>
               </motion.div>

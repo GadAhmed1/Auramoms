@@ -1,12 +1,22 @@
 import { motion } from "framer-motion";
 import { Users, Heart, Globe, Award, Zap, Shield } from "lucide-react";
 import FAQs from "./FAQS";
+import ProgressBar from "./WhoWeAre/ProgressBar";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
   transition: { duration: 0.6 },
+};
+// JavaScript to track scroll progress
+window.onscroll = function () {
+  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  let docHeight =
+    document.documentElement.scrollHeight -
+    document.documentElement.clientHeight;
+  let scrollPercent = (scrollTop / docHeight) * 100;
+  document.getElementById("progressBar").style.width = scrollPercent + "%";
 };
 
 const values = [
@@ -44,7 +54,8 @@ const values = [
 
 const AboutUs = () => {
   return (
-    <div className="bg-background">
+    <div className="bg-background overflow-x-hidden">
+      <ProgressBar />
       {/* Hero Section */}
       <section className="relative h-[calc(100vh - 77px)] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div
@@ -225,6 +236,69 @@ const AboutUs = () => {
           </div>
         </div>
       </section>
+      {/* Products Designed Section */}
+      <section className="py-24 px-4 border-b-2 dark:bg-DarkBackground dark:text-lightGrayColor">
+        <div className="max-w-6xl mx-auto flex flex-col items-center gap-12">
+          {/* Text Section */}
+          <motion.div className="w-full text-center" {...fadeIn}>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 font-Lora">
+              Product Design
+            </h2>
+            <p className="text-lg text-muted-foreground leading-relaxed font-playpen">
+              To bring our vision to life, we needed to develop technologies
+              that were not yet available. As a result, AURAMOMS now
+              incorporates unique material combinations, offering exceptionally
+              soft designs and unprecedented battery life. Our products, encased
+              in velvety, body-safe silicone, provide a full year of use on a
+              single charge.
+            </p>
+          </motion.div>
+
+          {/* Image Section */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 relative">
+            {/* Left Images (2) */}
+            <motion.div
+              className="w-full md:w-1/3 flex flex-col items-center gap-8 cursor-pointer"
+              initial={{ opacity: 0, y: -50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <motion.img
+                src="../../../public/image/Green.jpg"
+                alt="AuraMoms image 1"
+                className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-12 max-md:scale-75 hover:scale-105 transition-all"
+                transition={{ duration: 0.3 }}
+              />
+              <motion.img
+                src="../../../public/image/El3enb.png"
+                alt="AuraMoms image 2"
+                className="rounded-lg shadow-lg object-cover w-full h-auto rotate-12 max-md:scale-75 hover:scale-105 transition-all"
+                transition={{ duration: 0.3 }}
+              />
+            </motion.div>
+            {/* Vertical Line (between the images) */}
+            <div className="hidden md:block h-full border-l-2 border-muted-foreground mx-4 bg-black" />
+            {/* Right Image (1) */}
+            <motion.div
+              className="w-full md:w-1/3 relative group"
+              initial={{ opacity: 0, y: -50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <motion.img
+                src="../../../public/image/ChinesPhoto.jpg"
+                alt="AuraMoms image 3"
+                className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 max-md:scale-75 hover:scale-105 transition-all"
+                transition={{ duration: 0.3 }}
+              />
+              {/* Hidden Text on Hover */}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <FAQs />
     </div>
