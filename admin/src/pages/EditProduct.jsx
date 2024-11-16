@@ -113,7 +113,7 @@ const EditProduct = ({ url }) => {
               className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
             >
               <option value="">Select Category</option>
-              <option value="skin care">Skin Care</option>
+              <option value="Skin Care">Skin Care</option>
               <option value="Health and personal care devices">
                 Health and Personal Care Devices
               </option>

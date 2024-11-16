@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddProduct = () => {
+const AddProduct = ({ url }) => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -75,7 +75,7 @@ const AddProduct = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:4000/products/add", {
+      const response = await fetch(`${url}/products/add`, {
         method: "POST",
         body: formDataToSend,
       });
