@@ -4,7 +4,7 @@ import Cards from "./Cards";
 const PopularProducts = () => {
   return (
     <>
-      <main className="mt-10 ">
+      <main className="my-10 ">
         <Cards />
       </main>
     </>

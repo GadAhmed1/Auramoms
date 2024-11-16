@@ -47,7 +47,7 @@ function TheCenterPart() {
   };
 
   return (
-    <main className="relative flex items-center pl-10 bg-[#dde2cc] text-black font-medium font-Cabin dark:bg-DarkBackground pt-14 max-md:px-5">
+    <main className="relative flex items-center pl-10 bg-[#F9F5F6] text-black font-medium font-Cabin dark:bg-DarkBackground pt-14 max-md:px-5 px-10">
       <motion.section
         className="dark:text-DarkText"
         initial="hidden"
@@ -79,7 +79,7 @@ function TheCenterPart() {
           <NavLink to="/Shop">
             {" "}
             <motion.button
-              className="select-none border-2 border-[#416048] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#416048] hover:bg-transparent hover:text-black transition-colors duration-300"
+              className="select-none border-2 border-[#F2BED1] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#F4A7B9] hover:bg-transparent hover:text-black transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -121,7 +121,7 @@ function TheCenterPart() {
               target="_blank"
               variants={iconVariants}
             >
-              <img src="./icons/findusIcons/tiktok.svg" alt="TikTok" />
+              <img src="./icons/findusIcons/tiktok.svg" alt="TikTok" className="bg-[#2E2E2E]"/>
             </motion.a>
           </div>
         </motion.div>
