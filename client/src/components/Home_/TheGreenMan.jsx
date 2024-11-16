@@ -1,8 +1,8 @@
 // src/components/TheGreenMan.js
 export default function TheGreenMan() {
     return (
-      <div className="mt-10 w-5/6 mx-auto flex p-2.5 gap-6 md:gap-12 items-center bg-[#406048] text-white rounded-xl">
-        <div className="flex items-center justify-center bg-[#dde2cc] rounded-2xl p-4" style={{ width: '2000px', height: '400px' }}>
+      <div className="my-10 w-5/6 mx-auto flex p-2.5 gap-6 md:gap-12 items-center bg-[#F9F5F6] text-black rounded-xl dark:bg-[#815b64] dark:text-white">
+        <div className="flex items-center justify-center bg-[#F4A7B9]  dark:bg-[#] rounded-2xl p-4" style={{ width: '2000px', height: '400px' }}>
           <img 
             src="./image/TheRealMan.png" 
             alt="Real Man" 

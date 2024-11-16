@@ -75,7 +75,7 @@ const Cards = () => {
                 </h3>
                 <p className="font-Mate font-semibold">{img.description}</p>
                 <p className="font-Mate font-bold">{img.Price}</p>
-                <NavButton className="dark:text-white">Check Out Now</NavButton>
+                <NavButton className=" dark:text-white">Check Out Now</NavButton>
               </div>
             </div>
           </motion.section>

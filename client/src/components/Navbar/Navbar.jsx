@@ -40,7 +40,7 @@ const Navbar = () => {
           <CiShoppingCart className="cursor-pointer text-2xl hover:text-gray-500 transition-all" />
           <ThemeMode />
           <NavLink to="/Sign_up">
-            <NavButton className="bg-[#46644c] dark:bg-transparent hover:scale-105 duration-300">
+            <NavButton className="bg-[#F4A7B9] dark:bg-white dark:text-black hover:bg-transparent  hover:border-[#F2BED1] transition-colors duration-300 ">
               signUp
             </NavButton>
           </NavLink>
@@ -97,7 +97,7 @@ const MobileMenu = React.memo(({ isOpen, toggleMenu }) => (
             <ThemeMode />
           </motion.div>
           <motion.div className="w-full px-2">
-            <NavButton className="px-2 py-2 text-sm w-full bg-[#46644c] dark:bg-[#46644c]">
+            <NavButton className="px-2 py-2 text-sm w-full border-[#F2BED1] bg-[#F4A7B9] hover:border-[#F2BED1]">
               signUp
             </NavButton>
           </motion.div>

@@ -17,8 +17,8 @@ const Footer = () => {
   const listItemClasses = "hover:translate-x-1 duration-300 hover:underline";
 
   return (
-    <footer className="bg-footerColor pt-12 pb-8 text-white">
-      <div className="container px-4 sm:px-10">
+    <footer className="bg-[#be7c8b] pt-12 pb-8 text-white">
+      <div className=" px-4 sm:px-10">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {/* Project Details Section */}
           <div className="space-y-5">
