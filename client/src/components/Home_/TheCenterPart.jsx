@@ -90,38 +90,61 @@ function TheCenterPart() {
 
         {/* Social Media Icons Animation */}
         <motion.div
-          className="select-none FindUs text-xl flex gap-3 mb-2 ml-2 pb-10 mt-48"
+          className="select-none text-xl flex gap-3 mb-2 ml-2 pb-10 mt-48 max-md:mx-auto"
           initial="hidden"
           animate="visible"
           variants={iconVariants}
         >
-          <p>Find Us On:</p>
-          <div className="flex gap-3 items-center icons">
+          <div className="flex gap-4 items-center bg-AuraPinkColor rounded-2xl p-4 shadow-lg max-md:flex-col max-md:items-center">
             <motion.a
-              whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
-              className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
+              whileHover={{
+                scale: 1.2,
+                y: -5,
+                transition: { duration: 0.3 },
+              }}
+              className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-10"
               href="#"
               variants={iconVariants}
             >
-              <img src="./icons/findusIcons/pinterest.svg" alt="Pinterest" />
+              <img
+                src="./icons/findusIcons/pinterest.svg"
+                alt="Pinterest"
+                className="w-8 h-8"
+              />
             </motion.a>
             <motion.a
-              whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
-              className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
+              whileHover={{
+                scale: 1.2,
+                y: -5,
+                transition: { duration: 0.3 },
+              }}
+              className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-10"
               href="https://www.instagram.com/auramomsbrand?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
               target="_blank"
               variants={iconVariants}
             >
-              <img src="./icons/findusIcons/instagram.svg" alt="Instagram" />
+              <img
+                src="./icons/findusIcons/instagram.svg"
+                alt="Instagram"
+                className="w-8 h-8"
+              />
             </motion.a>
             <motion.a
-              whileHover={{ scale: 1.2, y: -5, transition: { duration: 0.1 } }}
-              className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-6"
+              whileHover={{
+                scale: 1.2,
+                y: -5,
+                transition: { duration: 0.3 },
+              }}
+              className="opacity-70 hover:opacity-100 transition-opacity duration-300 inline-block w-10"
               href="https://www.tiktok.com/@auramoms2?_t=8qMmhY31JCs&_r=1"
               target="_blank"
               variants={iconVariants}
             >
-              <img src="./icons/findusIcons/tiktok.svg" alt="TikTok" className="bg-[#2E2E2E]"/>
+              <img
+                src="./icons/findusIcons/tiktok.svg"
+                alt="TikTok"
+                className="w-8 h-8 bg-[#2E2E2E] p-1 rounded-full"
+              />
             </motion.a>
           </div>
         </motion.div>
