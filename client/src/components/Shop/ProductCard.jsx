@@ -7,7 +7,6 @@ const ProductCard = ({ product }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
-  const handleModalClose = () => setShowModal(false);
 
   return (
     <div className="flex flex-col gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-80 transition-all duration-300 dark:bg-gray-800 text-white">
@@ -31,7 +30,7 @@ const ProductCard = ({ product }) => {
         >
           <button
             className="bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transition-transform transform hover:scale-105"
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowModal(true)} // Open modal
           >
             Quick View
           </button>
@@ -73,13 +72,13 @@ const ProductCard = ({ product }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg max-w-lg w-full h-auto relative p-6 overflow-y-auto">
             <button
-              onClick={handleModalClose}
+              onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 text-2xl font-bold text-gray-700"
             >
               ✖
             </button>
             <div>
-              <h1 className="text-2xl font-bold text-white">{product.name}</h1>
+              <h1 className="text-2xl font-bold text-black">{product.name}</h1>
               <p className="mt-4">{product.description}</p>
             </div>
           </div>
