@@ -70,16 +70,72 @@ const ProductCard = ({ product }) => {
       {/* Quick View Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg max-w-lg w-full h-auto relative p-6 overflow-y-auto">
+          <div className="bg-white rounded-lg max-w-2xl w-full h-auto relative p-6 overflow-y-auto">
+            {/* Close Button */}
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-2xl font-bold text-gray-700"
+              className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900"
             >
               ✖
             </button>
-            <div>
-              <h1 className="text-2xl font-bold text-black">{product.name}</h1>
-              <p className="mt-4">{product.description}</p>
+
+            {/* Modal Content */}
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Product Image */}
+              <div className="lg:w-1/2">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-auto rounded-lg object-contain"
+                />
+              </div>
+
+              {/* Product Details */}
+              <div className="lg:w-1/2 flex flex-col gap-4">
+                {/* Product Name and Price */}
+                <div>
+                  <h1 className="text-2xl font-bold text-black">
+                    {product.name}
+                  </h1>
+                  <h2 className="text-xl font-semibold text-gray-700 mt-2">
+                    ${product.price.toFixed(2)}
+                  </h2>
+                </div>
+
+                {/* Product Description */}
+                <p className="text-gray-600">
+                  {product.description.substring(0, 100) ||
+                    "No detailed description is available for this product at the moment."}
+                </p>
+
+                {/* Additional Details */}
+                <div className="mt-4">
+                  <h3 className="text-lg font-semibold text-black">
+                    Specifications:
+                  </h3>
+                  <ul className="list-disc list-inside text-gray-600 mt-2">
+                    <li>Material: High-quality synthetic fibers</li>
+                    <li>Category: {product.category}</li>
+                    <li>Available Sizes: S, M, L, XL</li>
+                    <li>Warranty: 1 year</li>
+                  </ul>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center gap-4 mt-4">
+                  <button className="bg-cardColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
+                    Add to Cart
+                  </button>
+                  <button
+                    onClick={handleFavoriteToggle}
+                    className={`text-3xl transition-transform ${
+                      isFavorite ? "text-red-500" : "text-cardColor"
+                    }`}
+                  >
+                    {isFavorite ? <FaHeart /> : <FaRegHeart />}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
