@@ -8,7 +8,7 @@ const FAQs = () => {
   };
 
   return (
-    <section className="py-24">
+    <section className="py-24 dark:bg-DarkBackground ">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
           <h6 className="text-lg text-indigo-600 dark:text-indigo-400 font-medium text-center mb-2">
@@ -44,10 +44,8 @@ const FAQs = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className={`accordion py-8 px-6 border-b border-solid border-gray-200 dark:border-gray-700 transition-all duration-500 rounded-2xl ${
-                activeAccordion === index
-                  ? "bg-indigo-50 dark:bg-indigo-900"
-                  : ""
+              className={`accordion py-8 px-6 dark:border-none border-b-AuraPinkColor border-solid border-gray-200 dark:border-gray-700 transition-all duration-500 rounded-2xl ${
+                activeAccordion === index ? "bg-indigo-50 dark:bg-gray-700" : ""
               }`}
             >
               <button

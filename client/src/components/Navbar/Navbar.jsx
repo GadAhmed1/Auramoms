@@ -5,103 +5,92 @@ import NavButton from "../../layouts/ReUseable/NavButton.jsx";
 import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
-import { CiShoppingCart } from "react-icons/ci"; // Normal import, no lazy loading
+import { CiShoppingCart } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
+import debounce from "lodash.debounce";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [hidden, setHidden] = useState(false); // Start with Navbar visible
+  const [hidden, setHidden] = useState(false);
 
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) setHidden(true);
-      else setHidden(false);
-    };
-
+    const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <>
-      <motion.nav
-        initial={hidden ? "hidden" : "visible"}
-        animate={hidden ? "hidden" : "visible"}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="flex sticky top-0 w-full justify-between items-center px-4 h-24 text-[#799263] font-Cabin dark:bg-slate-800 shadow-md bg-[#fff] z-50"
+    <motion.nav
+      initial={hidden ? "hidden" : "visible"}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="flex sticky top-0 w-full justify-between items-center px-4 h-24 font-Cabin  bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263]"
+    >
+      <AuraMoms />
+      <NavItem />
+      <div className=" items-center space-x-6 hidden md:flex">
+        <CiShoppingCart
+          className="cursor-pointer text-2xl hover:text-gray-500 transition-all"
+          aria-label="Shopping Cart"
+        />
+        <ThemeMode />
+        <NavLink to="/Sign_up">
+          <NavButton className="bg-[#F4A7B9] dark:bg-white dark:text-black hover:bg-transparent hover:border-[#F2BED1] transition-colors duration-300">
+            Sign Up
+          </NavButton>
+        </NavLink>
+      </div>
+      <button
+        onClick={toggleMenu}
+        aria-label="Toggle Mobile Menu"
+        className="relative z-20 flex flex-col items-center justify-between w-8 h-6 md:hidden"
       >
-        <AuraMoms />
-        <NavItem />
-        {/* Desktop Menu */}
-        <div className="flex justify-center items-center space-x-6 max-md:hidden">
-          <CiShoppingCart className="cursor-pointer text-2xl hover:text-gray-500 transition-all" />
-          <ThemeMode />
-          <NavLink to="/Sign_up">
-            <NavButton className="bg-[#F4A7B9] dark:bg-white dark:text-black hover:bg-transparent  hover:border-[#F2BED1] transition-colors duration-300 ">
-              signUp
-            </NavButton>
-          </NavLink>
-        </div>
-        <div className="md:hidden">
-          <button
-            onClick={toggleMenu}
-            className="relative z-20 flex flex-col items-center justify-between w-8 h-6"
-          >
-            <motion.div
-              className="w-full h-1 bg-black dark:bg-white rounded"
-              animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            />
-            <motion.div
-              className="w-full h-1 bg-black dark:bg-white rounded"
-              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.1 }}
-            />
-            <motion.div
-              className="w-full h-1 bg-black dark:bg-white rounded"
-              animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            />
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
-      </motion.nav>
-    </>
+        <motion.div
+          className="w-full h-1 bg-black dark:bg-white rounded"
+          animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+        />
+        <motion.div
+          className="w-full h-1 bg-black dark:bg-white rounded"
+          animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+          transition={{ duration: 0.1 }}
+        />
+        <motion.div
+          className="w-full h-1 bg-black dark:bg-white rounded"
+          animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+        />
+      </button>
+      <MobileMenu isOpen={isOpen} toggleMenu={toggleMenu} />
+    </motion.nav>
   );
 };
 
-// Extracted MobileMenu component
 const MobileMenu = React.memo(({ isOpen, toggleMenu }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
         key="mobileMenu"
-        className="flex flex-col fixed md:hidden top-24 bottom-0 right-0 w-[50vw] bg-[#fff] shadow-xl dark:bg-black text-black dark:text-white z-[40]"
+        className="flex flex-col fixed md:hidden top-24 bottom-0 right-0 w-[50vw] bg-white shadow-xl dark:bg-black text-black dark:text-white z-[40]"
         initial={{ opacity: 0, x: "100%" }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: "100%" }}
         transition={{ duration: 0.3 }}
       >
-        <motion.div>
-          <MobileItems />
-        </motion.div>
-        <motion.div className="flex justify-center items-start flex-col gap-4">
-          <motion.select className="border p-1 ml-2 rounded-xl hover:border-gray-700 transition-all dark:bg-black dark:text-white">
+        <MobileItems />
+        <div className="flex flex-col items-start gap-4 p-4">
+          <select
+            className="border p-2 rounded-xl dark:bg-black dark:text-white hover:border-gray-700 transition-all"
+            aria-label="Language Selector"
+          >
             <option>EN</option>
             <option>FR</option>
-          </motion.select>
-          <motion.div className="pl-2">
-            <ThemeMode />
-          </motion.div>
-          <motion.div className="w-full px-2">
-            <NavButton className="px-2 py-2 text-sm w-full border-[#F2BED1] bg-[#F4A7B9] hover:border-[#F2BED1]">
-              signUp
-            </NavButton>
-          </motion.div>
-        </motion.div>
+          </select>
+          <ThemeMode />
+          <NavButton className="w-full text-sm px-2 py-2 bg-[#F4A7B9] border-[#F2BED1] hover:border-[#F2BED1]">
+            Sign Up
+          </NavButton>
+        </div>
       </motion.div>
     )}
   </AnimatePresence>
