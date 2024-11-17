@@ -3,7 +3,6 @@ import { getAllUsers, loginUSER, logout, registerUSER } from "../controllers/Use
 import dotenv from 'dotenv';
 import { addFav, removeFavProduct, showFavProducts } from "../controllers/ProductCotroller.js";
 import { checkToken } from "../middleware/auth.js";
-import { forgotPassword, resetPassword } from "../controllers/auth.js";
 dotenv.config();
 
 const userROUTE = express.Router();
@@ -23,7 +22,5 @@ userROUTE.delete("/favourites/remove", checkToken, removeFavProduct);
 
 userROUTE.post("/favourites/add", checkToken, addFav);
 
-userROUTE.post('/forgot-password', forgotPassword);
 
-userROUTE.post('/reset-password', resetPassword);
 export default userROUTE;

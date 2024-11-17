@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import EditProduct from "./pages/EditProduct";
 
 export default function App() {
-  const url = "http://localhost:4000";
+  const url = "http://localhost:3000";
   return (
     <BrowserRouter>
       <ToastContainer />

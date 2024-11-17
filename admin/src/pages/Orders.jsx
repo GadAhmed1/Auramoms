@@ -8,7 +8,7 @@ const Orders = () => {
   // دالة لجلب الطلبات من السيرفر
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/orders/allorders');
+      const response = await axios.get('http://localhost:3000/orders/allorders');
       if (response.data.success) {
         setOrders(response.data);
       }
