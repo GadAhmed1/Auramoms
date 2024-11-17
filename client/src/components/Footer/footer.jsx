@@ -44,9 +44,16 @@ const Footer = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-Cabin">
               <ul className="space-y-2 text-lg font-varela">
                 <NavLink to="/">
-                  <li className={listItemClasses}>Home</li>
+                  <li
+                    className={listItemClasses}
+                    onClick={() => {
+                      window.location(0, 0);
+                    }}
+                  >
+                    Home
+                  </li>
                 </NavLink>
-                <NavLink to="/AboutUs">
+                <NavLink to="/about">
                   <li className={listItemClasses}>About</li>
                 </NavLink>
               </ul>

@@ -2,21 +2,13 @@ import { motion } from "framer-motion";
 import { Users, Heart, Globe, Award, Zap, Shield } from "lucide-react";
 import FAQs from "./FAQS";
 import ProgressBar from "./WhoWeAre/ProgressBar";
+import { useEffect, useCallback } from "react";
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
   transition: { duration: 0.6 },
-};
-// JavaScript to track scroll progress
-window.onscroll = function () {
-  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-  let docHeight =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
-  let scrollPercent = (scrollTop / docHeight) * 100;
-  document.getElementById("progressBar").style.width = scrollPercent + "%";
 };
 
 const values = [
@@ -53,41 +45,70 @@ const values = [
 ];
 
 const AboutUs = () => {
+  const handleScroll = useCallback(() => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight =
+      document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    const progressBar = document.getElementById("progressBar");
+    if (progressBar) {
+      progressBar.style.width = `${scrollPercent}%`;
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
   return (
     <div className="bg-background overflow-x-hidden">
       <ProgressBar />
       {/* Hero Section */}
-      <section className="relative h-[calc(100vh - 77px)] min-h-[600px] flex items-center justify-center overflow-hidden">
-        <div
+      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <motion.div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
               "url('../../../public/image/Free shipping world wide.jpg')",
           }}
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
         >
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
+          <motion.div
+            className="absolute inset-0 bg-black/50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            transition={{ duration: 1 }}
+          />
+        </motion.div>
         <motion.div
           className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
           <motion.h1
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="text-5xl md:text-7xl font-bold mb-6 font-Lora"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             AuraMoms
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-gray-200"
+            className="text-xl md:text-2xl text-gray-200 font-playpen"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            The story of AURA MOMS{" "}
+            The story of AURA MOMS
           </motion.p>
         </motion.div>
       </section>
@@ -98,22 +119,27 @@ const AboutUs = () => {
           {/* Image Section */}
           <motion.div
             className="w-full md:w-1/2"
-            initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <img
+            <motion.img
               src="../../../public/image/Mom1.jpg"
               alt="AuraMoms mission"
-              className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6"
+              className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
           </motion.div>
 
           {/* Text Section */}
           <motion.div
             className="w-full md:w-1/2 text-center md:text-left"
-            {...fadeIn}
+            variants={fadeIn}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-8 font-Lora">
               Our Mission
@@ -130,13 +156,17 @@ const AboutUs = () => {
           </motion.div>
         </div>
       </section>
+
       {/* Goals Section (Image Right) */}
       <section className="py-24 px-4 bg-muted/30 border-b-2 dark:bg-DarkBackground dark:text-lightGrayColor">
         <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Text Section */}
           <motion.div
             className="w-full md:w-1/2 text-center md:text-left"
-            {...fadeIn}
+            variants={fadeIn}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-8 font-Lora">
               Our Goals
@@ -152,15 +182,17 @@ const AboutUs = () => {
           {/* Image Section */}
           <motion.div
             className="w-full md:w-1/2"
-            initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <img
+            <motion.img
               src="../../../public/image/Woman2.jpg"
               alt="AuraMoms goals"
-              className="rounded-lg shadow-lg object-cover w-full h-auto rotate-6"
+              className="rounded-lg shadow-lg object-cover w-full h-auto rotate-6 hover:scale-105 transition-transform duration-300"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
           </motion.div>
         </div>
@@ -172,22 +204,27 @@ const AboutUs = () => {
           {/* Image Section */}
           <motion.div
             className="w-full md:w-1/2"
-            initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <img
+            <motion.img
               src="../../../public/image/Woman1.png"
               alt="Unique features"
-              className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6"
+              className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             />
           </motion.div>
 
           {/* Text Section */}
           <motion.div
             className="w-full md:w-1/2 text-center md:text-left"
-            {...fadeIn}
+            variants={fadeIn}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-8 font-Lora">
               What Makes Us Unique
@@ -206,26 +243,49 @@ const AboutUs = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-24  dark:bg-DarkBackground">
-        <div className="max-w-7xl mx-auto px-4 ">
+      <section className="py-24 dark:bg-DarkBackground">
+        <div className="max-w-7xl mx-auto px-4">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-5 dark:text-AuraPinkColor font-Lora"
-            {...fadeIn}
+            variants={fadeIn}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
           >
             Our Core Values
           </motion.h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.2,
+                },
+              },
+              hidden: {},
+            }}
+          >
             {values.map((value, index) => (
               <motion.div
                 key={value.title}
-                className="bg-background   border-AuraPinkColor border-2 p-6 dark:bg-DarkBackground dark:text-lightGrayColor"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="bg-background border-AuraPinkColor border-2 p-6 dark:bg-DarkBackground dark:text-lightGrayColor rounded-lg shadow-md"
+                variants={{
+                  visible: { opacity: 1, y: 0 },
+                  hidden: { opacity: 0, y: 20 },
+                }}
+                transition={{ duration: 0.5 }}
               >
-                <value.icon className="w-12 h-12 text-primary mb-4" />
-                <h3 className="text-xl font-semibold mb-2 font-Lora ">
+                <motion.div
+                  className="flex items-center justify-center mb-4"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <value.icon className="w-12 h-12 text-primary" />
+                </motion.div>
+                <h3 className="text-xl font-semibold mb-2 font-Lora">
                   {value.title}
                 </h3>
                 <p className="text-muted-foreground font-playpen">
@@ -233,14 +293,21 @@ const AboutUs = () => {
                 </p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
+
       {/* Products Designed Section */}
       <section className="py-24 px-4 border-b-2 dark:bg-DarkBackground dark:text-lightGrayColor">
         <div className="max-w-6xl mx-auto flex flex-col items-center gap-12">
           {/* Text Section */}
-          <motion.div className="w-full text-center" {...fadeIn}>
+          <motion.div
+            className="w-full text-center"
+            variants={fadeIn}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold mb-8 font-Lora">
               Product Design
             </h2>
@@ -255,47 +322,71 @@ const AboutUs = () => {
           </motion.div>
 
           {/* Image Section */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 relative">
+          <motion.div
+            className="flex flex-col md:flex-row items-center justify-center gap-12 relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.2,
+                },
+              },
+              hidden: {},
+            }}
+          >
             {/* Left Images (2) */}
             <motion.div
               className="w-full md:w-1/3 flex flex-col items-center gap-8 cursor-pointer"
-              initial={{ opacity: 0, y: -50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              variants={{
+                visible: { opacity: 1, y: 0 },
+                hidden: { opacity: 0, y: -50 },
+              }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <motion.img
                 src="../../../public/image/Green.jpg"
                 alt="AuraMoms image 1"
-                className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-12 max-md:scale-75 hover:scale-105 transition-all"
-                transition={{ duration: 0.3 }}
+                className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-12 hover:rotate-0 transition-transform duration-500"
+                whileHover={{ rotate: 0, scale: 1.05 }}
+                transition={{ duration: 0.5 }}
               />
               <motion.img
                 src="../../../public/image/El3enb.png"
                 alt="AuraMoms image 2"
-                className="rounded-lg shadow-lg object-cover w-full h-auto rotate-12 max-md:scale-75 hover:scale-105 transition-all"
-                transition={{ duration: 0.3 }}
+                className="rounded-lg shadow-lg object-cover w-full h-auto rotate-12 hover:-rotate-6 transition-transform duration-500"
+                whileHover={{ rotate: -6, scale: 1.05 }}
+                transition={{ duration: 0.5 }}
               />
             </motion.div>
             {/* Vertical Line (between the images) */}
-            <div className="hidden md:block h-full border-l-2 border-muted-foreground mx-4 bg-black" />
+            <motion.div
+              className="hidden md:block h-full border-l-2 border-muted-foreground mx-4 bg-black"
+              initial={{ opacity: 0, height: 0 }}
+              whileInView={{ opacity: 1, height: "100%" }}
+              transition={{ duration: 1 }}
+            />
             {/* Right Image (1) */}
             <motion.div
               className="w-full md:w-1/3 relative group"
-              initial={{ opacity: 0, y: -50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              variants={{
+                visible: { opacity: 1, y: 0 },
+                hidden: { opacity: 0, y: -50 },
+              }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <motion.img
                 src="../../../public/image/ChinesPhoto.jpg"
                 alt="AuraMoms image 3"
-                className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 max-md:scale-75 hover:scale-105 transition-all"
-                transition={{ duration: 0.3 }}
+                className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:rotate-0 transition-transform duration-500"
+                whileHover={{ rotate: 0, scale: 1.05 }}
+                transition={{ duration: 0.5 }}
               />
               {/* Hidden Text on Hover */}
+            
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
