@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const ProductDesign = () => {
   return (
@@ -31,20 +31,22 @@ const ProductDesign = () => {
           <motion.img
             src="../../../public/image/Green.jpg"
             alt="AuraMoms image 1"
-            className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-12 hover:rotate-0 transition-transform duration-500"
-            animate={{ 
-              x: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0], 
-              y: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0] 
+            className="rounded-lg shadow-lg object-cover w-full h-auto rotate-12 hover:rotate-0 transition-transform duration-500"
+            animate={{
+              x: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0],
+              y: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0],
+              rotate: [0, 10, -10, 0], // Added rotation animation
             }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           />
           <motion.img
             src="../../../public/image/El3enb.png"
             alt="AuraMoms image 2"
-            className="rounded-lg shadow-lg object-cover w-full h-auto rotate-12 hover:-rotate-6 transition-transform duration-500"
-            animate={{ 
-              x: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0], 
-              y: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0] 
+            className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-12 hover:rotate-0 transition-transform duration-500"
+            animate={{
+              x: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0],
+              y: [0, Math.random() * 20 - 10, Math.random() * 20 - 10, 0],
+              rotate: [0, -10, 10, 0], // Added rotation animation
             }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           />
@@ -69,10 +71,11 @@ const ProductDesign = () => {
           <motion.img
             src="../../../public/image/ChinesPhoto.jpg"
             alt="AuraMoms image 3"
-            className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:rotate-0 transition-transform duration-500"
-            animate={{ 
-              x: [0, Math.random() * 30 - 15, Math.random() * 30 - 15, 0], 
-              y: [0, Math.random() * 30 - 15, Math.random() * 30 - 15, 0] 
+            className="rounded-lg shadow-lg object-cover w-full h-auto rotate-6 hover:rotate-0 transition-transform duration-500"
+            animate={{
+              x: [0, Math.random() * 30 - 15, Math.random() * 30 - 15, 0],
+              y: [0, Math.random() * 30 - 15, Math.random() * 30 - 15, 0],
+              rotate: [0, 15, -15, 0], // Added rotation animation
             }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
           />
