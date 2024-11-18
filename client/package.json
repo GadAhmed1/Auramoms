@@ -16,6 +16,7 @@
     "@mui/material": "^6.1.1",
     "axios": "^1.7.7",
     "david-ui-angular": "^1.1.0",
+    "debounce": "^2.2.0",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.5.4",
     "i18next": "^23.15.1",

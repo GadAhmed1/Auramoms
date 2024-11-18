@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
 
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuickView, setShowQuickView] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-
+  // const [showModal, setShowModal] = useState(false);
+  const { addToCart } = useCart();
   const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
 
   return (
@@ -39,9 +40,7 @@ const ProductCard = ({ product }) => {
 
       {/* Product Info */}
       <div className="text-center">
-        <span className="text-cardTextColor font-semibold">
-          {product.category}
-        </span>
+        <span className="text-[#F4A7B9] font-semibold">{product.category}</span>
         <h1 className="text-xl font-bold  text-black dark:text-white">
           {product.name.length > 20
             ? product.name.substring(0, 20) + "..."
@@ -54,13 +53,17 @@ const ProductCard = ({ product }) => {
 
       {/* Action Buttons */}
       <div className="flex items-center gap-4 mt-3">
-        <button className="bg-cardColor text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
+        <button
+          className="bg-[#F4A7B9] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+          onClick={() => addToCart(product)} 
+        >
           Add to Cart
         </button>
+
         <button
           onClick={handleFavoriteToggle}
           className={`text-3xl transition-transform ${
-            isFavorite ? "text-red-500" : "text-cardColor"
+            isFavorite ? "text-red-500 border-[#F4A7B9]" : "text-[#F4A7B9]"
           }`}
         >
           {isFavorite ? <FaHeart /> : <FaRegHeart />}
@@ -68,7 +71,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Quick View Modal */}
-      {showModal && (
+      {/* {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg max-w-lg w-full h-auto relative p-6 overflow-y-auto">
             <button
@@ -83,7 +86,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

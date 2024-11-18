@@ -12,7 +12,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/products/list");
+        const response = await axios.get("http://localhost:3000/products/list");
         if (response.data.success) {
           setProducts(response.data.data);
           setFilteredProducts(response.data.data); // Initialize filtered products

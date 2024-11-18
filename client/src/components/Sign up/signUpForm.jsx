@@ -32,7 +32,7 @@ function SignUpForm() {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await axios.post(
-          "http://localhost:4000/users/register",
+          "http://localhost:3000/users/register",
           {
             ...formValues,
             country: selected,

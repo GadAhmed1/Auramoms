@@ -8,8 +8,10 @@ import AuraMoms from "./auraMoms.jsx";
 import { CiShoppingCart } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
 import debounce from "lodash.debounce";
+import { useCart } from "../context/CartContext.jsx";
 
 const Navbar = () => {
+  const { cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
 
@@ -26,15 +28,26 @@ const Navbar = () => {
       initial={hidden ? "hidden" : "visible"}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="flex sticky top-0 w-full justify-between items-center px-4 h-20 font-Cabin  bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263]"
+      className="flex sticky top-0 w-full justify-between items-center px-4 h-20 font-Cabin bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263]"
     >
       <AuraMoms />
       <NavItem />
-      <div className=" items-center space-x-6 hidden md:flex">
-        <CiShoppingCart
-          className="cursor-pointer text-2xl hover:text-gray-500 transition-all"
-          aria-label="Shopping Cart"
-        />
+      <div className="items-center space-x-6 hidden md:flex">
+        <NavLink to="/Cart" className="relative">
+          <CiShoppingCart
+            className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"
+            aria-label="Shopping Cart"
+          />
+
+          {cartCount > 0 && (
+            <span
+              className="absolute -top-1 -right-2 bg-[#b1b2b3] text-white text-xs font-bold w-5 h-5
+              flex items-center justify-center rounded-full shadow-lg animate-bounce dark:bg-white dark:text-black"
+            >
+              {cartCount}
+            </span>
+          )}
+        </NavLink>
         <ThemeMode />
         <NavLink to="/Sign_up">
           <NavButton className="bg-[#F4A7B9] dark:bg-white dark:text-black hover:bg-transparent hover:border-[#F2BED1] transition-colors duration-300">
