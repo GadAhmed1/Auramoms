@@ -67,9 +67,9 @@ const Cards = () => {
               <img
                 src={img.src}
                 alt={img.title}
-                className="w-full h-96 object-contain rounded-xl shadow-2xl transition-transform duration-300 transform hover:scale-105"
+                className="w-full h-96 object-contain rounded-xl shadow-2xl transition-transform duration-300 transform hover:scale-105 dark:bg-[#101325]"
               />
-              <div className="mt-6 space-y-4 text-center text-black dark:text-white">
+              <div className="mt-6 space-y-4 text-center text-black dark:text-white ">
                 <h3 className="text-xl font-bold mb-2 font-PlayWrite">
                   {img.title}
                 </h3>

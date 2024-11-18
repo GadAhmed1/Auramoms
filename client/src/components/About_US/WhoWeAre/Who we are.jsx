@@ -7,8 +7,8 @@ import { NavLink } from "react-router-dom";
 
 function WhoWeAre() {
   return (
-    <div className="dark:text-[#E5E7EB] pt-14 pb-14 text-center dark:bg-[#1F2937] bg-[#F2F2F2] text-[#333333]">
-      <h3 className="text-3xl mx-4 md:mx-12 lg:mx-52 font-semibold dark:text-[#93C5FD] text-[#333333]">
+    <div className="dark:text-[#EAEAEA] pt-14 pb-14 text-center dark:bg-[#121212] bg-[#F8F9FA] text-[#1A1A1A]">
+      <h3 className="text-3xl mx-4 md:mx-12 lg:mx-52 font-semibold dark:text-[#F4A7B9] text-[#B56576]">
         What about us?
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-9 mt-8">
@@ -16,28 +16,28 @@ function WhoWeAre() {
           imageSrc="./image/OurMissionImage.png"
           title="Our Mission"
           description="Empowering moms with thoughtful, quality products for their needs."
-          bgColor="bg-[#F9F5F6] dark:bg-[#374151]"
-          borderColor="border-[#93C5FD] dark:border-[#4B5563]"
+          bgColor="bg-[#F9F5F6] dark:bg-[#1A1D21]"
+          borderColor="border-[#F4A7B9] dark:border-[#4B5563]"
         />
         <Part
           imageSrc="./image/OurStory.jpg"
           title="Our Story"
           description="Founded to uplift and support parents with care and innovation."
-          bgColor="bg-[#F9F5F6] dark:bg-[#374151]"
-          borderColor="border-[#93C5FD] dark:border-[#4B5563]"
+          bgColor="bg-[#F9F5F6] dark:bg-[#1A1D21]"
+          borderColor="border-[#F4A7B9] dark:border-[#4B5563]"
         />
         <Part
           imageSrc="./image/WhyChooseUS.svg"
           title="Why Choose Us"
           description="Your trusted partner in parenting with dedicated, reliable support."
-          bgColor="bg-[#F9F5F6] dark:bg-[#374151]"
-          borderColor="border-[#93C5FD] dark:border-[#4B5563]"
+          bgColor="bg-[#F9F5F6] dark:bg-[#1A1D21]"
+          borderColor="border-[#F4A7B9] dark:border-[#4B5563]"
         />
       </div>
       <div className="mt-8 ButtonPart">
         <NavLink to="/shop">
           <motion.button
-            className="select-none border-2 border-[#F2BED1] p-2 max-w-48 min-w-48 rounded-3xl text-white bg-[#F4A7B9] hover:bg-transparent hover:text-black transition-colors duration-300 shadow-lg dark:text-white"
+            className="select-none border-2 border-[#F4A7B9] p-2 max-w-48 min-w-48 rounded-3xl text-white bg-[#B56576] hover:bg-transparent hover:text-[#B56576] transition-colors duration-300 shadow-lg dark:bg-[#F4A7B9] dark:border-[#F4A7B9] dark:text-[#1A1D21] dark:hover:bg-transparent dark:hover:text-[#F4A7B9]"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
           >

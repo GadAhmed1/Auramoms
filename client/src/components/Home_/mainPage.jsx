@@ -10,9 +10,9 @@ function HomePage() {
   return (
     <div className="dark:bg-DarkBackground overflow-x-hidden">
       <TheCenterPatInHeroSection />
+      <PopularProducts />
       <TheGreenMan/>
       {/* <Divider1 /> */}
-      <PopularProducts />
       <WhoWeAre />
       <Footer />
     </div>
