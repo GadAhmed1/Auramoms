@@ -8,9 +8,8 @@ import SignUp from "./components/Sign up/signUp.jsx";
 import Login from "./components/Log in/login.jsx";
 import ProductPage from "./components/Shop/productPage.jsx";
 import Cart from "./components/Shop/Cart.jsx";
-import ContactForm_Email from "./components/Contact_Us/ContactForm_Email.jsx";
 import { CartProvider } from "./components/context/CartContext.jsx";
-
+import ContactForm_Email from "./components/Contact_Us/جيوشي/ContactForm_Email.jsx";
 function App() {
   return (
     <CartProvider>
