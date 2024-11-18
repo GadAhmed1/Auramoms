@@ -49,7 +49,6 @@ const ProductList = () => {
       <div className="flex flex-col justify-center items-center h-[50vh]">
         {/* Spinner */}
         <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-cardColor"></div>
-
         {/* Loading Text */}
         <div className="mt-4 text-2xl font-semibold text-gray-800 dark:text-white animate-pulse">
           Loading products...
@@ -99,7 +98,6 @@ const ProductList = () => {
           <option value="Face Skincare Set">Face Skincare Set</option>
         </select>
       </div>
-
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 p-4">
         {filteredProducts.map((product) => (
