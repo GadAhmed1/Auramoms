@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuickView, setShowQuickView] = useState(false);
-  // const [showModal, setShowModal] = useState(false);
+const [showModal, setShowModal] = useState(false);
   const { addToCart } = useCart();
   const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
 
@@ -71,7 +71,7 @@ const ProductCard = ({ product }) => {
       </div>
 
       {/* Quick View Modal */}
-      {/* {showModal && (
+      {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg max-w-2xl w-full h-auto relative p-6 overflow-y-auto">
             {/* Close Button */}
@@ -142,7 +142,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
