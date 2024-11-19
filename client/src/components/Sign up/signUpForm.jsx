@@ -1,11 +1,14 @@
-import { useState} from "react";
+import { useContext, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { ShopContext } from "../../context/ShopContext";
 
-function SignUpForm() {
+function SignUpForm({ setshowLogin }) {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
+  const { settoken } = useContext(ShopContext);
   const [formValues, setFormValues] = useState({
     firstname: "",
     lastname: "",
@@ -40,17 +43,33 @@ function SignUpForm() {
         );
 
         if (response.data.success) {
-          setMessage("Registration successful!");
-          setTimeout(() => navigate("/"), 2000); // توجيه بعد ثانيتين
+          settoken(response.data.accessToken);
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("username", response.data.firstname);
+          Swal.fire({
+            title: "Welcome New User!",
+            text: "Successful Registration",
+            icon: "success",
+          });
+
+          navigate("/");
         } else {
-          setMessage(response.data.message || "Registration failed!");
+          Swal.fire({
+            title: "Something Went Wrong!",
+            text:
+              response.data.message ||
+              "Signup failed. Please check your credentials.",
+            icon: "error",
+          });
         }
       } catch (error) {
-        console.error("Error:", error);
-        setMessage(
-          error.response?.data?.message ||
-            "An error occurred during registration."
-        );
+        Swal.fire({
+          title: "Something Went Wrong!",
+          text:
+            error?.response?.data?.message ||
+            "Signup failed. Please check your credentials.",
+          icon: "error",
+        });
       }
     }
   };
@@ -163,30 +182,30 @@ function SignUpForm() {
         </div>
 
         <div className="mt-5 flex gap-4">
-        <div className="w-1/2">
-          <label className="text-lg font-medium">Country</label>
-          <ReactFlagsSelect
-            selected={selected}
-            onSelect={(code) => setSelected(code)}
-            searchable
-            className="w-full mt-1"
+          <div className="w-1/2">
+            <label className="text-lg font-medium">Country</label>
+            <ReactFlagsSelect
+              selected={selected}
+              onSelect={(code) => setSelected(code)}
+              searchable
+              className="w-full mt-1"
               selectButtonClassName="w-full border-2 rounded-xl px-4 py-3 bg-transparent focus:outline-none border-gray-100 focus:border-formColor"
-          />
-          {renderError("country")}
-        </div>
+            />
+            {renderError("country")}
+          </div>
 
-        <div className="w-1/2">
-          <label className="text-lg font-medium">Phone</label>
-          <input
-            className={getInputClass("phone")}
-            type="text"
-            name="phone"
-            value={formValues.phone}
-            onChange={handleInputChange}
-            placeholder="Enter your phone number"
-          />
-          {renderError("phone")}
-        </div>
+          <div className="w-1/2">
+            <label className="text-lg font-medium">Phone</label>
+            <input
+              className={getInputClass("phone")}
+              type="text"
+              name="phone"
+              value={formValues.phone}
+              onChange={handleInputChange}
+              placeholder="Enter your phone number"
+            />
+            {renderError("phone")}
+          </div>
         </div>
 
         <div className="mt-5 flex justify-between items-center">
@@ -217,7 +236,9 @@ function SignUpForm() {
           Sign up
         </button>
 
-        {message && <p className="text-center mt-4 text-green-500">{message}</p>}
+        {message && (
+          <p className="text-center mt-4 text-green-500">{message}</p>
+        )}
         <div className="mt-8 flex justify-center">
           <p className="font-medium text-base ">Already have an account ?</p>
           <button
@@ -226,7 +247,7 @@ function SignUpForm() {
           >
             Login
           </button>
-          </div>
+        </div>
       </form>
     </div>
   );

@@ -10,18 +10,26 @@ import ProductPage from "./components/Shop/productPage.jsx";
 import Cart from "./components/Shop/Cart.jsx";
 import { CartProvider } from "./components/context/CartContext.jsx";
 import ContactForm_Email from "./components/Contact_Us/جيوشي/ContactForm_Email.jsx";
+import { useState } from "react";
 function App() {
+  const [showLogin, setshowLogin] = useState(false);
   return (
     <CartProvider>
       <Router>
-        <Navbar />
+        <Navbar setshowLogin={setshowLogin} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/About" element={<AboutUs />} />
           <Route path="/contact" element={<ContactForm_Email />} />
           <Route path="/Shop" element={<Shop />} />
-          <Route path="/Sign_up" element={<SignUp />} />
-          <Route path="/Log_in" element={<Login />} />
+          <Route
+            path="/Sign_up"
+            element={<SignUp setshowLogin={setshowLogin} />}
+          />
+          <Route
+            path="/Log_in"
+            element={<Login setshowLogin={setshowLogin} />}
+          />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/Cart" element={<Cart />} />
         </Routes>
