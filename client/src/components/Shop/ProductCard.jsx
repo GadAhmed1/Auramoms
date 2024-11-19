@@ -5,8 +5,9 @@ import { useCart } from "../context/CartContext";
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuickView, setShowQuickView] = useState(false);
-const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const { addToCart } = useCart();
+
   const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
 
   return (
@@ -20,7 +21,7 @@ const [showModal, setShowModal] = useState(false);
         <img
           src={product.image}
           alt={product.name}
-          className={`w-full rounded-2xl h-full object-contain  transition-transform duration-500 ${
+          className={`w-full rounded-2xl h-full object-contain transition-transform duration-500 ${
             showQuickView ? "scale-105" : "scale-100"
           }`}
         />
@@ -41,7 +42,7 @@ const [showModal, setShowModal] = useState(false);
       {/* Product Info */}
       <div className="text-center">
         <span className="text-[#F4A7B9] font-semibold">{product.category}</span>
-        <h1 className="text-xl font-bold  text-black dark:text-white">
+        <h1 className="text-xl font-bold text-black dark:text-white">
           {product.name.length > 20
             ? product.name.substring(0, 20) + "..."
             : product.name}
@@ -55,7 +56,7 @@ const [showModal, setShowModal] = useState(false);
       <div className="flex items-center gap-4 mt-3">
         <button
           className="bg-[#F4A7B9] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
-          onClick={() => addToCart(product)} 
+          onClick={() => addToCart(product)} // تعديل هنا لزيادة العدد عند إضافته
         >
           Add to Cart
         </button>
