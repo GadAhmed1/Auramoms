@@ -104,10 +104,8 @@ function SignUpForm({ setshowLogin }) {
   };
 
   const getInputClass = (fieldName) =>
-    `w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none ${
-      formErrors[fieldName]
-        ? "border-red-500"
-        : "border-gray-100 focus:border-formColor"
+    `w-full border-2 rounded-xl px-4 py-3 mt-1 bg-transparent focus:outline-none focus:border-pink-600 ${
+      formErrors[fieldName] ? "border-red-500" : "border-gray-100"
     }`;
 
   const renderError = (fieldName) =>
@@ -116,9 +114,9 @@ function SignUpForm({ setshowLogin }) {
     );
 
   return (
-    <div>
+    <div className="flex justify-center items-center min-h-[80vh]">
       <form
-        className="bg-white px-9 py-4 rounded-3xl border-2 border-gray-100"
+        className="bg-white px-9 py-4 rounded-3xl border-2 border-gray-100 overflow-x-hidden w-full max-w-lg"
         onSubmit={handleSubmit}
       >
         <h1 className="text-4xl font-semibold">Sign up</h1>
@@ -127,8 +125,8 @@ function SignUpForm({ setshowLogin }) {
           Join us now and enjoy the unique luxury experience you deserve!
         </p>
 
-        <div className="mt-5 flex gap-4">
-          <div className="w-1/2">
+        <div className="mt-5 flex flex-col md:flex-row gap-4">
+          <div className="w-full md:w-1/2">
             <label className="text-lg font-medium">First name</label>
             <input
               className={getInputClass("firstname")}
@@ -141,7 +139,7 @@ function SignUpForm({ setshowLogin }) {
             {renderError("firstname")}
           </div>
 
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <label className="text-lg font-medium">Last name</label>
             <input
               className={getInputClass("lastname")}
@@ -181,8 +179,8 @@ function SignUpForm({ setshowLogin }) {
           {renderError("password")}
         </div>
 
-        <div className="mt-5 flex gap-4">
-          <div className="w-1/2">
+        <div className="mt-5 flex flex-col md:flex-row gap-4">
+          <div className="w-full md:w-1/2">
             <label className="text-lg font-medium">Country</label>
             <ReactFlagsSelect
               selected={selected}
@@ -194,7 +192,7 @@ function SignUpForm({ setshowLogin }) {
             {renderError("country")}
           </div>
 
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <label className="text-lg font-medium">Phone</label>
             <input
               className={getInputClass("phone")}
@@ -231,7 +229,7 @@ function SignUpForm({ setshowLogin }) {
 
         <button
           type="submit"
-          className="w-full py-3 mt-6 rounded-xl bg-formColor text-white text-lg font-bold hover:scale-[1.01] active:scale-[.98] transition-all"
+          className="w-full py-3 mt-6 rounded-xl bg-pink-600 text-white text-lg font-bold hover:scale-[1.01] active:scale-[.98] transition-all"
         >
           Sign up
         </button>

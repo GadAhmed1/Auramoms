@@ -60,7 +60,7 @@ function LoginForm() {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       loginUser();
     }
-  }, [formErrors, isSubmit, formValues]); // التحقق من التغيرات فقط عند الحاجة
+  }, [formErrors, isSubmit, formValues]);
 
   const validate = (values) => {
     const errors = {};
@@ -97,7 +97,7 @@ function LoginForm() {
           <input
             type="email"
             name="email"
-            className="w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-formColor"
+            className="w-full border-2 rounded-xl px-4 py-3 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-pink-600 ring-pink-600"
             value={formValues.email}
             onChange={handleInputChange}
             placeholder="Enter your email"
@@ -112,7 +112,7 @@ function LoginForm() {
           <input
             type="password"
             name="password"
-            className="w-full border-2 rounded-xl p-4 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-formColor"
+            className="w-full border-2 rounded-xl px-4 py-3 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-pink-600 ring-pink-600"
             value={formValues.password}
             onChange={handleInputChange}
             placeholder="Enter your password"
@@ -127,26 +127,19 @@ function LoginForm() {
             <input
               type="checkbox"
               id="remember"
-              className="ml-2 font-medium text-xs accent-formColor"
+              className="ml-2 font-medium text-xs accent-pink-600"
             />
-            <label htmlFor="remember" className="  ml-2  font-medium text-xs">
+            <label htmlFor="remember" className="ml-2 font-medium text-xs">
               Remember me
             </label>
           </div>
-          {/* <button
-              type="button"
-              className="font-medium text-base text-formColor"
-            >
-              Forgot Password
-             </button> */}{" "}
-          {/*but it in another update*/}
         </div>
 
         <div className="mt-1 flex flex-col gap-y-4"></div>
 
         <button
           type="submit"
-          className="w-full py-3 mt-5 rounded-xl bg-formColor text-white text-lg font-bold hover:scale-[1.01] active:scale-[.98] transition-all"
+          className="w-full py-3 mt-5 rounded-xl bg-pink-600 text-white text-lg font-bold hover:scale-[1.01] active:scale-[.98] transition-all"
         >
           Login
         </button>
@@ -154,7 +147,7 @@ function LoginForm() {
           <p className="font-medium text-base">Don&#39;t have an account ?</p>
           <button
             type="button"
-            className="ml-3 text-formColor text-base font-medium"
+            className="ml-3 text-pink-600 text-base font-medium"
             onClick={() => navigate("/Sign_up")}
           >
             Sign up
