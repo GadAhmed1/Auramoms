@@ -91,32 +91,35 @@ const ProductPage = () => {
 
         {/* Color selection*/}
         <div className="flex gap-4 mt-4">
-  <label className="font-semibold text-black dark:text-white">Color :</label>
-  <div className="flex gap-4">
-    {/* Black Color Option */}
-    <button
-      className={`text-lg font-medium ${
-        activeColor === "black" ? "text-black dark:text-white border-b-2 border-black" : "text-gray-600 dark:text-gray-300"
-      }`}
-      onClick={() => handleColorChange("black")}
-    >
-      Black
-    </button>
-    
-    {/* White Color Option */}
-    <button
-      className={`text-lg font-medium ${
-        activeColor === "white" ? "text-black dark:text-white border-b-2 border-black" : "text-gray-600 dark:text-gray-300"
-      }`}
-      onClick={() => handleColorChange("white")}
-    >
-      White
-    </button>
-  </div>
-</div>
+          <label className="font-semibold text-black dark:text-white">
+            Color :
+          </label>
+          <div className="flex gap-4">
+            {/* Black Color Option */}
+            <button
+              className={`text-lg font-medium ${
+                activeColor === "black"
+                  ? "text-black dark:text-white border-b-2 border-black"
+                  : "text-gray-600 dark:text-gray-300"
+              }`}
+              onClick={() => handleColorChange("black")}
+            >
+              Black
+            </button>
 
-
-
+            {/* White Color Option */}
+            <button
+              className={`text-lg font-medium ${
+                activeColor === "white"
+                  ? "text-black dark:text-white border-b-2 border-black"
+                  : "text-gray-600 dark:text-gray-300"
+              }`}
+              onClick={() => handleColorChange("white")}
+            >
+              White
+            </button>
+          </div>
+        </div>
         {/* Quantity control and addition to the cart*/}
         <div className="flex flex-row items-center gap-12">
           <div className="flex flex-row items-center">

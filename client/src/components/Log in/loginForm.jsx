@@ -26,7 +26,7 @@ function LoginForm() {
   useEffect(() => {
     const loginUser = async () => {
       try {
-        const response = await axios.post("http://localhost:4000/users/login", formValues, {
+        const response = await axios.post("http://localhost:3000/users/login", formValues, {
           headers: {
             "Content-Type": "application/json",
           },

@@ -37,11 +37,6 @@ export default {
         cardTextColor: "#648a6b", // Light green-gray color
         DarkGround1: "#121212", // Deep black color (dark mode primary background)
         DarkGround2: "#1e1e1e", // Charcoal dark gray color (secondary background)
-        BabyPink: "#FDDDE6",
-        MutedPink: "#F4A7B9",
-        WarmGray: "#A8A8A8",
-        WhiteSmoke: "#F5F5F5",
-        DeepPinkAccent: "#C2185B",
       },
     },
   },
