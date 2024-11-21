@@ -1,34 +1,12 @@
-import { useState } from "react";
-// import VerticalSidebar from "./SideBar"; // Import Sidebar component
 import PromoPanner from "./promoPanner";
-import { FiMenu } from "react-icons/fi"; // Icon for sidebar toggle
 import ProductList from "./ProductList";
 import ProgressBar from "../Loader/ProgressBar";
 import Footer from "../Footer/footer.jsx";
 const Shop = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar initially closed on mobile
-
   return (
     <>
       <main className="flex flex-col md:flex-row bg-gray-100 dark:bg-DarkGround2">
         <ProgressBar />
-        {/* Sidebar */}
-        {/* <aside
-        className={`${
-          isSidebarOpen ? "block" : "hidden"
-        } md:block bg-gray-200 p-4 w-64 shadow-lg dark:bg-DarkGround1 transition-all duration-300`}
-      >
-        <VerticalSidebar />
-      </aside> */}
-
-        {/* Sidebar Toggle for Mobile View */}
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="p-3 bg-gray-800 text-white md:hidden fixed top-4 left-4 z-50 rounded-full shadow-lg transition-transform duration-300"
-        >
-          <FiMenu size={24} />
-        </button>
-
         {/* Main Content Area */}
         <div className="flex-1 p-6 md:p-8 space-y-8">
           {/* Promo Banner */}

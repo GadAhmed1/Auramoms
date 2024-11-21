@@ -42,7 +42,7 @@ const Navbar = ({ setshowLogin }) => {
       initial={hidden ? "hidden" : "visible"}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="flex sticky top-0 w-full justify-between items-center px-4 h-20 font-Cabin bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263]"
+      className="flex sticky top-0 w-full justify-between items-center px-4 h-20 font-playpen font-bold  bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263] "
     >
       <AuraMoms />
       <NavItem />

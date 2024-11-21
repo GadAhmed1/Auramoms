@@ -5,7 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ShopContext } from "../../context/ShopContext";
 
-function SignUpForm({ setshowLogin }) {
+function SignUpForm() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
   const { settoken } = useContext(ShopContext);
@@ -20,7 +20,6 @@ function SignUpForm({ setshowLogin }) {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -72,51 +71,6 @@ function SignUpForm({ setshowLogin }) {
         });
       }
     }
-  };
-
-  const handleGoogleSuccess = async (response) => {
-    console.log(response); // اضافة طباعة لفحص الـ response
-    try {
-      const { credential } = response;
-      // Send the Google ID token to the backend for verification
-      const result = await axios.post("http://localhost:3000/auth/google", {
-        credential,
-      });
-
-      if (result.data.success) {
-        settoken(result.data.accessToken);
-        localStorage.setItem("token", result.data.accessToken);
-        localStorage.setItem("username", result.data.firstname);
-        Swal.fire({
-          title: "Welcome Back!",
-          text: "Successfully logged in with Google",
-          icon: "success",
-        });
-        navigate("/");
-      } else {
-        Swal.fire({
-          title: "Google Login Failed",
-          text: result.data.message || "Login failed. Please try again.",
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      console.error(error); // اضافة طباعة للأخطاء لمعرفة السبب
-      Swal.fire({
-        title: "Google Login Failed",
-        text: error.message || "Login failed. Please try again.",
-        icon: "error",
-      });
-      console.log(error);
-    }
-  };
-
-  const handleGoogleFailure = (error) => {
-    Swal.fire({
-      title: "Google Login Failed",
-      text: error.message || "Login failed. Please try again.",
-      icon: "error",
-    });
   };
 
   const validate = (values) => {

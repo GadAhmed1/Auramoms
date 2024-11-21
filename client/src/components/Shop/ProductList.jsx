@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
+import { motion } from "framer-motion";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -80,6 +81,22 @@ const ProductList = () => {
     );
   }
 
+  // Animation variants for stagger effect
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // Stagger effect delay
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
     <div>
       {/* Filter Section */}
@@ -96,7 +113,7 @@ const ProductList = () => {
             onClick={() => handleCategoryChange(category)}
             className={`px-4 py-2 rounded-lg shadow-sm transition duration-200 ease-in-out ${
               selectedCategory === category
-                ? "bg-blue-500 text-white"
+                ? "bg-[#ee88a0] text-white"
                 : "bg-white text-gray-800 border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
             }`}
           >
@@ -104,14 +121,24 @@ const ProductList = () => {
           </button>
         ))}
       </div>
+
       {/* Product Grid */}
-      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+      <motion.div
+        className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4"
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+      >
         {filteredProducts.map((product) => (
-          <div key={product._id} className="flex justify-center items-center">
+          <motion.div
+            key={product._id}
+            variants={itemVariants}
+            className="flex justify-center items-center"
+          >
             <ProductCard product={product} />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
