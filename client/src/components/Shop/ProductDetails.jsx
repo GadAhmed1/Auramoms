@@ -114,7 +114,6 @@ const ProductDetails = () => {
         >
           Price: ${product.price}
         </motion.h6>
-
         {/* Additional design elements can be added here */}
       </div>
     </div>
