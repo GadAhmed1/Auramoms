@@ -80,12 +80,9 @@ function SignUpForm({ setshowLogin }) {
     try {
       const { credential } = response;
       // Send the Google ID token to the backend for verification
-      const result = await axios.post(
-        "http://localhost:3000/auth/google",
-        {
-          credential,
-        }
-      );
+      const result = await axios.post("http://localhost:3000/auth/google", {
+        credential,
+      });
 
       if (result.data.success) {
         settoken(result.data.accessToken);
@@ -296,10 +293,7 @@ function SignUpForm({ setshowLogin }) {
         <Link to="/Log_in" className="my-4 text-center">
           <p className="text-gray-500 text-lg">
             Already have an account?{" "}
-            <button
-              className="font-medium text-formColor hover:text-darkFormColor"
-              
-            >
+            <button className="font-medium text-formColor hover:text-darkFormColor">
               Login now
             </button>
           </p>

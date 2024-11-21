@@ -40,8 +40,8 @@ const ProductList = () => {
     }
   }, [selectedCategory, products]);
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
 
   if (loading) {
@@ -83,25 +83,33 @@ const ProductList = () => {
   return (
     <div>
       {/* Filter Section */}
-      <div className="flex justify-center gap-6 mb-6">
-        <select
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-          className="px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:focus:ring-blue-400 transition duration-200 ease-in-out"
-        >
-          <option value="All">All Categories</option>
-          <option value="Skin Care">Skin Care</option>
-          <option value="Health and personal care devices.">
-            Health and Personal Care Devices
-          </option>
-          <option value="Hair Care">Hair Care</option>
-          <option value="Face Skincare Set">Face Skincare Set</option>
-        </select>
+      <div className="flex justify-center gap-4 mb-6 flex-wrap">
+        {[
+          "All",
+          "Skin Care",
+          "Health and personal care devices.",
+          "Hair Care",
+          "Face Skincare Set",
+        ].map((category) => (
+          <button
+            key={category}
+            onClick={() => handleCategoryChange(category)}
+            className={`px-4 py-2 rounded-lg shadow-sm transition duration-200 ease-in-out ${
+              selectedCategory === category
+                ? "bg-blue-500 text-white"
+                : "bg-white text-gray-800 border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+            }`}
+          >
+            {category}
+          </button>
+        ))}
       </div>
       {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 p-4">
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
         {filteredProducts.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <div key={product._id} className="flex justify-center items-center">
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </div>

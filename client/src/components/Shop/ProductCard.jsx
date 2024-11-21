@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
   const toggleModal = (state) => setShowModal(state);
 
   return (
-    <div className="flex flex-col gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
+    <div className="flex flex-col justify-center  gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div
         className="relative w-full h-48"
         onMouseEnter={() => toggleQuickView(true)}
@@ -29,7 +29,7 @@ const ProductCard = ({ product }) => {
           }`}
         />
         {showQuickView && (
-          <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center transition-opacity duration-500 opacity-100">
+          <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center transition-opacity duration-500 opacity-100 lg:hidden">
             <button
               className="bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transition-transform transform hover:scale-105"
               onClick={() => toggleModal(true)}
@@ -66,7 +66,7 @@ const ProductCard = ({ product }) => {
             isFavorite ? "text-red-500 border-[#F4A7B9]" : "text-[#F4A7B9]"
           }`}
         >
-          {isFavorite ? <FaHeart /> : <FaRegHeart />}
+          {isFavorite ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
         </button>
       </div>
 
@@ -79,34 +79,42 @@ const ProductCard = ({ product }) => {
             >
               ✖
             </button>
-            <div className="flex flex-col lg:flex-row gap-6">
+            <div className="flex flex-col lg:flex-row gap-6 m-4">
               <div className="lg:w-1/2">
                 <img
                   src={currentImage}
                   alt={`${product.name} image`}
-                  className="w-full h-auto rounded-lg object-contain"
+                  className="w-full h-auto rounded-lg object-contain mb-4"
                 />
-                <div className="flex gap-2 mt-2">
-                  {[
-                    product.image,
-                    product.image2,
-                    product.image3,
-                    product.image4,
-                    product.image5,
-                  ]
-                    .filter(Boolean)
-                    .map((img, index) => (
-                      <img
-                        key={index}
-                        src={img}
-                        alt={`Thumbnail ${index + 1}`}
-                        className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-75"
-                        onClick={() => setCurrentImage(img)}
-                      />
-                    ))}
-                </div>
+                {[
+                  product.image,
+                  product.image2,
+                  product.image3,
+                  product.image4,
+                  product.image5,
+                ].filter(Boolean).length > 0 && (
+                  <div className="flex gap-2 my-2">
+                    {[
+                      product.image,
+                      product.image2,
+                      product.image3,
+                      product.image4,
+                      product.image5,
+                    ]
+                      .filter(Boolean)
+                      .map((img, index) => (
+                        <img
+                          key={index}
+                          src={img}
+                          alt={`Thumbnail ${index + 1}`}
+                          className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-75"
+                          onClick={() => setCurrentImage(img)}
+                        />
+                      ))}
+                  </div>
+                )}
               </div>
-              <div className="lg:w-1/2 flex flex-col gap-4">
+              <div className="lg:w-1/2 flex flex-col h-full gap-4">
                 <div>
                   <h1 className="text-2xl font-bold text-black">
                     {product.name}
@@ -115,12 +123,11 @@ const ProductCard = ({ product }) => {
                     ${product.price.toFixed(2)}
                   </h2>
                 </div>
-
                 <p className="text-gray-600 overflow-y-auto max-h-24">
                   {product.description ||
                     "No detailed description is available for this product at the moment."}
                 </p>
-                <div className="flex items-center gap-4 mt-4">
+                <div className="flex items-center justify-center gap-4   ">
                   <button className="bg-cardColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
                     Add to Cart
                   </button>

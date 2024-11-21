@@ -1,5 +1,6 @@
 import Swal from "sweetalert2"; // Import Swal for displaying alerts
 import { IoIosSend } from "react-icons/io"; // Import Send icon from react-icons
+import { FaTiktok, FaInstagram, FaPinterestP } from "react-icons/fa"; // Import social media icons from react-icons
 import { useRef, useState, useEffect } from "react"; // Import useRef, useState, and useEffect hooks from React
 import emailjs from "@emailjs/browser"; // Import emailjs for sending emails via forms
 import { motion } from "framer-motion"; // Import motion for animations
@@ -149,6 +150,31 @@ const ContactForm_Email = () => {
                     <IoIosSend className="w-5 h-5" />
                     <span>Send</span>
                   </motion.button>
+                  <div className="flex justify-center items-center gap-4 flex-wrap max-md:flex-col">
+                    <p className="text-sm text-gray-500">
+                      or you can contact us on our social media accounts
+                    </p>
+                    <div className="flex justify-center items-center gap-4">
+                      <a href="https://www.tiktok.com/@auramoms2?_t=8qMmhY31JCs&_r=1">
+                        <FaTiktok
+                          size={24}
+                          className="text-black dark:text-white hover:scale-125 transition-all duration-300"
+                        />
+                      </a>
+                      <a href="https://www.instagram.com/auramomsbrand?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                        <FaInstagram
+                          size={24}
+                          className="text-black dark:text-white hover:scale-125 transition-all duration-300"
+                        />
+                      </a>
+                      <a href="https://www.pinterest.com/beauty_store_egypt">
+                        <FaPinterestP
+                          size={24}
+                          className="text-black dark:text-white hover:scale-125 transition-all duration-300"
+                        />
+                      </a>
+                    </div>
+                  </div>
                 </form>
               </div>
             </motion.div>
