@@ -5,7 +5,7 @@ import React from "react";
 import Part from "./whoWeAReCompo";
 import { NavLink } from "react-router-dom";
 
-function WhoWeAre() {
+function  WhoWeAre() {
   return (
     <div className="dark:text-[#EAEAEA] pt-14 pb-14 text-center dark:bg-[#121212] bg-[#F8F9FA] text-[#1A1A1A]">
       <h3 className="text-3xl mx-4 md:mx-12 lg:mx-52 font-semibold dark:text-[#F4A7B9] text-[#B56576]">

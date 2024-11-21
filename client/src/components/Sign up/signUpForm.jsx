@@ -305,7 +305,6 @@ function SignUpForm({ setshowLogin }) {
           </p>
         </Link>
         <br />
-   
       </form>
     </div>
   );
