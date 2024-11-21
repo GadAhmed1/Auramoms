@@ -37,7 +37,7 @@ function WhoWeAre() {
       <div className="mt-8 ButtonPart">
         <NavLink to="/shop">
           <motion.button
-            className="select-none border-2 border-[#F4A7B9] p-2 max-w-48 min-w-48 rounded-3xl text-white bg-[#B56576] hover:bg-transparent hover:text-[#B56576] transition-colors duration-300 shadow-lg dark:bg-[#F4A7B9] dark:border-[#F4A7B9] dark:text-[#1A1D21] dark:hover:bg-transparent dark:hover:text-[#F4A7B9]"
+            className="select-none border-2 font-semibold border-[#F2BED1] p-2 max-w-48 min-w-48 rounded-3xl text-white bg-[#F4A7B9]   transition-colors duration-300 shadow-lg dark:text-white"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 // Create a new Mongoose schema for the user model
 const userSchema = new mongoose.Schema({
-    googleId: { type: String, required: true, unique: true },
     // Define the properties of the user document
     firstname: { type: String, required: true }, // Name field, required
     lastname: { type: String, required: true }, // Name field, required

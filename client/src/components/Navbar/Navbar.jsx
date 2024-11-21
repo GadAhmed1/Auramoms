@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NavItem from "./NavItem.jsx";
 import NavButton from "../../layouts/ReUseable/NavButton.jsx";
@@ -6,16 +6,29 @@ import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
 import { CiShoppingCart } from "react-icons/ci";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { useCart } from "../context/CartContext.jsx";
+import { ShopContext } from "../../context/ShopContext.jsx";
+import { FaCircleUser } from "react-icons/fa6";
+import { TbLogout } from "react-icons/tb";
 
-const Navbar = () => {
+const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
-
+  const storedUsername = localStorage.getItem("username");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  const { token, settoken } = useContext(ShopContext); 
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    settoken("");
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
@@ -50,9 +63,33 @@ const Navbar = () => {
         </NavLink>
         <ThemeMode />
         <NavLink to="/Sign_up">
-          <NavButton className="bg-[#F4A7B9] dark:bg-white dark:text-black hover:bg-transparent hover:border-[#F2BED1] transition-colors duration-300">
-            Sign Up
-          </NavButton>
+          {!token ? (
+            // If the token does not exist (user is not logged in), show the login button
+
+            <NavButton
+              title="Login/Sign Up"
+              onClick={() => setshowLogin(true)}
+              className="bg-[#F4A7B9] dark:bg-white dark:text-black hover:bg-transparent hover:border-[#F2BED1] transition-colors duration-300"
+            >
+              Sign Up
+            </NavButton>
+          ) : (
+            // If the token exists (user is logged in), show a user icon with a dropdown menu
+            <div className="group relative">
+              <div className=" flex flex-col justify-center items-center text-center">
+              <FaCircleUser className="text-2xl flex justify-center items-center text-center" />
+              {storedUsername}
+              </div>
+            
+              
+              <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0">
+                <li onClick={logout} className=" flex justify-center items-center gap-2 ">
+                  <TbLogout className="text-black text-2xl" />
+                  <p>Logout</p>
+                </li>
+              </ul>
+            </div>
+          )}
         </NavLink>
       </div>
       <button

@@ -50,14 +50,14 @@ const ContactSection = () => {
 
   return (
     <section className="min-h-screen bg-white py-12 px-4 dark:bg-gray-900 text-gray-100">
-    <motion.div
+      <motion.div
         className="max-w-6xl mx-auto"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden dark:bg-gray-800">
-          <div className="grid lg:grid-cols-2 gap-0">
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden dark:bg-gray-800 border border-pink-500">
+          <div className="grid lg:grid-cols-2 gap-0 border-2 border-pink-500 ">
             <motion.div className="p-8 lg:p-12" {...fadeIn}>
               <div className="max-w-md mx-auto">
                 <h1 className="text-3xl font-bold text-gray-900 mb-2 dark:text-gray-100">

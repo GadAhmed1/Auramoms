@@ -22,6 +22,7 @@ import { checkToken } from "./middleware/auth.js";
 import corsOptions from "./config/Cors_Options.js";
 import passport from "passport";
 import router_google from './routes/auth.js';
+import userModel from "./models/userModel.js";
 dotenv.config(); // تحميل القيم من .env إلى process.env
 
 // إنشاء تطبيق Express
@@ -79,22 +80,45 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
+// app.delete("/delete-all-users", async (req, res) => {
+//   try {
+//     const result = await userModel.deleteMany({});
+//     res.status(200).json({
+//       message: "All users deleted successfully",
+//       deletedCount: result.deletedCount,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Failed to delete users" });
+//   }
+// });
+
 // مسار محمي باستخدام checkToken middleware
+
+// app.delete("/delete-google-id", async (req, res) => {
+//   try {
+//     // إزالة الحقل googleId من جميع المستندات في قاعدة البيانات
+//     await userModel.updateMany({}, { $unset: { googleId: "" } });
+
+//     // حذف المؤشر الفريد على googleId إذا كان موجودًا
+//     await mongoose.connection.db.collection("users").dropIndex("googleId_1");
+
+//     return res.status(200).json({
+//       success: true,
+//       message: "googleId has been removed from all documents and index dropped",
+//     });
+//   } catch (error) {
+//     console.error("Error removing googleId:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "An error occurred while removing googleId.",
+//     });
+//   }
+// });
 app.get('/protected', checkToken, (req, res) => {
   res.json({ message: 'Access granted', user: req.user });
 });
 
-// معالجة الأخطاء للصفحات غير الموجودة
-// app.all("*", (req, res) => {
-//     res.status(404);
-//     if (req.accepts("html")) {
-//         res.sendFile(path.join(__dirname, "views", "404.html"));
-//     } else if (req.accepts("json")) {
-//         res.json({ message: "404 Not Found" });
-//     } else {
-//         res.sendFile(path.join(__dirname, "views", "index.html"));
-//     }
-// });
 
 // تشغيل الخادم
 app.listen(PORT, () => {

@@ -174,7 +174,7 @@ function TheCenterPart() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1, repeatType: "mirror", infinite: true }}
       >
-        <img src="./image/MotherHeroSectionImage.png" alt="" />
+        <img src="/image/MotherHeroSectionImage.png" alt="" />
       </motion.div>
     </main>
   );
