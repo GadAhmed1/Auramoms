@@ -38,7 +38,7 @@ const uploadImage = async (file) => {
 
 
 // إضافة منتج جديد
- const addProduct = async (req, res) => {
+const addProduct = async (req, res) => {
   try {
     const { name, description, price, category, color } = req.body;
 
@@ -122,10 +122,10 @@ const removeProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, category , color, price } = req.body;
+    const { name, description, category, color, price } = req.body;
     const updatedProduct = await productModel.findByIdAndUpdate(
       id,
-      { name, description,category, color, price },
+      { name, description, category, color, price },
       { new: true }
     );
     if (updatedProduct) {

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ShopContext } from "../../context/ShopContext";
-import { GoogleLogin } from "@react-oauth/google";
 
 function SignUpForm({ setshowLogin }) {
   const navigate = useNavigate();
@@ -283,13 +282,7 @@ function SignUpForm({ setshowLogin }) {
             Sign up
           </button>
         </div>
-        <div className="my-4 flex justify-center rounded-full">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleFailure}
-            useOneTap
-          />
-        </div>
+
         <Link to="/Log_in" className="my-4 text-center">
           <p className="text-gray-500 text-lg">
             Already have an account?{" "}

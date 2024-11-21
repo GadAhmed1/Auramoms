@@ -26,7 +26,6 @@ const placeOrder = async (req, res) => {
 
     try {
         let order;
-
         if (paymentMethod === 'paypal') {
             const request = new paypal.orders.OrdersCreateRequest();
             request.prefer('return=representation');
@@ -72,7 +71,7 @@ const placeOrder = async (req, res) => {
         await user.save();
 
         await userModel.findByIdAndUpdate(userId, { cartData: {} }, { new: true });
-
+        console.log(userId);
         res.json({
             success: true,
             items,
@@ -80,6 +79,8 @@ const placeOrder = async (req, res) => {
             approveLink: order.result.links.find(link => link.rel === 'approve').href,
             clientSecret: paymentMethod === 'stripe' ? order.client_secret : null,
         });
+        
+        
 
     } catch (error) {
         console.error(error);
