@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import PropTypes from "prop-types";
 import NavItem from "./NavItem.jsx";
 import NavButton from "../../layouts/ReUseable/NavButton.jsx";
 import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
@@ -20,7 +21,7 @@ const Navbar = ({ setshowLogin }) => {
   const storedUsername = localStorage.getItem("username");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  const { token, settoken } = useContext(ShopContext); 
+  const { token, settoken } = useContext(ShopContext);
   const navigate = useNavigate();
 
   const logout = () => {
@@ -77,13 +78,15 @@ const Navbar = ({ setshowLogin }) => {
             // If the token exists (user is logged in), show a user icon with a dropdown menu
             <div className="group relative">
               <div className=" flex flex-col justify-center items-center text-center">
-              <FaCircleUser className="text-2xl flex justify-center items-center text-center" />
-              {storedUsername}
+                <FaCircleUser className="text-2xl flex justify-center items-center text-center" />
+                {storedUsername}
               </div>
-            
-              
+
               <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0">
-                <li onClick={logout} className=" flex justify-center items-center gap-2 ">
+                <li
+                  onClick={logout}
+                  className=" flex justify-center items-center gap-2 "
+                >
                   <TbLogout className="text-black text-2xl" />
                   <p>Logout</p>
                 </li>
@@ -116,12 +119,16 @@ const Navbar = ({ setshowLogin }) => {
   );
 };
 
-const MobileMenu = React.memo(({ isOpen, toggleMenu }) => (
+Navbar.propTypes = {
+  setshowLogin: PropTypes.func.isRequired,
+};
+
+const MobileMenu = React.memo(({ isOpen }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
-        key="mobileMenu"
-        className="flex flex-col fixed md:hidden top-24 bottom-0 right-0 w-[50vw] bg-white shadow-xl dark:bg-black text-black dark:text-white z-[40]"
+        key="mobileMen"
+        className="flex flex-col fixed md:hidden top-20 bottom-0 right-0 w-[50vw] bg-white shadow-xl dark:bg-slate-900 text-black dark:text-white z-[40]"
         initial={{ opacity: 0, x: "100%" }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: "100%" }}
@@ -130,7 +137,7 @@ const MobileMenu = React.memo(({ isOpen, toggleMenu }) => (
         <MobileItems />
         <div className="flex flex-col items-start gap-4 p-4">
           <select
-            className="border p-2 rounded-xl dark:bg-black dark:text-white hover:border-gray-700 transition-all"
+            className="border p-2 rounded-xl dark:bg-slate-900 dark:text-white hover:border-gray-700 transition-all"
             aria-label="Language Selector"
           >
             <option>EN</option>
@@ -145,5 +152,12 @@ const MobileMenu = React.memo(({ isOpen, toggleMenu }) => (
     )}
   </AnimatePresence>
 ));
+
+MobileMenu.displayName = "MobileMenu";
+
+MobileMenu.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func.isRequired,
+};
 
 export default Navbar;
