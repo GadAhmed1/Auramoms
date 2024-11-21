@@ -3,6 +3,7 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -23,7 +24,10 @@ const ProductCard = ({ product }) => {
     product.image4,
     product.image5,
   ].filter(Boolean);
-
+  const navigate = useNavigate();
+  const handleViewDetails = () => {
+    navigate(`/product/${product._id}`);
+  };
   return (
     <motion.div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div className="relative w-full h-48">
@@ -33,7 +37,6 @@ const ProductCard = ({ product }) => {
           className="w-full rounded-2xl h-full object-contain transition-transform duration-500 hover:scale-105"
         />
       </div>
-
       <div className="text-center">
         <span className="text-[#F4A7B9] font-semibold">{product.category}</span>
         <h1 className="text-xl font-bold text-black dark:text-white">
@@ -59,6 +62,12 @@ const ProductCard = ({ product }) => {
         >
           View
         </button>
+        <button
+          className="bg-[#F4A7B9] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+          onClick={handleViewDetails}
+        >
+          View details
+        </button>
 
         <button
           onClick={handleFavoriteToggle}
@@ -78,21 +87,28 @@ const ProductCard = ({ product }) => {
           aria-describedby="modal-description"
           onKeyDown={(e) => e.key === "Escape" && toggleModal(false)}
         >
-          <div className="bg-white rounded-lg w-11/12 max-w-2xl p-6">
+          <div className="bg-white rounded-lg w-11/12 max-w-2xl p-6 relative">
+            {/* Close Button */}
             <button
               onClick={() => toggleModal(false)}
-              className=" text-2xl font-bold text-gray-700 hover:text-gray-900 mb-2"
+              className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              style={{ zIndex: 10 }}
+              aria-label="Close Modal"
             >
               ✖
             </button>
+
             <div>
+              {/* Main Image */}
               <img
                 src={currentImage}
                 alt={`${product.name} image`}
-                className="w-full h-auto rounded-lg"
+                className="w-full h-[400px] rounded-lg"
               />
+
+              {/* Thumbnails */}
               {images.length > 1 && (
-                <div className="flex gap-2 my-2">
+                <div className="flex gap-2 my-2 justify-center items-center">
                   {images.map((img, index) => (
                     <img
                       key={index}
@@ -114,6 +130,7 @@ const ProductCard = ({ product }) => {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     image: PropTypes.string,
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,

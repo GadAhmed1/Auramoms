@@ -14,7 +14,7 @@ const AboutUs = lazy(() => import("./components/About_US/aboutus"));
 const Shop = lazy(() => import("./components/Shop/Shop"));
 const SignUp = lazy(() => import("./components/Sign up/signUp"));
 const Login = lazy(() => import("./components/Log in/login"));
-const ProductPage = lazy(() => import("./components/Shop/productPage"));
+const ProductDetails = lazy(() => import("./components/Shop/ProductDetails"));
 const Cart = lazy(() => import("./components/Shop/Cart"));
 const ContactForm_Email = lazy(
   () => import("./components/Contact_Us/ContactForm_Email")
@@ -70,7 +70,7 @@ function App() {
             />
             <Route
               path="/product/:id"
-              element={<DelayedRoute element={<ProductPage />} />}
+              element={<DelayedRoute element={<ProductDetails />} />}
             />
             <Route path="/cart" element={<DelayedRoute element={<Cart />} />} />
           </Routes>
