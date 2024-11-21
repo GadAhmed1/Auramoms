@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import ReactFlagsSelect from "react-flags-select";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ShopContext } from "../../context/ShopContext";
@@ -81,7 +81,7 @@ function SignUpForm({ setshowLogin }) {
       const { credential } = response;
       // Send the Google ID token to the backend for verification
       const result = await axios.post(
-        "http://localhost:3000/auth/google",
+        "http://localhost:3000/users/google-login",
         {
           credential,
         }
@@ -277,34 +277,34 @@ function SignUpForm({ setshowLogin }) {
               .
             </label>
           </div>
-        </div>
-        <div className="my-5 flex justify-center items-center">
+
           <button
-            className="bg-formColor p-3 text-white font-medium rounded-xl"
+            className="bg-formColor px-6 py-3 text-white font-medium rounded-xl"
             type="submit"
           >
             Sign up
           </button>
         </div>
-        <div className="my-4 flex justify-center rounded-full">
+
+        <div className="my-4 text-center">
+          <p className="text-gray-500 text-lg">
+            Already have an account?{" "}
+            <button
+              className="font-medium text-formColor hover:text-darkFormColor"
+              onClick={() => setshowLogin(true)}
+            >
+              Login now
+            </button>
+          </p>
+        </div>
+
+        <div className="my-4 flex justify-center">
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
             onError={handleGoogleFailure}
             useOneTap
           />
         </div>
-        <Link to="/Log_in" className="my-4 text-center">
-          <p className="text-gray-500 text-lg">
-            Already have an account?{" "}
-            <button
-              className="font-medium text-formColor hover:text-darkFormColor"
-              
-            >
-              Login now
-            </button>
-          </p>
-        </Link>
-        <br />
       </form>
     </div>
   );

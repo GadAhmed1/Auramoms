@@ -23,6 +23,14 @@ function TheCenterPart() {
       transition: { duration: 0.8, ease: "easeInOut" },
     },
   };
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
 
   const buttonVariants = {
     hidden: { opacity: 0, scale: 0.8 },
@@ -54,6 +62,15 @@ function TheCenterPart() {
         animate="visible"
         variants={textVariants}
       >
+        {/* Highlight Badge */}
+        <motion.div
+            variants={fadeInUp}
+            className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-pink-100 dark:bg-pink-900/30"
+          >
+            <span className="text-sm font-medium text-pink-600 dark:text-pink-300">
+              Discover Our Collection
+            </span>
+          </motion.div>
         {/* Big Text Animation */}
         <motion.div className="TheBigTxt">
           <h3
@@ -79,7 +96,7 @@ function TheCenterPart() {
           <NavLink to="/Shop">
             {" "}
             <motion.button
-              className="select-none border-2 border-[#F2BED1] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#F4A7B9] hover:bg-transparent hover:text-black transition-colors duration-300"
+              className="select-none border-2 border-[#F2BED1] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#f07a96] hover:bg-transparent hover:text-black transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

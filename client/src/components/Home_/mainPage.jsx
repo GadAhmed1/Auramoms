@@ -13,7 +13,6 @@ function HomePage() {
       <TheCenterPatInHeroSection />
       <TheGreenMan />
       {/* <Divider1 /> */}
-      <PopularProducts />
       <WhoWeAre />
       <Footer />
     </div>
