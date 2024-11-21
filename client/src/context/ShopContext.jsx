@@ -1,32 +1,35 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useMemo } from "react";
+import PropTypes from "prop-types";
 
 export const ShopContext = createContext(null);
 
-const ShopContextprovider = (props) => {
-    const url = `http://localhost:3000`;
-    const [token, settoken] = useState("");
+const ShopContextProvider = ({ children }) => {
+  const url = `http://localhost:3000`;
+  const [token, setToken] = useState("");
 
-    useEffect(() => {
-        async function loadData() {
-            if (localStorage.getItem("token")) {
-                const storedToken = localStorage.getItem("token");
-                settoken(storedToken);
-            }   
-        }
-        loadData();
-    }, []);
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
-    const ContentValue = {
-        url,
-        token,
-        settoken
-    };
+  const contentValue = useMemo(
+    () => ({
+      url,
+      token,
+      setToken,
+    }),
+    [url, token]
+  );
 
-    return (
-        <ShopContext.Provider value={ContentValue}>
-            {props.children}
-        </ShopContext.Provider>
-    );
+  return (
+    <ShopContext.Provider value={contentValue}>{children}</ShopContext.Provider>
+  );
 };
 
-export default ShopContextprovider;
+ShopContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default ShopContextProvider;

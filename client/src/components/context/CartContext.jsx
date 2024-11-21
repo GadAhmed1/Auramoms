@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useMemo } from "react";
+import PropTypes from "prop-types";
 
 const CartContext = createContext();
 
@@ -12,15 +13,18 @@ export const CartProvider = ({ children }) => {
       prev.filter((item) => item.name !== itemToRemove.name)
     );
 
-  const cartCount = cartItems.length;
+  const cartCount = useMemo(() => cartItems.length, [cartItems]);
 
-  return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, cartCount }}
-    >
-      {children}
-    </CartContext.Provider>
+  const value = useMemo(
+    () => ({ cartItems, addToCart, removeFromCart, cartCount }),
+    [cartItems, cartCount]
   );
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+};
+
+CartProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export const useCart = () => useContext(CartContext);

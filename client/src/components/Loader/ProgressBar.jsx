@@ -25,7 +25,7 @@ const ProgressBar = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-full h-2 bg-blue-400 z-50"
+      className="fixed top-0 left-0 w-full h-2 bg-pink-500 z-50"
       animate={{
         width: `${scrollProgress}%`, // Animate the width smoothly
       }}

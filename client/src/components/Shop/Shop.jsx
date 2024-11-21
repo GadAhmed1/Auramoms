@@ -3,6 +3,7 @@ import Sidebar from "./SideBar";
 import PromoPanner from "./promoPanner";
 import { FiMenu } from "react-icons/fi"; // Icon for sidebar toggle
 import ProductList from "./ProductList";
+import ProgressBar from "../Loader/ProgressBar";
 // import ProductCard from "./ProductCard";
 
 const Shop = () => {
@@ -10,6 +11,7 @@ const Shop = () => {
 
   return (
     <main className="flex flex-col md:flex-row bg-gray-100 dark:bg-DarkGround2">
+      <ProgressBar />
       {/* Sidebar */}
       <aside
         className={`${

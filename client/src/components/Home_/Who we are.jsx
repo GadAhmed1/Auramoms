@@ -2,7 +2,7 @@
 // src/components/WhoWeAre.js
 import { motion } from "framer-motion";
 import React from "react";
-import Part from "./whoWeAReCompo";
+import Part from "../About_US/WhoWeAre/whoWeAReCompo";
 import { NavLink } from "react-router-dom";
 
 function WhoWeAre() {
