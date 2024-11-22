@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ShopContext } from "../../context/ShopContext";
-import LoginWithGoogle from "../Log in/GoogleAuth";
 
 function SignUpForm({ setshowLogin }) {
   const navigate = useNavigate();
@@ -237,7 +236,6 @@ function SignUpForm({ setshowLogin }) {
           >
             Sign up
           </button>
-          <LoginWithGoogle />
         </div>
 
         <Link to="/Log_in" className="my-4 text-center">
