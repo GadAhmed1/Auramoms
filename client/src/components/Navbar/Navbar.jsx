@@ -6,7 +6,7 @@ import NavButton from "../../layouts/ReUseable/NavButton.jsx";
 import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
-import { FaCartShopping , FaHeartCirclePlus  } from "react-icons/fa6";
+import { FaCartShopping, FaHeartCirclePlus } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { useCart } from "../context/CartContext.jsx";
@@ -27,7 +27,7 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     setToken("");
- 
+
   };
 
   useEffect(() => {
@@ -45,19 +45,19 @@ const Navbar = ({ setshowLogin }) => {
     >
       <AuraMoms />
       <NavItem />
-      
+
       <div className="items-center space-x-6 hidden md:flex">
 
-      <NavLink to="/favorites" className="relative text-lg font-medium hover:text-gray-300">
-      <FaHeartCirclePlus
-            className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"
+        <NavLink to="/favorites" className="relative text-lg font-medium hover:text-gray-300">
+          <FaHeartCirclePlus
+            className="cursor-pointer text-3xl text-[#F4A7B9] dark:text-[#d86a84] hover:text-gray-500 transition-all"
             aria-label="Favorites Cart"
           />
-    </NavLink>
+        </NavLink>
 
         <NavLink to="/Cart" className="relative">
           <FaCartShopping
-            className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"
+            className="cursor-pointer text-3xl text-[#F4A7B9] dark:text-[#d86a84] hover:text-gray-500 transition-all"
             aria-label="Shopping Cart"
           />
 
@@ -78,19 +78,19 @@ const Navbar = ({ setshowLogin }) => {
             <NavButton
               title="Login/Sign Up"
               onClick={() => setshowLogin(true)}
-              className="w-full text-sm px-2 py-4 bg-[#F4A7B9] hover:scale-105 hover:bg-[#e790b0] border-none"
+              className="w-full text-sm px-2 py-4 bg-[#F4A7B9] dark:bg-[#d86a84] hover:scale-105 hover:bg-[#e790b0] border-none"
             >
               Sign Up
             </NavButton>
           ) : (
             // If the token exists (user is logged in), show a user icon with a dropdown menu
             <div className="group relative">
-              <div className=" flex flex-col justify-center items-center text-center">
-                <FaCircleUser className="text-2xl flex justify-center items-center text-center" />
-                {storedUsername}
+              <div className="flex flex-col justify-center items-center text-center bg-[#F4A7B9] px-2.5 py-1.5 rounded-xl dark:text-black dark:bg-[#d86a84]">
+                <FaCircleUser className="text-2xl text-white" />
+                <span className="text-white">{storedUsername}</span>
               </div>
 
-              <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0">
+              <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0 text-black">
                 <li
                   onClick={logout}
                   className=" flex justify-center items-center gap-2 "

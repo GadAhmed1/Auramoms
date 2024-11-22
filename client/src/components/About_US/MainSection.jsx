@@ -11,7 +11,7 @@ const MainSection = () => {
   return (
     <>
       {/* Mission Section (Image Left) */}
-      <section className="py-24 px-4 dark:bg-DarkBackground dark:text-lightGrayColor border-b-2 bg-AuraPinkColor">
+      <section className="py-24 px-4 dark:bg-DarkBackground  dark:text-lightGrayColor  bg-AuraPinkColor">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
           {/* Image Section */}
           <motion.div
@@ -22,7 +22,7 @@ const MainSection = () => {
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <motion.img
-              src="../../../public/image/Mom1.jpg"
+              src="/image/Mom1.jpg"
               alt="AuraMoms mission"
               className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
             />
@@ -48,7 +48,7 @@ const MainSection = () => {
       </section>
 
       {/* Goals Section (Image Right) */}
-      <section className="py-24 px-4 bg-muted/30 border-b-2 dark:bg-DarkBackground dark:text-lightGrayColor">
+      <section className="py-24 px-4 bg-muted/30  dark:bg-[#080e1b] dark:text-lightGrayColor">
         <div className="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Text Section */}
           <motion.div
@@ -84,7 +84,7 @@ const MainSection = () => {
       </section>
 
       {/* Unique Features Section (Image Left) */}
-      <section className="py-24 px-4 border-b-2 dark:bg-DarkBackground dark:text-lightGrayColor bg-AuraPinkColor">
+      <section className="py-24 px-4  dark:bg-DarkBackground dark:text-lightGrayColor bg-AuraPinkColor">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
           {/* Image Section */}
           <motion.div

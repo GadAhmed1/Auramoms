@@ -55,7 +55,7 @@ const ProductCard = ({ product }) => {
 
       <div className="flex items-center gap-4 mt-3">
         <button
-          className="bg-[#F4A7B9] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+          className="bg-[#F4A7B9] dark:bg-[#d86a84] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
           onClick={() => addToCart(product)}
         >
           Add to Cart

@@ -74,14 +74,14 @@ const ContactForm_Email = () => {
 
   return (
     <>
-      <section className="min-h-screen bg-white py-12 px-4 dark:bg-gray-900 text-gray-100 ">
+      <section className="min-h-screen bg-white py-12 px-8 dark:bg-gray-900 text-gray-100 ">
         <motion.div
-          className="max-w-6xl mx-auto flex justify-center items-center"
+          className="max-w-7xl mx-auto flex justify-center items-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden mx-auto dark:bg-gray-800 border-2 border-gray-200 flex flex-col md:flex-row">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden mx-auto dark:bg-gray-800 border-2 border-gray-200 dark:border-none flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 h-64 md:h-auto order-1 md:order-2">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110574.2913660733!2d32.549806!3d29.973709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145a9f8f8f8f8f8f%3A0x4c5b4c5b4c5b4c5b!2sSuez%2C%20Egypt!5e0!3m2!1sen!2sus!4v1633021234567!5m2!1sen!2sus"
@@ -96,7 +96,7 @@ const ContactForm_Email = () => {
             <div className="flex justify-center items-center w-full md:w-1/2 order-2 md:order-1">
               <motion.div className="p-8 lg:p-12" {...fadeIn}>
                 <div className="max-w-md mx-auto text-center">
-                  <h1 className="text-3xl font-bold text-pink-600 mb-2 dark:text-PinkyColor">
+                  <h1 className="text-3xl font-bold text-pink-600 dark:text-[#d86a84] mb-2">
                     Contact Our
                   </h1>
                   <p className="text-pink-600 font-semibold mb-8 dark:text-PinkyColor">
@@ -113,7 +113,7 @@ const ContactForm_Email = () => {
                       placeholder="Name"
                       value={formData.user_name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none dark:bg-gray-700 text-slate-600 dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
+                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none dark:bg-gray-700 text-slate-600 dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-dark:bg-[#d86a84]"
                     />
                     <input
                       name="user_email"

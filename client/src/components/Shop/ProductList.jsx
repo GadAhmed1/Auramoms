@@ -113,7 +113,7 @@ const ProductList = () => {
             onClick={() => handleCategoryChange(category)}
             className={`px-4 py-2 rounded-lg shadow-sm transition duration-200 ease-in-out ${
               selectedCategory === category
-                ? "bg-[#ee88a0] text-white"
+                ? "bg-[#ee88a0] text-white dark:bg-[#d86a84]"
                 : "bg-white text-gray-800 border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
             }`}
           >

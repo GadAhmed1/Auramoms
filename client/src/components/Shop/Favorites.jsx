@@ -1,5 +1,4 @@
 import { useFavorites } from "../context/FavoritesContext";
-import { AiOutlineDelete } from "react-icons/ai";
 
 const Favorites = () => {
   const { FavoritesItems, removeFromFavorites } = useFavorites();
