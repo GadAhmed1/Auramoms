@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { ShopContext } from "../../context/ShopContext";
-import { GoogleLogin } from "@react-oauth/google";
+import LoginWithGoogle from "../Log in/GoogleAuth";
 
 function SignUpForm({ setshowLogin }) {
   const navigate = useNavigate();
@@ -73,54 +73,6 @@ function SignUpForm({ setshowLogin }) {
         });
       }
     }
-  };
-
-  const handleGoogleSuccess = async (response) => {
-    console.log(response); // اضافة طباعة لفحص الـ response
-    try {
-      const { credential } = response;
-      // Send the Google ID token to the backend for verification
-      const result = await axios.post(
-        "http://localhost:3000/auth/google",
-        {
-          credential,
-        }
-      );
-
-      if (result.data.success) {
-        settoken(result.data.accessToken);
-        localStorage.setItem("token", result.data.accessToken);
-        localStorage.setItem("username", result.data.firstname);
-        Swal.fire({
-          title: "Welcome Back!",
-          text: "Successfully logged in with Google",
-          icon: "success",
-        });
-        navigate("/");
-      } else {
-        Swal.fire({
-          title: "Google Login Failed",
-          text: result.data.message || "Login failed. Please try again.",
-          icon: "error",
-        });
-      }
-    } catch (error) {
-      console.error(error); // اضافة طباعة للأخطاء لمعرفة السبب
-      Swal.fire({
-        title: "Google Login Failed",
-        text: error.message || "Login failed. Please try again.",
-        icon: "error",
-      });
-      console.log(error);
-    }
-  };
-
-  const handleGoogleFailure = (error) => {
-    Swal.fire({
-      title: "Google Login Failed",
-      text: error.message || "Login failed. Please try again.",
-      icon: "error",
-    });
   };
 
   const validate = (values) => {
@@ -285,27 +237,18 @@ function SignUpForm({ setshowLogin }) {
           >
             Sign up
           </button>
+          <LoginWithGoogle />
         </div>
-        <div className="my-4 flex justify-center rounded-full">
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleFailure}
-            useOneTap
-          />
-        </div>
+
         <Link to="/Log_in" className="my-4 text-center">
           <p className="text-gray-500 text-lg">
             Already have an account?{" "}
-            <button
-              className="font-medium text-formColor hover:text-darkFormColor"
-              
-            >
+            <button className="font-medium text-formColor hover:text-darkFormColor">
               Login now
             </button>
           </p>
         </Link>
         <br />
-   
       </form>
     </div>
   );
