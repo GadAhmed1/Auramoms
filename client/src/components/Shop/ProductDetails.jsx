@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import React from "react";
+
 const ProductDetails = () => {
   const { id } = useParams(); // Get the product ID from the route
   const [product, setProduct] = useState(null);
@@ -60,7 +61,7 @@ const ProductDetails = () => {
         >
           <motion.img
             src={currentImage}
-            alt={product.name}
+            alt={product?.name || "Product Image"}
             className="w-full h-full object-cover rounded-xl"
             style={{
               transformOrigin: `${mousePosition.x} ${mousePosition.y}`,
@@ -75,18 +76,18 @@ const ProductDetails = () => {
         {/* Thumbnails */}
         <div className="flex flex-row flex-wrap gap-2 justify-center lg:justify-start">
           {[
-            product.image,
-            product.image2,
-            product.image3,
-            product.image4,
-            product.image5,
+            product?.image,
+            product?.image2,
+            product?.image3,
+            product?.image4,
+            product?.image5,
           ]
             .filter(Boolean)
             .map((image, index) => (
               <motion.img
                 key={index}
                 src={image}
-                alt={`${product.name} - ${index + 1}`}
+                alt={`${product?.name || "Product"} - ${index + 1}`}
                 className="w-16 h-16 lg:w-20 lg:h-20 rounded-md cursor-pointer object-cover shadow-md"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 100 }}
@@ -101,7 +102,7 @@ const ProductDetails = () => {
         {/* Product Name and Category */}
         <div>
           <span className="text-cardTextColor font-semibold text-sm lg:text-base">
-            {product.category}
+            {product?.category || "Category"}
           </span>
           <motion.h1
             className="text-2xl lg:text-3xl font-bold text-black dark:text-white"
@@ -109,7 +110,7 @@ const ProductDetails = () => {
             animate={{ y: 0 }}
             transition={{ type: "spring", stiffness: 100 }}
           >
-            {product.name}
+            {product?.name || "Product Name"}
           </motion.h1>
         </div>
 
@@ -120,21 +121,25 @@ const ProductDetails = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
         >
-          {product.description.split("\n\n").map((paragraph, index) => (
-            <p key={index} className="leading-relaxed">
-              {paragraph.split("\n").map((line, idx) => (
-                <React.Fragment key={idx}>
-                  {line.includes(":") ? (
-                    <span className="font-semibold">{line.split(":")[0]}:</span>
-                  ) : (
-                    <span>{line}</span>
-                  )}
-                  {line.includes(":") && ` ${line.split(":")[1]}`}
-                  <br />
-                </React.Fragment>
-              ))}
-            </p>
-          ))}
+          {product?.description
+            ? product.description.split("\n\n").map((paragraph, index) => (
+                <p key={index} className="leading-relaxed">
+                  {paragraph.split("\n").map((line, idx) => (
+                    <React.Fragment key={idx}>
+                      {line.includes(":") ? (
+                        <span className="font-semibold">
+                          {line.split(":")[0]}:
+                        </span>
+                      ) : (
+                        <span>{line}</span>
+                      )}
+                      {line.includes(":") && ` ${line.split(":")[1]}`}
+                      <br />
+                    </React.Fragment>
+                  ))}
+                </p>
+              ))
+            : "No description available."}
         </motion.div>
 
         {/* Product Price */}
@@ -144,7 +149,7 @@ const ProductDetails = () => {
           animate={{ x: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
         >
-          Price: ${product.price}
+          Price: ${product?.price || "N/A"}
         </motion.h6>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
 import PropTypes from "prop-types";
@@ -11,11 +12,13 @@ const ProductCard = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(product.image);
   const { addToCart } = useCart();
   const { addToFavorites } = useFavorites();
-
+  const navigate = useNavigate();
   const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
   const toggleQuickView = (state) => setShowQuickView(state);
   const toggleModal = (state) => setShowModal(state);
-
+  const handleOpenProductDetails = () => {
+    navigate(`/product/${product._id}`);
+  };
   return (
     <div className="flex flex-col justify-center  gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div
@@ -24,6 +27,7 @@ const ProductCard = ({ product }) => {
         onMouseLeave={() => toggleQuickView(false)}
       >
         <img
+          onClick={handleOpenProductDetails}
           src={product.image}
           alt={product.name}
           className={`w-full rounded-2xl h-full object-contain transition-transform duration-500 ${
@@ -173,6 +177,7 @@ ProductCard.propTypes = {
     image3: PropTypes.string,
     image4: PropTypes.string,
     image5: PropTypes.string,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
 };
 
