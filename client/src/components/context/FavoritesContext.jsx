@@ -1,33 +1,20 @@
 import { createContext, useContext, useState, useMemo } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+// import axios from "axios";
 
 const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
   const [FavoritesItems, setFavoritesItems] = useState([]);
 
-  const addToFavorites = async (item) => {
-    try {
-
-      const response = await axios.post("http://localhost:4000/users/favourites/add", {
-        itemId: item.id, 
-        userId: item.userId,
-      });
-  
-      if (response.status === 200) {
-        setFavoritesItems((prev) => {
-          if (prev.some((FavoritesItem) => FavoritesItem.name === item.name)) {
-            return prev; 
-          }
-          return [...prev, { ...item }];
-        });
+  const addToFavorites = (item) => {
+    setFavoritesItems((prev) => {
+      if (prev.some((FavoritesItem) => FavoritesItem.name === item.name)) {
+        return prev; 
       }
-    } catch (error) {
-      console.error("Error adding to favourites:", error);
-    }
+      return [...prev, { ...item }];
+    });
   };
-  
   
 
 

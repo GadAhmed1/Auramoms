@@ -6,11 +6,10 @@ import NavButton from "../../layouts/ReUseable/NavButton.jsx";
 import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
-import { FaCartShopping } from "react-icons/fa6";
+import { FaCartShopping , FaHeartCirclePlus  } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { useCart } from "../context/CartContext.jsx";
-import { useFavorites } from "../context/FavoritesContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
 import { FaCircleUser } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
@@ -47,7 +46,16 @@ const Navbar = ({ setshowLogin }) => {
     >
       <AuraMoms />
       <NavItem />
+      
       <div className="items-center space-x-6 hidden md:flex">
+
+      <NavLink to="/favorites" className="relative text-lg font-medium hover:text-gray-300">
+      <FaHeartCirclePlus
+            className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"
+            aria-label="Favorites Cart"
+          />
+    </NavLink>
+
         <NavLink to="/Cart" className="relative">
           <FaCartShopping
             className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"
@@ -63,7 +71,6 @@ const Navbar = ({ setshowLogin }) => {
             </span>
           )}
         </NavLink>
-        <NavLink to="/favorites" className="relative">Fav</NavLink>
         <ThemeMode />
         <NavLink to="/Sign_up">
           {!token ? (
