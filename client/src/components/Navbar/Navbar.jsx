@@ -6,7 +6,7 @@ import NavButton from "../../layouts/ReUseable/NavButton.jsx";
 import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
-import { FaCartShopping } from "react-icons/fa6";
+import { FaCartShopping , FaHeartCirclePlus  } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { useCart } from "../context/CartContext.jsx";
@@ -21,14 +21,13 @@ const Navbar = ({ setshowLogin }) => {
   const storedUsername = localStorage.getItem("username");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  const { token, settoken } = useContext(ShopContext);
-  const navigate = useNavigate();
+  const { token, setToken } = useContext(ShopContext);
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    settoken("");
-    navigate("/");
+    setToken("");
+ 
   };
 
   useEffect(() => {
@@ -42,11 +41,20 @@ const Navbar = ({ setshowLogin }) => {
       initial={hidden ? "hidden" : "visible"}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="flex sticky top-0 w-full justify-between items-center px-4 h-20 font-playpen font-bold  bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263] "
+      className="flex sticky top-0 w-full justify-between items-center px-4 h-20 font-Cabin bg-AuraPinkColor shadow-md dark:bg-slate-800 z-50 text-[#799263]"
     >
       <AuraMoms />
       <NavItem />
+      
       <div className="items-center space-x-6 hidden md:flex">
+
+      <NavLink to="/favorites" className="relative text-lg font-medium hover:text-gray-300">
+      <FaHeartCirclePlus
+            className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"
+            aria-label="Favorites Cart"
+          />
+    </NavLink>
+
         <NavLink to="/Cart" className="relative">
           <FaCartShopping
             className="cursor-pointer text-3xl text-[#F4A7B9] hover:text-gray-500 transition-all"

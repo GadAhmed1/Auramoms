@@ -9,7 +9,7 @@ function LoginForm() {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
-  const { settoken } = useContext(ShopContext);
+  const { setToken } = useContext(ShopContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +35,7 @@ function LoginForm() {
       );
 
       if (response.data.success) {
-        settoken(response.data.accessToken);
+        setToken(response.data.accessToken);
         localStorage.setItem("token", response.data.accessToken);
         localStorage.setItem("username", response.data.email);
         Swal.fire({

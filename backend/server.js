@@ -16,6 +16,7 @@ import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import { checkToken } from "./middleware/auth.js";
 import corsOptions from "./config/Cors_Options.js";
+import userModel from "./models/userModel.js";
 
 dotenv.config();
 
@@ -49,7 +50,14 @@ app.use("/users", userROUTE);
 app.use("/products", productRouter);
 app.use("/carts", cartRouter);
 app.use("/orders", orderRouter);
-
+app.delete('/deleteAllUsers', async (req, res) => {
+  try {
+    await userModel.deleteMany({});
+    res.status(200).json({ success: true, message: 'All users deleted successfully!' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to delete users', error: error.message });
+  }
+});
 app.get('/protected', checkToken, (req, res) => {
   res.json({ message: 'Access granted', user: req.user });
 });
