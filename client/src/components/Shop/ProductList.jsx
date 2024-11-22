@@ -49,9 +49,9 @@ const ProductList = () => {
     return (
       <div className="flex flex-col justify-center items-center h-[50vh]">
         {/* Spinner */}
-        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-cardColor"></div>
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-pink-500"></div>
         {/* Loading Text */}
-        <div className="mt-4 text-2xl font-semibold text-gray-800 dark:text-white animate-pulse">
+        <div className="mt-4 text-2xl font-semibold text-pink-500 dark:text-white animate-pulse">
           Loading products...
         </div>
       </div>

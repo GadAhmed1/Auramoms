@@ -28,13 +28,15 @@ const ProductCard = ({ product }) => {
   const handleViewDetails = () => {
     navigate(`/product/${product._id}`);
   };
+
   return (
     <motion.div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div className="relative w-full h-48">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full rounded-2xl h-full object-contain transition-transform duration-500 hover:scale-105"
+          className="w-full rounded-2xl h-full object-contain transition-transform duration-500 hover:scale-105 cursor-pointer"
+          onClick={handleViewDetails} // Show product details on image click
         />
       </div>
       <div className="text-center">
@@ -58,15 +60,9 @@ const ProductCard = ({ product }) => {
         </button>
         <button
           className="flex justify-center items-center bg-white text-black dark:text-white dark:bg-gray-800 border-PinkyColor border-2 font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105 hover:bg-gray-200 dark:hover:bg-gray-700"
-          onClick={() => toggleModal(true)}
-        >
-          View
-        </button>
-        <button
-          className="bg-[#F4A7B9] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
           onClick={handleViewDetails}
         >
-          View details
+          View
         </button>
 
         <button
@@ -130,7 +126,7 @@ const ProductCard = ({ product }) => {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     image: PropTypes.string,
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
