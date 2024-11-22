@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Home, ShoppingCart, Heart, User } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
 
 const VerticalSidebar = () => {
   const [activeItem, setActiveItem] = useState("home");
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const items = [
     { id: "home", icon: Home, label: "Home" },
     { id: "loved", icon: Heart, label: "Loved Items" },
-    { id: "cart", icon: ShoppingCart, label: "Shopping Cart" },
+    { id: "cart", icon: ShoppingCart, label: "Shopping Cart", route: "/cart" }, // Add route for Shopping Cart
     { id: "user", icon: User, label: "User Profile" },
   ];
 
@@ -42,7 +44,10 @@ const VerticalSidebar = () => {
             whileHover={{ scale: 1.05 }}
           >
             <motion.button
-              onClick={() => setActiveItem(item.id)}
+              onClick={() => {
+                setActiveItem(item.id);
+                if (item.route) navigate(item.route); // Navigate to route if it exists
+              }}
               className={`p-3 rounded-full transition-colors duration-200 ${
                 activeItem === item.id
                   ? "bg-orange-500 dark:bg-orange-400 text-white"

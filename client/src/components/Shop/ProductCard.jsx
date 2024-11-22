@@ -7,6 +7,7 @@ const ProductCard = ({ product }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuickView, setShowQuickView] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [currentImage, setCurrentImage] = useState(product.image);
   const { addToCart } = useCart();
 
   const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
@@ -71,23 +72,40 @@ const ProductCard = ({ product }) => {
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full h-auto relative p-6 overflow-y-auto">
+          <div className="bg-white rounded-lg w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh]">
             <button
               onClick={() => toggleModal(false)}
               className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900"
             >
               ✖
             </button>
-
             <div className="flex flex-col lg:flex-row gap-6">
               <div className="lg:w-1/2">
                 <img
-                  src={product.image}
-                  alt={product.name}
+                  src={currentImage}
+                  alt={`${product.name} image`}
                   className="w-full h-auto rounded-lg object-contain"
                 />
+                <div className="flex gap-2 mt-2">
+                  {[
+                    product.image,
+                    product.image2,
+                    product.image3,
+                    product.image4,
+                    product.image5,
+                  ]
+                    .filter(Boolean)
+                    .map((img, index) => (
+                      <img
+                        key={index}
+                        src={img}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-75"
+                        onClick={() => setCurrentImage(img)}
+                      />
+                    ))}
+                </div>
               </div>
-
               <div className="lg:w-1/2 flex flex-col gap-4">
                 <div>
                   <h1 className="text-2xl font-bold text-black">
@@ -98,23 +116,10 @@ const ProductCard = ({ product }) => {
                   </h2>
                 </div>
 
-                <p className="text-gray-600">
-                  {product.description.substring(0, 100) ||
+                <p className="text-gray-600 overflow-y-auto max-h-24">
+                  {product.description ||
                     "No detailed description is available for this product at the moment."}
                 </p>
-
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold text-black">
-                    Specifications:
-                  </h3>
-                  <ul className="list-disc list-inside text-gray-600 mt-2">
-                    <li>Material: High-quality synthetic fibers</li>
-                    <li>Category: {product.category}</li>
-                    <li>Available Sizes: S, M, L, XL</li>
-                    <li>Warranty: 1 year</li>
-                  </ul>
-                </div>
-
                 <div className="flex items-center gap-4 mt-4">
                   <button className="bg-cardColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
                     Add to Cart
@@ -145,11 +150,18 @@ const ProductCard = ({ product }) => {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    image: PropTypes.string.isRequired,
+    image: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ]).isRequired,
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     description: PropTypes.string,
+    image2: PropTypes.string,
+    image3: PropTypes.string,
+    image4: PropTypes.string,
+    image5: PropTypes.string,
   }).isRequired,
 };
 

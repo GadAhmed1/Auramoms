@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Users, Heart, Globe, Award, Zap, Shield } from "lucide-react";
 import FAQs from "./FAQS";
-import ProgressBar from "./WhoWeAre/ProgressBar";
+import ProgressBar from "../Loader/ProgressBar";
 import { useEffect, useCallback } from "react";
 import ProductDesign from "./ProductDesign";
 import MainSection from "./MainSection";
@@ -175,7 +175,6 @@ const AboutUs = () => {
           </motion.div>
         </div>
       </section>
-
       {/* Products Designed Section */}
       <section className="py-24 px-4 border-b-2 dark:bg-DarkBackground dark:text-lightGrayColor">
         <div className="max-w-6xl mx-auto flex flex-col items-center gap-12">
