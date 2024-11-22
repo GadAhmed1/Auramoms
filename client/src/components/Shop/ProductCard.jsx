@@ -40,7 +40,6 @@ const ProductCard = ({ product }) => {
           </div>
         )}
       </div>
-
       <div className="text-center">
         <span className="text-[#F4A7B9] font-semibold">{product.category}</span>
         <h1 className="text-xl font-bold text-black dark:text-white">
