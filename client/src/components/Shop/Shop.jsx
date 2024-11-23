@@ -1,7 +1,7 @@
 import PromoPanner from "./promoPanner";
 import ProductList from "./ProductList";
 import ProgressBar from "../Loader/ProgressBar";
-import Footer from "../Footer/footer.jsx";
+import Footer from "../Footer/Footer.jsx";
 const Shop = () => {
   return (
     <>

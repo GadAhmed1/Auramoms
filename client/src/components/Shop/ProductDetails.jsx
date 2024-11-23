@@ -50,9 +50,45 @@ const ProductDetails = () => {
     setMousePosition({ x: `${x}%`, y: `${y}%` });
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) {
+    return (
+      <div className="flex flex-col justify-center items-center h-[50vh]">
+        {/* Spinner */}
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-pink-500"></div>
+        {/* Loading Text */}
+        <div className="mt-4 text-2xl font-semibold text-pink-500 dark:text-white animate-pulse">
+          Loading product...
+        </div>
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <p>
+        {" "}
+        return (
+        <div className="flex flex-col justify-center items-center h-[50vh] bg-red-100 rounded-lg shadow-lg p-6 space-y-4">
+          {/* Error Icon */}
+          <div className="text-red-500 text-5xl mb-4 animate-bounce">⚠️</div>
 
+          {/* Error Text */}
+          <div className="text-center text-2xl font-semibold text-red-700">
+            Oops! Something went wrong.
+          </div>
+          <p className="text-red-600 mt-2 text-lg">{error}</p>
+
+          {/* Retry Button */}
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-6 bg-red-500 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-red-600 active:scale-95 transition-transform"
+          >
+            Retry
+          </button>
+        </div>
+        );
+      </p>
+    );
+  }
   return (
     <main className="dark:bg-gray-900 ">
       <div className="flex flex-col  gap-8 items-center p-5 lg:p-10 h-auto overflow-hidden dark:bg-gray-900 text-white">
@@ -93,27 +129,35 @@ const ProductDetails = () => {
             />
           </motion.div>
           {/* Thumbnails */}
-          <div className="flex flex-row flex-wrap gap-2 justify-center lg:justify-start">
-            {[
-              product?.image,
-              product?.image2,
-              product?.image3,
-              product?.image4,
-              product?.image5,
-            ]
-              .filter(Boolean)
-              .map((image, index) => (
-                <motion.img
-                  key={index}
-                  src={image}
-                  alt={`${product?.name || "Product"} - ${index + 1}`}
-                  className="w-16 h-16 lg:w-20 lg:h-20 rounded-md cursor-pointer object-cover shadow-md"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 100 }}
-                  onClick={() => setCurrentImage(image)}
-                />
-              ))}
-          </div>
+          {[
+            product?.image,
+            product?.image2,
+            product?.image3,
+            product?.image4,
+            product?.image5,
+          ].filter(Boolean).length > 0 && (
+            <div className="flex flex-row flex-wrap gap-2 justify-center lg:justify-start">
+              {[
+                product?.image,
+                product?.image2,
+                product?.image3,
+                product?.image4,
+                product?.image5,
+              ]
+                .filter(Boolean)
+                .map((image, index) => (
+                  <motion.img
+                    key={index}
+                    src={image}
+                    alt={`${image ? image : product?.name || "Product"} `}
+                    className="w-16 h-16 lg:w-20 lg:h-20 rounded-md cursor-pointer object-cover shadow-md"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 100 }}
+                    onClick={() => setCurrentImage(image)}
+                  />
+                ))}
+            </div>
+          )}
         </div>
 
         {/* Product Details Section */}
