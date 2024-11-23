@@ -7,7 +7,7 @@ import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
 import { CiShoppingCart } from "react-icons/ci";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { useCart } from "../context/CartContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
@@ -21,14 +21,13 @@ const Navbar = ({ setshowLogin }) => {
   const storedUsername = localStorage.getItem("username");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  const { token, settoken } = useContext(ShopContext);
-  const navigate = useNavigate();
+  const { token, setToken } = useContext(ShopContext);
 
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
-    settoken("");
-    navigate("/");
+    setToken("");
+ 
   };
 
   useEffect(() => {

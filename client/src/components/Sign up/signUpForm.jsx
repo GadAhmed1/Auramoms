@@ -5,10 +5,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { ShopContext } from "../../context/ShopContext";
 
-function SignUpForm({ setshowLogin }) {
+function SignUpForm() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
-  const { settoken } = useContext(ShopContext);
+  const { token , setToken } = useContext(ShopContext);
   const [formValues, setFormValues] = useState({
     firstname: "",
     lastname: "",
@@ -20,8 +20,6 @@ function SignUpForm({ setshowLogin }) {
 
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [message, setMessage] = useState("");
-
   const handleInputChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   };
@@ -43,7 +41,7 @@ function SignUpForm({ setshowLogin }) {
         );
 
         if (response.data.success) {
-          settoken(response.data.accessToken);
+          setToken(response.data.accessToken);
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem("username", response.data.firstname);
           Swal.fire({
@@ -58,18 +56,22 @@ function SignUpForm({ setshowLogin }) {
             title: "Something Went Wrong!",
             text:
               response.data.message ||
-              "Signup failed. Please check your credentials.",
+              "Signup failed. Please check your credentials else.",
             icon: "error",
           });
         }
+      
+        
       } catch (error) {
         Swal.fire({
           title: "Something Went Wrong!",
           text:
             error?.response?.data?.message ||
-            "Signup failed. Please check your credentials.",
+            "Signup failed. Please check your credentials catch.",
           icon: "error",
         });
+        console.log(error);
+        
       }
     }
   };
