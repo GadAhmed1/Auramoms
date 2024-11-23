@@ -61,7 +61,9 @@ const Footer = () => {
                 <NavLink to="/ContactUS">
                   <li className={listItemClasses}>Contact</li>
                 </NavLink>
-                <li className={listItemClasses}>Blog</li>
+                <NavLink to="/shop">
+                  <li className={listItemClasses}>Shop</li>
+                </NavLink>
               </ul>
             </div>
           </nav>

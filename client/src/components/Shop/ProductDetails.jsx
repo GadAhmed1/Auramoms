@@ -216,7 +216,7 @@ const ProductDetails = () => {
           </motion.h6>
         </div>
         <div className="flex items-center justify-start gap-4 mt-3">
-          <button className="bg-[#F4A7B9] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
+          <button className="bg-ButtonPinkColor text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
             Add to Cart
           </button>
 

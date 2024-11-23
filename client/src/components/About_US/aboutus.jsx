@@ -5,7 +5,7 @@ import ProgressBar from "../Loader/ProgressBar";
 import { useEffect, useCallback } from "react";
 import ProductDesign from "./ProductDesign";
 import MainSection from "./MainSection";
-import Footer from "../Footer/footer";
+import Footer from "../Footer/Footer";
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },

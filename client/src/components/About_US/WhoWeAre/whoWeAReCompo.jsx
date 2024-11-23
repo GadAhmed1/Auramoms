@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // src/components/Part.js
-import React from 'react';
+import React from "react";
 
-function Part({ imageSrc, title, description, bgColor = 'bg-white', borderColor = 'border-gray-300' }) {
+function Part({
+  imageSrc,
+  title,
+  description,
+  bgColor = "bg-white",
+  borderColor = "border-gray-300",
+}) {
   return (
-    <div className={`Part p-4 flex flex-col items-center ${bgColor} ${borderColor}`}>
+    <div
+      className={`Part p-4 flex flex-col items-center  ${bgColor} ${borderColor} rounded-lg`}
+    >
       <img
         src={imageSrc}
         alt={title}
@@ -15,9 +23,7 @@ function Part({ imageSrc, title, description, bgColor = 'bg-white', borderColor 
         <h3 className="HeaderTitle text-lg md:text-xl font-semibold mb-4">
           {title}
         </h3>
-        <p className="DisPar text-sm md:text-base">
-          {description}
-        </p>
+        <p className="DisPar text-sm md:text-base">{description}</p>
       </div>
     </div>
   );

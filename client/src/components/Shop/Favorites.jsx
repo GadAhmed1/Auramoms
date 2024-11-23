@@ -16,7 +16,8 @@ const Favorites = () => {
               Your favorites list is empty.
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Add items to your favorites by clicking the heart icon on products.
+              Add items to your favorites by clicking the heart icon on
+              products.
             </p>
           </div>
         ) : (
@@ -38,7 +39,9 @@ const Favorites = () => {
                   <span className="text-[#F4A7B9] font-semibold text-sm">
                     {item.category}
                   </span>
-                  <h3 className="font-semibold text-lg mt-2 mb-2">{item.name}</h3>
+                  <h3 className="font-semibold text-lg mt-2 mb-2">
+                    {item.name}
+                  </h3>
                   <p className="text-xl font-medium text-gray-700 dark:text-gray-300">
                     ${item.price.toFixed(2)}
                   </p>
