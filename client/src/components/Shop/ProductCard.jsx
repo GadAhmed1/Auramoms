@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
 import PropTypes from "prop-types";
-
+import { motion } from "framer-motion";
+import { FaEye } from "react-icons/fa";
 const ProductCard = ({ product }) => {
-  const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } = useFavorites();
+  const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } =
+    useFavorites();
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuickView, setShowQuickView] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -15,13 +17,13 @@ const ProductCard = ({ product }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsFavorite(favoritesItems.some(item => item._id === product._id));
+    setIsFavorite(favoritesItems.some((item) => item._id === product._id));
   }, [favoritesItems, product._id]);
 
   const handleFavoriteToggle = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (isLoading) return;
 
     try {
@@ -31,7 +33,7 @@ const ProductCard = ({ product }) => {
         await addToFavorites(product);
       }
     } catch (error) {
-      console.error('Error toggling favorite:', error);
+      console.error("Error toggling favorite:", error);
     }
   };
 
@@ -52,20 +54,26 @@ const ProductCard = ({ product }) => {
           onClick={handleOpenProductDetails}
           src={product.image}
           alt={product.name}
-          className={`w-full rounded-2xl h-full object-contain transition-transform duration-500 ${
-            showQuickView ? "scale-105" : "scale-100"
-          }`}
+          className={`w-full rounded-2xl h-full object-contain transition-transform duration-500 `}
         />
         {showQuickView && (
-          <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center transition-opacity duration-500 opacity-100 lg:hidden">
-            <button
-              className="bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transition-transform transform hover:scale-105"
-              onClick={() => toggleModal(true)}
-            >
-              Quick View
-            </button>
-          </div>
+          <motion.button
+            className="hidden lg:block absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => toggleModal(true)}
+          >
+            <FaEye />
+          </motion.button>
         )}
+        <motion.button
+          className="lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => toggleModal(true)}
+        >
+          <FaEye />
+        </motion.button>
       </div>
       <div className="text-center">
         <span className="text-[#F4A7B9] font-semibold">{product.category}</span>
@@ -81,7 +89,7 @@ const ProductCard = ({ product }) => {
 
       <div className="flex items-center gap-4 mt-3">
         <button
-          className="bg-[#F4A7B9] dark:bg-[#d86a84] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+          className="bg-ButtonPinkColor dark:bg-[#d86a84] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
           onClick={() => addToCart(product)}
         >
           Add to Cart
@@ -92,7 +100,7 @@ const ProductCard = ({ product }) => {
           disabled={isLoading}
           className={`text-3xl transition-transform ${
             isFavorite ? "text-red-500 scale-110" : "text-[#F4A7B9] scale-100"
-          } hover:scale-105 active:scale-95 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          } hover:scale-105 active:scale-95 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
         >
           {isFavorite ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
         </button>
@@ -109,59 +117,60 @@ const ProductCard = ({ product }) => {
             </button>
             <div className="flex flex-col lg:flex-row gap-6 m-4">
               <div className="lg:w-1/2">
-                <img
-                  src={currentImage}
-                  alt={`${product.name} image`}
-                  className="w-full h-auto rounded-lg object-contain mb-4"
-                />
                 {[
-                  product.image,
-                  product.image2,
-                  product.image3,
-                  product.image4,
-                  product.image5,
-                ].filter(Boolean).length > 0 && (
-                  <div className="flex gap-2 my-2">
-                    {[
-                      product.image,
-                      product.image2,
-                      product.image3,
-                      product.image4,
-                      product.image5,
-                    ]
-                      .filter(Boolean)
-                      .map((img, index) => (
-                        <img
-                          key={index}
-                          src={img}
-                          alt={`Thumbnail ${index + 1}`}
-                          className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-75"
-                          onClick={() => setCurrentImage(img)}
-                        />
-                      ))}
-                  </div>
-                )}
+                  product?.image,
+                  product?.image2,
+                  product?.image3,
+                  product?.image4,
+                  product?.image5,
+                ].filter(Boolean).length > 0 ? (
+                  <>
+                    <img
+                      src={currentImage}
+                      alt={`${product.name} image`}
+                      className="w-full h-auto rounded-lg object-contain mb-4"
+                    />
+                    <div className="flex gap-2 my-2">
+                      {[
+                        product.image,
+                        product.image2,
+                        product.image3,
+                        product.image4,
+                        product.image5,
+                      ]
+                        .filter(Boolean)
+                        .map((img, index) => (
+                          <img
+                            key={index}
+                            src={img}
+                            alt={`Thumbnail ${index + 1}`}
+                            className="w-16 h-16 object-cover rounded-lg cursor-pointer hover:opacity-75"
+                            onClick={() => setCurrentImage(img)}
+                          />
+                        ))}
+                    </div>
+                  </>
+                ) : null}
               </div>
+
               <div className="lg:w-1/2 flex flex-col h-full gap-4">
                 <div>
                   <h1 className="text-2xl font-bold text-black">
-                    {product.name}
+                    {product?.name}
                   </h1>
                   <h2 className="text-xl font-semibold text-gray-700 mt-2">
-                    ${product.price.toFixed(2)}
+                    ${product?.price.toFixed(2)}
                   </h2>
                 </div>
-                <p className="text-gray-600 overflow-y-auto max-h-24">
-                  {product.description ||
-                    "No detailed description is available for this product at the moment."}
-                </p>
+
                 <div className="flex items-center justify-center gap-4">
-                  <button 
+                  <button
                     onClick={() => addToCart(product)}
-                    className="bg-cardColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+                    className="bg-ButtonPinkColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
                   >
                     Add to Cart
                   </button>
+
                   <button
                     onClick={handleFavoriteToggle}
                     className={`text-3xl transition-transform duration-300 ease-in-out ${

@@ -12,6 +12,7 @@ export default {
         Lora: ["Lora", "serif"],
       },
       colors: {
+        ButtonPinkColor: "#db2777",
         AuraPinkColor: "#ffebfc",
         SignUpPageColor: "#f1f1f1", // Similer to White but darker
         SignUpDarkColor: "#0c111d", // Similer to White but darker

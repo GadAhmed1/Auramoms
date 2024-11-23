@@ -7,7 +7,7 @@ import ThemeMode from "../../layouts/ReUseable/DarkModeButton.jsx";
 import MobileItems from "./MobileNavItem.jsx";
 import AuraMoms from "./auraMoms.jsx";
 import { FaCartShopping, FaHeartCirclePlus } from "react-icons/fa6";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import debounce from "lodash.debounce";
 import { useCart } from "../context/CartContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
@@ -27,7 +27,6 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     setToken("");
-
   };
 
   useEffect(() => {
@@ -45,10 +44,11 @@ const Navbar = ({ setshowLogin }) => {
     >
       <AuraMoms />
       <NavItem />
-
       <div className="items-center space-x-6 hidden md:flex">
-
-        <NavLink to="/favorites" className="relative text-lg font-medium hover:text-gray-300">
+        <NavLink
+          to="/favorites"
+          className="relative text-lg font-medium hover:text-gray-300"
+        >
           <FaHeartCirclePlus
             className="cursor-pointer text-3xl text-[#F4A7B9] dark:text-[#d86a84] hover:text-gray-500 transition-all"
             aria-label="Favorites Cart"
@@ -160,6 +160,7 @@ const MobileMenu = React.memo(
               <option>FR</option>
             </select>
             <ThemeMode />
+
             <NavLink to="/Sign_up" className="w-full">
               {!token ? (
                 <NavButton
