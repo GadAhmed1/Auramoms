@@ -1,66 +1,81 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ShopContext } from "../../context/ShopContext";
 import Swal from "sweetalert2";
+import { UserCircle2 } from "lucide-react";
+import FormInput from "../Sign up/FormInput";
+import FormButton from "../Sign up/FormButton";
+import { motion } from "framer-motion";
 
 function LoginForm() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();
   const { setToken } = useContext(ShopContext);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+    if (formErrors[name]) {
+      setFormErrors({ ...formErrors, [name]: "" });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errors = validate(formValues);
     setFormErrors(errors);
-    setIsSubmit(true);
-  };
 
-  // login user
-  const loginUser = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/users/login",
-        formValues,
-        {
-          headers: { "Content-Type": "application/json" },
+    if (Object.keys(errors).length === 0) {
+      setLoading(true);
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/users/login",
+          formValues,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        if (response.data.success) {
+          setToken(response.data.accessToken);
+          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("username", response.data.email);
+          Swal.fire({
+            title: "Welcome Back!",
+            text: "Successful Login",
+            icon: "success",
+            background: "#fff",
+            customClass: {
+              popup: "rounded-2xl",
+            },
+          });
+          navigate("/");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Something Went Wrong!",
+            text: response.data.message || "Login failed. Please try again.",
+            confirmButtonColor: "#f4a7b9",
+          });
         }
-      );
-
-      if (response.data.success) {
-        setToken(response.data.accessToken);
-        localStorage.setItem("token", response.data.accessToken);
-        localStorage.setItem("username", response.data.email);
+      } catch (error) {
         Swal.fire({
-          title: "Welcome Back!",
-          text: "Successful Login",
-          icon: "success",
+          icon: "error",
+          title: "Something Went Wrong!",
+          text:
+            error?.response?.data?.message ||
+            "Login failed. Please check your credentials.",
+          confirmButtonColor: "#f4a7b9",
         });
-        navigate("/");
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      Swal.fire({
-        title: "Something Went Wrong!",
-        text:
-          error?.response?.data?.message ||
-          "Login failed. Please check your credentials.",
-        icon: "error",
-      });
     }
   };
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      loginUser();
-    }
-  }, [formErrors, isSubmit, formValues]);
 
   const validate = (values) => {
     const errors = {};
@@ -82,79 +97,82 @@ function LoginForm() {
   };
 
   return (
-    <div>
-      <form
-        className="bg-white px-10 py-6 rounded-3xl border-2 border-gray-100"
-        onSubmit={handleSubmit}
-      >
-        <h1 className="text-3xl font-semibold">Login to your account</h1>
-        <p className="font-medium text-lg text-gray-500 mt-4">
-          Please enter your details
+    <motion.form
+      className="bg-white dark:bg-gray-800/95 backdrop-blur-lg px-6 py-8 sm:px-8 lg:px-10 rounded-3xl 
+        border border-white/20 dark:border-gray-700/30 shadow-xl transition-all duration-300 
+        hover:shadow-2xl hover:shadow-gray-100/30 dark:hover:shadow-black/30"
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="text-center mb-8">
+        <div className="flex justify-center mb-4">
+          <UserCircle2 className="w-16 h-16 text-[#f4a7b9] dark:text-[#d86a84]" />
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+          Login to Your Account
+        </h1>
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-md mx-auto">
+          Please enter your credentials to continue
         </p>
+      </div>
 
-        <div className="mt-5">
-          <label className="text-lg font-medium">Email</label>
+      <div className="space-y-6">
+        <FormInput
+          label="Email"
+          type="email"
+          name="email"
+          value={formValues.email}
+          onChange={handleInputChange}
+          placeholder="Enter your email"
+          error={formErrors.email}
+        />
+
+        <FormInput
+          label="Password"
+          type="password"
+          name="password"
+          value={formValues.password}
+          onChange={handleInputChange}
+          placeholder="Enter your password"
+          error={formErrors.password}
+        />
+
+        <div className="flex items-start">
           <input
-            type="email"
-            name="email"
-            className="w-full border-2 rounded-xl px-4 py-3 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-pink-600 ring-pink-600"
-            value={formValues.email}
-            onChange={handleInputChange}
-            placeholder="Enter your email"
+            type="checkbox"
+            id="remember"
+            className="mt-1 accent-[#f4a7b9] dark:accent-[#d86a84] h-4 w-4 rounded 
+              border-gray-300 dark:border-gray-600 transition-all duration-200"
           />
-          {isSubmit && formErrors.email && (
-            <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
-          )}
-        </div>
-
-        <div className="mt-4">
-          <label className="text-lg font-medium">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="w-full border-2 rounded-xl px-4 py-3 mt-1 bg-transparent focus:outline-none border-gray-100 focus:border-pink-600 ring-pink-600"
-            value={formValues.password}
-            onChange={handleInputChange}
-            placeholder="Enter your password"
-          />
-          {isSubmit && formErrors.password && (
-            <p className="text-red-500 text-sm mt-1">{formErrors.password}</p>
-          )}
-        </div>
-
-        <div className="mt-8 flex justify-between items-center">
-          <div className="flex justify-center items-center">
-            <input
-              type="checkbox"
-              id="remember"
-              className="ml-2 font-medium text-xs accent-pink-600"
-            />
-            <label htmlFor="remember" className="ml-2 font-medium text-xs">
-              Remember me
-            </label>
-          </div>
-        </div>
-
-        <div className="mt-1 flex flex-col gap-y-4"></div>
-
-        <button
-          type="submit"
-          className="w-full py-3 mt-5 rounded-xl bg-pink-600 text-white text-lg font-bold hover:scale-[1.01] active:scale-[.98] transition-all"
-        >
-          Login
-        </button>
-        <div className="mt-8 flex justify-center items-center">
-          <p className="font-medium text-base">Don&#39;t have an account ?</p>
-          <button
-            type="button"
-            className="ml-3 text-pink-600 text-base font-medium"
-            onClick={() => navigate("/Sign_up")}
+          <label
+            htmlFor="remember"
+            className="ml-3 text-sm sm:text-base text-gray-600 dark:text-gray-300"
           >
-            Sign up
-          </button>
+            Remember me
+          </label>
         </div>
-      </form>
-    </div>
+
+        <FormButton type="submit" loading={loading}>
+          Login
+        </FormButton>
+
+        <div className="text-center">
+          <p className="text-gray-600 dark:text-gray-300">
+            {"Don't have an account? "}
+            <button
+              type="button"
+              className="text-[#d86a84] dark:text-[#f4a7b9] font-medium 
+                hover:text-[#f4a7b9] dark:hover:text-[#d86a84] transition-colors duration-200"
+              onClick={() => navigate("/Sign_up")}
+            >
+              Sign up
+            </button>
+          </p>
+        </div>
+      </div>
+    </motion.form>
   );
 }
 

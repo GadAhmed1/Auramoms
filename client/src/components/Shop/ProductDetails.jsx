@@ -103,7 +103,7 @@ const ProductDetails = () => {
             <motion.img
               src={currentImage}
               alt={product?.name || "Product Image"}
-              className="w-full h-full object-cover rounded-xl relative"
+              className="w-full h-full object-cover rounded-xl relative "
               style={{
                 transformOrigin: `${mousePosition.x} ${mousePosition.y}`,
                 filter: "brightness(0.95) contrast(1.1)",
@@ -111,21 +111,6 @@ const ProductDetails = () => {
               }}
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.7 }}
-            />
-          </motion.div>
-
-          <motion.div className="w-16 h-16 lg:w-48 lg:h-48 max-xl:hidden absolute right-48 bottom-60 rotate-12 rounded-md overflow-hidden">
-            <motion.img
-              src="../../../public/icons/reading-book.png"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-          <motion.div className="w-16 h-16 lg:w-48 lg:h-48 max-xl:hidden absolute left-48 top-60 -rotate-12  rounded-md overflow-hidden">
-            <motion.img
-              src="../../../public/icons/meditation.png"
-              alt=""
-              className="w-full h-full object-cover"
             />
           </motion.div>
           {/* Thumbnails */}

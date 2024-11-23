@@ -1,8 +1,11 @@
+import PropTypes from "prop-types";
+
 const FormInput = ({ label, error, ...props }) => {
-  const inputClass = `w-full border-2 rounded-xl p-4 mt-1 bg-transparent transition-all duration-300 
-    ${error
-      ? "border-red-500 dark:border-red-400 shadow-sm shadow-red-200 dark:shadow-red-900/30"
-      : "border-gray-100 dark:border-gray-700 hover:border-[#f4a7b9]/50 dark:hover:border-[#d86a84]/50 focus:border-[#f4a7b9] dark:focus:border-[#d86a84] focus:outline-none focus:ring-2 focus:ring-[#f4a7b9]/20 dark:focus:ring-[#d86a84]/20"
+  const inputClass = `w-full  border-2 rounded-xl p-4 mt-1 bg-transparent transition-all duration-300 
+    ${
+      error
+        ? "border-red-500 dark:border-red-400 shadow-sm shadow-red-200 dark:shadow-red-900/30"
+        : "border-gray-300 duration-400 dark:border-gray-600 hover:border-[#f4a7b9] dark:hover:border-[#d86a84] focus:border-[#f4a7b9] dark:focus:border-[#d86a84] focus:outline-none focus:ring-2 focus:ring-[#f4a7b9]/20 dark:focus:ring-[#d86a84]/20"
     }
     text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400`;
 
@@ -19,6 +22,11 @@ const FormInput = ({ label, error, ...props }) => {
       )}
     </div>
   );
+};
+
+FormInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
 
 export default FormInput;
