@@ -64,13 +64,13 @@ function TheCenterPart() {
       >
         {/* Highlight Badge */}
         <motion.div
-            variants={fadeInUp}
-            className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-pink-100 dark:bg-pink-900/30"
-          >
-            <span className="text-sm font-medium text-pink-600 dark:text-pink-300">
-              Discover Our Collection
-            </span>
-          </motion.div>
+          variants={fadeInUp}
+          className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-pink-100 dark:bg-pink-900/30"
+        >
+          <span className="text-sm font-medium text-pink-600 dark:text-pink-300">
+            Discover Our Collection
+          </span>
+        </motion.div>
         {/* Big Text Animation */}
         <motion.div className="TheBigTxt">
           <h3

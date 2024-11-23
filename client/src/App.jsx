@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { CartProvider } from "./components/context/CartContext";
+import { FavoritesProvider } from "./components/context/FavoritesContext";
 import { useEffect } from "react";
 
 const HomePage = lazy(() => import("./components/Home_/mainPage"));
@@ -14,8 +15,9 @@ const AboutUs = lazy(() => import("./components/About_US/aboutus"));
 const Shop = lazy(() => import("./components/Shop/Shop"));
 const SignUp = lazy(() => import("./components/Sign up/signUp"));
 const Login = lazy(() => import("./components/Log in/login"));
-const ProductPage = lazy(() => import("./components/Shop/productPage"));
+const ProductDetails = lazy(() => import("./components/Shop/ProductDetails"));
 const Cart = lazy(() => import("./components/Shop/Cart"));
+const Favorites = lazy(() => import("./components/Shop/Favorites"));
 const ContactForm_Email = lazy(
   () => import("./components/Contact_Us/ContactForm_Email")
 );
@@ -40,6 +42,7 @@ function App() {
 
   return (
     <CartProvider>
+    <FavoritesProvider>
       <Router>
         <Suspense fallback={<Loader />}>
           <Navbar setshowLogin={setShowLogin} />
@@ -70,12 +73,14 @@ function App() {
             />
             <Route
               path="/product/:id"
-              element={<DelayedRoute element={<ProductPage />} />}
+              element={<DelayedRoute element={<ProductDetails />} />}
             />
             <Route path="/cart" element={<DelayedRoute element={<Cart />} />} />
+            <Route path="/favorites" element={<DelayedRoute element={<Favorites />} />} />
           </Routes>
         </Suspense>
       </Router>
+    </FavoritesProvider>
     </CartProvider>
   );
 }

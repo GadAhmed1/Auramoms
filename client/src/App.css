@@ -7,3 +7,6 @@
   position: absolute;
 }
 /* Scrollbar Container */
+.btn {
+  @apply;
+}
