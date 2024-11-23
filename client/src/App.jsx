@@ -42,45 +42,45 @@ function App() {
 
   return (
     <CartProvider>
-    <FavoritesProvider>
-      <Router>
-        <Suspense fallback={<Loader />}>
-          <Navbar setshowLogin={setShowLogin} />
-          <Routes>
-            <Route path="/" element={<DelayedRoute element={<HomePage />} />} />
-            <Route
-              path="/about"
-              element={<DelayedRoute element={<AboutUs />} />}
-            />
-            <Route
-              path="/contact"
-              element={<DelayedRoute element={<ContactForm_Email />} />}
-            />
-            <Route path="/shop" element={<DelayedRoute element={<Shop />} />} />
-            <Route
-              path="/sign_up"
-              element={
-                <DelayedRoute
-                  element={<SignUp setshowLogin={setShowLogin} />}
-                />
-              }
-            />
-            <Route
-              path="/log_in"
-              element={
-                <DelayedRoute element={<Login setshowLogin={setShowLogin} />} />
-              }
-            />
-            <Route
-              path="/product/:id"
-              element={<DelayedRoute element={<ProductDetails />} />}
-            />
-            <Route path="/cart" element={<DelayedRoute element={<Cart />} />} />
-            <Route path="/favorites" element={<DelayedRoute element={<Favorites />} />} />
-          </Routes>
-        </Suspense>
-      </Router>
-    </FavoritesProvider>
+      <FavoritesProvider>
+        <Router>
+          <Suspense fallback={<Loader />}>
+            <Navbar setshowLogin={setShowLogin} />
+            <Routes>
+              <Route path="/" element={<DelayedRoute element={<HomePage />} />} />
+              <Route
+                path="/about"
+                element={<DelayedRoute element={<AboutUs />} />}
+              />
+              <Route
+                path="/contact"
+                element={<DelayedRoute element={<ContactForm_Email />} />}
+              />
+              <Route path="/shop" element={<DelayedRoute element={<Shop />} />} />
+              <Route
+                path="/sign_up"
+                element={
+                  <DelayedRoute
+                    element={<SignUp setshowLogin={setShowLogin} />}
+                  />
+                }
+              />
+              <Route
+                path="/log_in"
+                element={
+                  <DelayedRoute element={<Login setshowLogin={setShowLogin} />} />
+                }
+              />
+              <Route
+                path="/product/:id"
+                element={<DelayedRoute element={<ProductDetails />} />}
+              />
+              <Route path="/cart" element={<DelayedRoute element={<Cart />} />} />
+              <Route path="/favorites" element={<DelayedRoute element={<Favorites />} />} />
+            </Routes>
+          </Suspense>
+        </Router>
+      </FavoritesProvider>
     </CartProvider>
   );
 }

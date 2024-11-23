@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
@@ -6,21 +6,43 @@ import { useFavorites } from "../context/FavoritesContext";
 import PropTypes from "prop-types";
 
 const ProductCard = ({ product }) => {
+  const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } = useFavorites();
   const [isFavorite, setIsFavorite] = useState(false);
   const [showQuickView, setShowQuickView] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.image);
   const { addToCart } = useCart();
-  const { addToFavorites } = useFavorites();
   const navigate = useNavigate();
-  const handleFavoriteToggle = () => setIsFavorite((prev) => !prev);
+
+  useEffect(() => {
+    setIsFavorite(favoritesItems.some(item => item._id === product._id));
+  }, [favoritesItems, product._id]);
+
+  const handleFavoriteToggle = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (isLoading) return;
+
+    try {
+      if (isFavorite) {
+        await removeFromFavorites(product);
+      } else {
+        await addToFavorites(product);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
+
   const toggleQuickView = (state) => setShowQuickView(state);
   const toggleModal = (state) => setShowModal(state);
   const handleOpenProductDetails = () => {
     navigate(`/product/${product._id}`);
   };
+
   return (
-    <div className="flex flex-col justify-center  gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
+    <div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div
         className="relative w-full h-48"
         onMouseEnter={() => toggleQuickView(true)}
@@ -66,13 +88,11 @@ const ProductCard = ({ product }) => {
         </button>
 
         <button
-          onClick={() => {
-            addToFavorites(product);
-            setIsFavorite((prev) => !prev);
-          }}
+          onClick={handleFavoriteToggle}
+          disabled={isLoading}
           className={`text-3xl transition-transform ${
             isFavorite ? "text-red-500 scale-110" : "text-[#F4A7B9] scale-100"
-          }`}
+          } hover:scale-105 active:scale-95 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           {isFavorite ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
         </button>
@@ -135,8 +155,11 @@ const ProductCard = ({ product }) => {
                   {product.description ||
                     "No detailed description is available for this product at the moment."}
                 </p>
-                <div className="flex items-center justify-center gap-4   ">
-                  <button className="bg-cardColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105">
+                <div className="flex items-center justify-center gap-4">
+                  <button 
+                    onClick={() => addToCart(product)}
+                    className="bg-cardColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+                  >
                     Add to Cart
                   </button>
                   <button
