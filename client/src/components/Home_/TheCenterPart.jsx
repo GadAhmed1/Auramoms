@@ -96,7 +96,7 @@ function TheCenterPart() {
           <NavLink to="/Shop">
             {" "}
             <motion.button
-              className="select-none border-2 border-[#F2BED1] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#f07a96] hover:bg-transparent hover:text-black transition-colors duration-300"
+              className="select-none border-2 border-[#F2BED1] p-3 max-w-48 min-w-40 rounded-3xl text-white dark:text-white bg-[#f07a96] dark:bg-[#d86a84] dark:border-none hover:bg-transparent hover:text-black transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

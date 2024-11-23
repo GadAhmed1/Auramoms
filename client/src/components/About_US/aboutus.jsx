@@ -5,7 +5,7 @@ import ProgressBar from "../Loader/ProgressBar";
 import { useEffect, useCallback } from "react";
 import ProductDesign from "./ProductDesign";
 import MainSection from "./MainSection";
-import Footer from "../Footer/Footer";
+import Footer from "../Footer/footer";
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -120,7 +120,7 @@ const AboutUs = () => {
       {/* Main Section of the about us page */}
       <MainSection />
       {/* Values Section */}
-      <section className="py-24 dark:bg-DarkBackground">
+      <section className="py-24 dark:bg-[#080e1b]">
         <div className="max-w-7xl mx-auto px-4">
           <motion.h2
             className="text-3xl md:text-4xl font-bold text-center mb-5 dark:text-AuraPinkColor font-Lora"
@@ -150,7 +150,7 @@ const AboutUs = () => {
             {values.map((value) => (
               <motion.div
                 key={value.title}
-                className="bg-background border-AuraPinkColor border-2 p-6 dark:bg-DarkBackground dark:text-lightGrayColor rounded-lg shadow-md"
+                className="bg-background border-AuraPinkColor border-2 p-6 dark:bg-DarkBackground dark:text-lightGrayColor dark:border-none rounded-lg shadow-md"
                 variants={{
                   visible: { opacity: 1, y: 0 },
                   hidden: { opacity: 0, y: 20 },
@@ -205,7 +205,7 @@ const AboutUs = () => {
       {/* FAQ Section */}
       <FAQs />
       {/* Footer Section */}
-      <div className="mt-12   w-full">
+      <div className="w-full">
         <Footer />
       </div>
     </div>

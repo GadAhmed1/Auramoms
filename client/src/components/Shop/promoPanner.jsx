@@ -19,7 +19,7 @@ const PromoBanner = () => {
         <p className="text-white text-sm md:text-base font-semibold">
           Start from 1 till 20 February 2025
         </p>
-        <button className="bg-[#ee88a0] text-white py-2 px-4 rounded-lg hover:bg-[#e790b0] active:scale-95 transition-transform duration-200">
+        <button className="bg-[#ee88a0] dark:bg-[#d86a84] text-white py-2 px-4 rounded-lg hover:bg-[#e790b0] active:scale-95 transition-transform duration-200">
           Get it now
         </button>
       </div>
