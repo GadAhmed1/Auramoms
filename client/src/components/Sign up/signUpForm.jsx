@@ -123,7 +123,7 @@ function SignUpForm() {
 
   return (
     <form 
-      className="bg-white dark:bg-gray-800/95 backdrop-blur-lg px-6 py-8 sm:px-8 lg:px-10 rounded-3xl 
+      className="bg-white dark:bg-gray-800 backdrop-blur-lg px-6 py-8 sm:px-8 lg:px-10 rounded-3xl 
         border border-white/20 dark:border-gray-700/30 shadow-xl transition-all duration-300 
         hover:shadow-2xl hover:shadow-gray-100/30 dark:hover:shadow-black/30"
       onSubmit={handleSubmit}
