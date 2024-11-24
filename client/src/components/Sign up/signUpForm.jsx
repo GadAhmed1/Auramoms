@@ -7,6 +7,7 @@ import { ShopContext } from "../../context/ShopContext";
 import FormInput from "./FormInput";
 import FormButton from "./FormButton";
 import { UserCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -28,14 +29,14 @@ function SignUpForm() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormValues(prev => ({
+    setFormValues((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     if (formErrors[name]) {
-      setFormErrors(prev => ({
+      setFormErrors((prev) => ({
         ...prev,
-        [name]: ""
+        [name]: "",
       }));
     }
   };
@@ -88,31 +89,32 @@ function SignUpForm() {
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem("username", response.data.firstname);
           Swal.fire({
-            icon: 'success',
-            title: 'Welcome!',
-            text: 'Registration successful',
+            icon: "success",
+            title: "Welcome!",
+            text: "Registration successful",
             showConfirmButton: false,
             timer: 1500,
-            background: '#fff',
+            background: "#fff",
             customClass: {
-              popup: 'rounded-2xl'
-            }
+              popup: "rounded-2xl",
+            },
           });
           navigate("/");
         } else {
           Swal.fire({
-            icon: 'error',
-            title: 'Something Went Wrong!',
+            icon: "error",
+            title: "Something Went Wrong!",
             text: response.data.message || "Signup failed. Please try again.",
-            confirmButtonColor: '#f4a7b9'
+            confirmButtonColor: "#f4a7b9",
           });
         }
       } catch (error) {
         Swal.fire({
-          icon: 'error',
-          title: 'Something Went Wrong!',
-          text: error?.response?.data?.message || "An unexpected error occurred.",
-          confirmButtonColor: '#f4a7b9'
+          icon: "error",
+          title: "Something Went Wrong!",
+          text:
+            error?.response?.data?.message || "An unexpected error occurred.",
+          confirmButtonColor: "#f4a7b9",
         });
         console.error(error);
       } finally {
@@ -122,11 +124,14 @@ function SignUpForm() {
   };
 
   return (
-    <form 
-      className="bg-white dark:bg-gray-800 backdrop-blur-lg px-6 py-8 sm:px-8 lg:px-10 rounded-3xl 
+    <motion.form
+      className="bg-white dark:bg-gray-800/95 backdrop-blur-lg px-6 py-8 sm:px-8 lg:px-10 rounded-3xl 
         border border-white/20 dark:border-gray-700/30 shadow-xl transition-all duration-300 
         hover:shadow-2xl hover:shadow-gray-100/30 dark:hover:shadow-black/30"
       onSubmit={handleSubmit}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4">
@@ -225,13 +230,19 @@ function SignUpForm() {
             />
             <label className="ml-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
               By creating an account, you accept our{" "}
-              <a href="#" className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] 
-                font-medium transition-colors duration-200">
+              <a
+                href="#"
+                className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] 
+                font-medium transition-colors duration-200"
+              >
                 terms of service
               </a>{" "}
               and{" "}
-              <a href="#" className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] 
-                font-medium transition-colors duration-200">
+              <a
+                href="#"
+                className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] 
+                font-medium transition-colors duration-200"
+              >
                 privacy policy
               </a>
               .
@@ -242,20 +253,22 @@ function SignUpForm() {
             Create Account
           </FormButton>
 
-          <Link 
+          <Link
             to="/Log_in"
             className="block text-center text-gray-600 dark:text-gray-300 hover:text-gray-800 
               dark:hover:text-gray-100 transition-colors duration-200"
           >
             Already have an account?{" "}
-            <span className="text-[#d86a84] dark:text-[#f4a7b9] font-medium 
-              hover:text-[#f4a7b9] dark:hover:text-[#d86a84]">
+            <span
+              className="text-[#d86a84] dark:text-[#f4a7b9] font-medium 
+              hover:text-[#f4a7b9] dark:hover:text-[#d86a84]"
+            >
               Login now
             </span>
           </Link>
         </div>
       </div>
-    </form>
+    </motion.form>
   );
 }
 

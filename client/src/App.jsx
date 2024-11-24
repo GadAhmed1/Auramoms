@@ -29,7 +29,7 @@ function DelayedRoute({ element }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowElement(true);
-    }, 1000);
+    }, 200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -47,7 +47,10 @@ function App() {
           <Suspense fallback={<Loader />}>
             <Navbar setshowLogin={setShowLogin} />
             <Routes>
-              <Route path="/" element={<DelayedRoute element={<HomePage />} />} />
+              <Route
+                path="/"
+                element={<DelayedRoute element={<HomePage />} />}
+              />
               <Route
                 path="/about"
                 element={<DelayedRoute element={<AboutUs />} />}
@@ -56,7 +59,10 @@ function App() {
                 path="/contact"
                 element={<DelayedRoute element={<ContactForm_Email />} />}
               />
-              <Route path="/shop" element={<DelayedRoute element={<Shop />} />} />
+              <Route
+                path="/shop"
+                element={<DelayedRoute element={<Shop />} />}
+              />
               <Route
                 path="/sign_up"
                 element={
@@ -68,15 +74,23 @@ function App() {
               <Route
                 path="/log_in"
                 element={
-                  <DelayedRoute element={<Login setshowLogin={setShowLogin} />} />
+                  <DelayedRoute
+                    element={<Login setshowLogin={setShowLogin} />}
+                  />
                 }
               />
               <Route
                 path="/product/:id"
                 element={<DelayedRoute element={<ProductDetails />} />}
               />
-              <Route path="/cart" element={<DelayedRoute element={<Cart />} />} />
-              <Route path="/favorites" element={<DelayedRoute element={<Favorites />} />} />
+              <Route
+                path="/cart"
+                element={<DelayedRoute element={<Cart />} />}
+              />
+              <Route
+                path="/favorites"
+                element={<DelayedRoute element={<Favorites />} />}
+              />
             </Routes>
           </Suspense>
         </Router>

@@ -10,7 +10,6 @@ const ProductCard = ({ product }) => {
   const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } =
     useFavorites();
   const [isFavorite, setIsFavorite] = useState(false);
-  const [showQuickView, setShowQuickView] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.image);
   const { addToCart } = useCart();
@@ -37,7 +36,6 @@ const ProductCard = ({ product }) => {
     }
   };
 
-  const toggleQuickView = (state) => setShowQuickView(state);
   const toggleModal = (state) => setShowModal(state);
   const handleOpenProductDetails = () => {
     navigate(`/product/${product._id}`);
@@ -45,27 +43,22 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
-      <div
-        className="relative w-full h-48"
-        onMouseEnter={() => toggleQuickView(true)}
-        onMouseLeave={() => toggleQuickView(false)}
-      >
+      <div className="relative w-full h-48 cursor-pointer">
         <img
           onClick={handleOpenProductDetails}
           src={product.image}
           alt={product.name}
           className={`w-full rounded-2xl h-full object-contain transition-transform duration-500 `}
         />
-        {showQuickView && (
-          <motion.button
-            className="hidden lg:block absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => toggleModal(true)}
-          >
-            <FaEye />
-          </motion.button>
-        )}
+        <motion.button
+          className="block  lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => toggleModal(true)}
+        >
+          <FaEye />
+        </motion.button>
+
         <motion.button
           className="lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
           whileHover={{ scale: 1.1 }}
@@ -176,7 +169,7 @@ const ProductCard = ({ product }) => {
                     className={`text-3xl transition-transform duration-300 ease-in-out ${
                       isFavorite
                         ? "text-red-500 scale-110"
-                        : "text-cardColor scale-100"
+                        : "text-ButtonPinkColor scale-100"
                     }`}
                   >
                     {isFavorite ? (
@@ -184,6 +177,12 @@ const ProductCard = ({ product }) => {
                     ) : (
                       <FaRegHeart />
                     )}
+                  </button>
+                  <button
+                    onClick={handleOpenProductDetails}
+                    className="bg-transparent border-2 border-ButtonPinkColor  text-black font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+                  >
+                    More Details
                   </button>
                 </div>
               </div>
