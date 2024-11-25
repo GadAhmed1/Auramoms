@@ -129,9 +129,6 @@ export const CartProvider = ({ children }) => {
   );
 
   // Add useEffect to save cartCount to local storage
-  useEffect(() => {
-    localStorage.setItem("cartCount", cartCount);
-  }, [cartCount]);
 
   const value = useMemo(
     () => ({

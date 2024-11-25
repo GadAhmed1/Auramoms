@@ -41,6 +41,16 @@ const ProductCard = ({ product }) => {
     navigate(`/product/${product._id}`);
   };
 
+  const handleAddToCart = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login to add to cart");
+      return;
+    } else {
+      addToCart(product);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div className="relative w-full h-48 cursor-pointer">
@@ -83,7 +93,7 @@ const ProductCard = ({ product }) => {
       <div className="flex items-center gap-4 mt-3">
         <button
           className="bg-ButtonPinkColor dark:bg-[#d86a84] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
         >
           Add to Cart
         </button>
@@ -100,11 +110,11 @@ const ProductCard = ({ product }) => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh]">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 transition-opacity duration-300">
+          <div className="bg-white rounded-lg w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh] shadow-2xl transform transition-transform duration-300 scale-95">
             <button
               onClick={() => toggleModal(false)}
-              className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900"
+              className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900 transition-colors duration-200 transform hover:rotate-90"
             >
               ✖
             </button>
@@ -158,7 +168,7 @@ const ProductCard = ({ product }) => {
 
                 <div className="flex items-center justify-center gap-4">
                   <button
-                    onClick={() => addToCart(product)}
+                    onClick={handleAddToCart}
                     className="bg-ButtonPinkColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
                   >
                     Add to Cart
