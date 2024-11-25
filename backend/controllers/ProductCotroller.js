@@ -138,32 +138,35 @@ const updateProduct = async (req, res) => {
   }
 };
 
-
 const addFav = async (req, res) => {
   try {
-    const { userId, itemId } = req.body; // استخراج معرف المستخدم ومعرف المنتج من الجسم
+    let userData = await userModel.findOne({ _id: req.body.userId });
+    let favoritesData = await userData.favorites;
 
-    // البحث عن المستخدم
-    const user = await userModel.findById(userId);
+    if (!favoritesData[req.body.itemId]) {
 
-    if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" }); // إرجاع خطأ إذا لم يتم العثور على المستخدم
+      favoritesData[req.body.itemId] = {
+        image: req.body.itemImage,
+        name: req.body.itemName,
+        price: req.body.itemPrice,
+        category: req.body.itemCategory,
+      };
+      await userModel.findByIdAndUpdate(req.body.userId, { favorites });
+
+
+    } else {
+      return res.status(400).json({ success: false, message: "Product already in favorites" });
     }
 
-    // التحقق مما إذا كان المنتج موجودًا بالفعل في قائمة المفضلة
-    if (user.favorites.includes(itemId)) {
-      return res.status(400).json({ success: false, message: "Product already in favorites" }); // إرجاع خطأ إذا كان المنتج موجودًا بالفعل
-    }
-
-    // إضافة المنتج إلى قائمة المفضلة
-    user.favorites.push(itemId);
-    await user.save(); // حفظ التغييرات
-
-    res.json({ success: true, message: "Product added to favorites successfully", favorites: user.favorites }); // إرجاع استجابة ناجحة
-  } catch (error) {
-    res.status(400).json({ success: false, message: "Failed to add product to favorites", error: error.message }); // إرجاع خطأ إذا حدثت مشكلة
+    await userModel.findByIdAndUpdate(req.body.userId, { favorites: favoritesData });
+    res.json({ success: true, message: "Product added to favorites successfully" });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false, message: "Error adding to favorites", err });
   }
 };
+
+
 const showFavProducts = async (req, res) => {
   try {
     const { userId } = req.body; // استخراج معرف المستخدم من البارامترات (params)
