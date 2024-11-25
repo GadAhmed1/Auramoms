@@ -3,31 +3,29 @@ import PropTypes from "prop-types";
 
 const FavoritesContext = createContext();
 
-const USER_ID = "6740c1eb95329223215b0fb5"; // In a real app, this would come from auth
-
 export const FavoritesProvider = ({ children }) => {
   const [favoritesItems, setFavoritesItems] = useState([]);
 
-  // Fetch favorites on mount
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/users/favourites/list", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId: USER_ID }),
-        });
-        if (!response.ok) throw new Error("Failed to fetch favorites");
-        const data = await response.json();
-        setFavoritesItems(data);
-      } catch (error) {
-        console.error("Error fetching favorites:", error);
-      }
-    };
-    fetchFavorites();
-  }, []);
+  
+  // useEffect(() => {
+  //   const fetchFavorites = async () => {
+  //     try {
+  //       const response = await fetch("http://localhost:3000/users/favourites/list", {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ userId: USER_ID }),
+  //       });
+  //       if (!response.ok) throw new Error("Failed to fetch favorites");
+  //       const data = await response.json();
+  //       setFavoritesItems(data);
+  //     } catch (error) {
+  //       console.error("Error fetching favorites:", error);
+  //     }
+  //   };
+  //   fetchFavorites();
+  // }, []);
 
   const addToFavorites = async (item) => {
     try {
@@ -62,9 +60,6 @@ export const FavoritesProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          itemId: item._id,
-        }),
       });
 
       if (!response.ok) throw new Error("Failed to remove from favorites");

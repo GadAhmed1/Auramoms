@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
-import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 
 const Cart = () => {
   const {
