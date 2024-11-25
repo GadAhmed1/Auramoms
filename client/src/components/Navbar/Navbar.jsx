@@ -30,15 +30,6 @@ const Navbar = ({ setshowLogin }) => {
     setToken("");
   };
 
-  useEffect(() => {
-    const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("");
-  });
-
   return (
     <motion.nav
       initial={hidden ? "hidden" : "visible"}
