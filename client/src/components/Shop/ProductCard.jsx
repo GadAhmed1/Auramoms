@@ -72,7 +72,7 @@ const ProductCard = ({ product }) => {
           <FaEye />
         </motion.button>
         <motion.button
-          className=" absolute bottom-2 right-2 dark:bg-slate-800 dark:text-white bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+          className=" absolute max-lg:hidden  bottom-2 right-2 dark:bg-slate-800 dark:text-white bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleOpenProductDetails}
@@ -114,8 +114,8 @@ const ProductCard = ({ product }) => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 transition-opacity duration-300">
-          <div className="bg-white rounded-lg w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh] shadow-2xl transform transition-transform duration-300 scale-95">
+        <div className="fixed inset-0 bg-black  bg-opacity-70 flex items-center justify-center z-50 transition-opacity duration-300">
+          <div className="bg-white rounded-lg dark:bg-slate-800 w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh] shadow-2xl transform transition-transform duration-300 scale-95">
             <button
               onClick={() => toggleModal(false)}
               className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900 transition-colors duration-200 transform hover:rotate-90"
@@ -162,10 +162,10 @@ const ProductCard = ({ product }) => {
 
               <div className="lg:w-1/2 flex flex-col h-full gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-black">
+                  <h1 className="text-2xl font-bold text-black dark:text-white">
                     {product?.name}
                   </h1>
-                  <h2 className="text-xl font-semibold text-gray-700 mt-2">
+                  <h2 className="text-xl font-semibold text-gray-700 mt-2 dark:text-white">
                     ${product?.price.toFixed(2)}
                   </h2>
                 </div>
@@ -195,7 +195,7 @@ const ProductCard = ({ product }) => {
                   </button>
                   <button
                     onClick={handleOpenProductDetails}
-                    className="bg-transparent border-2 border-ButtonPinkColor text-black font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+                    className="bg-transparent dark:border-white border-2 border-ButtonPinkColor text-black dark:text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
                   >
                     More Details
                   </button>

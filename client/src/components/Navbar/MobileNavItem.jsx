@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { FaHome, FaShoppingBasket } from "react-icons/fa";
 import { HiArchive } from "react-icons/hi";
 import { IoIosContacts } from "react-icons/io";
+import { FaHeartCirclePlus, FaCartShopping } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
 const FlyOut = ({ children, to, ...props }) => {
   return (
@@ -15,6 +17,11 @@ const FlyOut = ({ children, to, ...props }) => {
       </NavLink>
     </motion.div>
   );
+};
+
+FlyOut.propTypes = {
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 const NavItem = () => {
@@ -67,6 +74,14 @@ const NavItem = () => {
       <FlyOut variants={staggerItem} to="/shop">
         <FaShoppingBasket className="absolute -translate-y-1/2 top-1/2 mx-3" />
         <p className="pl-10 py-3">shop</p> {/* Translated "Shop" */}
+      </FlyOut>
+      <FlyOut variants={staggerItem} to="/favorites">
+        <FaHeartCirclePlus className="absolute -translate-y-1/2 top-1/2 mx-3" />
+        <p className="pl-10 py-3">Favorites</p> {/* Translated "Favorites" */}
+      </FlyOut>
+      <FlyOut variants={staggerItem} to="/cart">
+        <FaCartShopping className="absolute -translate-y-1/2 top-1/2 mx-3" />
+        <p className="pl-10 py-3">Cart</p> {/* Translated "Cart" */}
       </FlyOut>
     </motion.div>
   );
