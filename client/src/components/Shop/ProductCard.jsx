@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { FaEye } from "react-icons/fa";
+
 const ProductCard = ({ product }) => {
   const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } =
     useFavorites();
@@ -28,8 +28,10 @@ const ProductCard = ({ product }) => {
     try {
       if (isFavorite) {
         await removeFromFavorites(product);
+        setIsFavorite(false);
       } else {
         await addToFavorites(product);
+        setIsFavorite(true);
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
@@ -58,22 +60,22 @@ const ProductCard = ({ product }) => {
           onClick={handleOpenProductDetails}
           src={product.image}
           alt={product.name}
-          className={`w-full rounded-2xl hover:scale-110 h-full object-contain transition-transform duration-500 `}
+          className="w-full rounded-2xl hover:scale-110 h-full object-contain transition-transform duration-500"
         />
-        <motion.button
-          className="block  lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => toggleModal(true)}
-        >
-          <FaEye />
-        </motion.button>
 
         <motion.button
           className="lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => toggleModal(true)}
+        >
+          <FaEye />
+        </motion.button>
+        <motion.button
+          className=" absolute bottom-2 right-2 dark:bg-slate-800 dark:text-white bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleOpenProductDetails}
         >
           <FaEye />
         </motion.button>
@@ -103,7 +105,9 @@ const ProductCard = ({ product }) => {
           disabled={isLoading}
           className={`text-3xl transition-transform ${
             isFavorite ? "text-red-500 scale-110" : "text-[#F4A7B9] scale-100"
-          } hover:scale-105 active:scale-95 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          } hover:scale-105 active:scale-95 ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           {isFavorite ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
         </button>
@@ -181,6 +185,7 @@ const ProductCard = ({ product }) => {
                         ? "text-red-500 scale-110"
                         : "text-ButtonPinkColor scale-100"
                     }`}
+                    disabled={isLoading}
                   >
                     {isFavorite ? (
                       <FaHeart className="animate-pulse" />
@@ -190,7 +195,7 @@ const ProductCard = ({ product }) => {
                   </button>
                   <button
                     onClick={handleOpenProductDetails}
-                    className="bg-transparent border-2 border-ButtonPinkColor  text-black font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+                    className="bg-transparent border-2 border-ButtonPinkColor text-black font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
                   >
                     More Details
                   </button>
