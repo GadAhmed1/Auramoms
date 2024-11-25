@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 
 const Cart = () => {
-  const { cartItems, addToCart, removeFromCart, decreaseFromCart } = useCart();
-
+  const {
+    cartItems,
+    addToCart,
+    setCartItems,
+    removeFromCart,
+    decreaseFromCart,
+  } = useCart();
+  useEffect(() => {
+    const cartdata = JSON.parse(localStorage.getItem("cartdata")) || [];
+    setCartItems(cartdata);
+  }, []);
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -47,9 +57,10 @@ const Cart = () => {
                   <th className="py-3 px-4 text-left text-gray-700 dark:text-gray-300">
                     Total
                   </th>
-                  <th className="py-3 px-4 text-left text-gray-700 dark:text-gray-300">
+                  {/* مبقاش ليها لازمة يا صاحبي يا عاق */}
+                  {/* <th className="py-3 px-4 text-left text-gray-700 dark:text-gray-300">
                     Remove
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody>
@@ -69,13 +80,14 @@ const Cart = () => {
                     <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
                       ${item.price.toFixed(2)}
                     </td>
-                    <td className="py-3 px-4 text-center text-gray-600 dark:text-gray-300">
+
+                    <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
                       <div className="flex items-center justify-center gap-2">
                         <button
-                          onClick={() => decreaseQuantity(item)}
-                          className="text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                          onClick={() => removeFromCart(item)}
+                          className="text-lg text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
                         >
-                          <AiOutlineMinus />
+                          <AiOutlineDelete size={24} />
                         </button>
                         <span className="text-lg">{item.quantity}</span>
                         <button
@@ -88,14 +100,6 @@ const Cart = () => {
                     </td>
                     <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
                       ${(item.price * item.quantity).toFixed(2)}
-                    </td>
-                    <td className="py-3 px-4 text-center">
-                      <button
-                        onClick={() => removeFromCart(item)}
-                        className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
-                      >
-                        <AiOutlineDelete size={24} />
-                      </button>
                     </td>
                   </tr>
                 ))}
@@ -125,10 +129,10 @@ const Cart = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => decreaseQuantity(item)}
-                      className="p-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600"
+                      onClick={() => removeFromCart(item)}
+                      className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
                     >
-                      <AiOutlineMinus />
+                      <AiOutlineDelete size={24} />
                     </button>
                     <span className="text-lg">{item.quantity}</span>
                     <button
@@ -138,12 +142,6 @@ const Cart = () => {
                       <AiOutlinePlus />
                     </button>
                   </div>
-                  <button
-                    onClick={() => removeFromCart(item)}
-                    className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
-                  >
-                    <AiOutlineDelete size={24} />
-                  </button>
                 </div>
               ))}
             </div>
