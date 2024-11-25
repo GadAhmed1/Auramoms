@@ -48,7 +48,7 @@ const ProductCard = ({ product }) => {
           onClick={handleOpenProductDetails}
           src={product.image}
           alt={product.name}
-          className={`w-full rounded-2xl h-full object-contain transition-transform duration-500 `}
+          className={`w-full rounded-2xl hover:scale-110 h-full object-contain transition-transform duration-500 `}
         />
         <motion.button
           className="block  lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"

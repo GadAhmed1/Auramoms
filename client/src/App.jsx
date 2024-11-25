@@ -1,10 +1,5 @@
 import { lazy, Suspense, useState } from "react";
-import {
-  Routes,
-  BrowserRouter as Router,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
 import { CartProvider } from "./components/context/CartContext";
 import { FavoritesProvider } from "./components/context/FavoritesContext";
 import { useEffect } from "react";

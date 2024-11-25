@@ -1,3 +1,4 @@
+// Start of Selection
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
@@ -34,6 +35,10 @@ const Navbar = ({ setshowLogin }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartCount", cartCount);
+  }, [cartCount]);
 
   return (
     <motion.nav
