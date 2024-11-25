@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
     country: { type: String, required: true }, // Password field, required
     phone: { type: Number, required: true }, // Password field, required
     cartData: { type: Object, default: {} }, // Cart data field, default to an empty object
-    favorites: { type: mongoose.Schema.Types.ObjectId, ref: 'product' },
+    favorites: { type: Object, default: {} }, // Cart data field, default to an empty object
+    // favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'product' }],
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'order' }],
     resetPasswordToken: String,
     resetPasswordExpires: Date,

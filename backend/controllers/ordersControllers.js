@@ -1,6 +1,3 @@
-
-
-
 import orderModel from "../models/ordermodel.js"; // استيراد نموذج الطلب
 import paypal from '@paypal/checkout-server-sdk'; // استيراد مكتبة PayPal
 import Stripe from 'stripe'; // استيراد مكتبة Stripe
@@ -79,8 +76,8 @@ const placeOrder = async (req, res) => {
             approveLink: order.result.links.find(link => link.rel === 'approve').href,
             clientSecret: paymentMethod === 'stripe' ? order.client_secret : null,
         });
-        
-        
+
+
 
     } catch (error) {
         console.error(error);

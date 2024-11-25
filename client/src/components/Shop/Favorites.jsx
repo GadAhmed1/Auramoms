@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { useFavorites } from "../context/FavoritesContext";
 
 const Favorites = () => {
-  const { favoritesItems, removeFromFavorites } = useFavorites();
-
+  const { favoritesItems,setFavoritesItems, removeFromFavorites } = useFavorites();
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavoritesItems(favorites);
+  }, []);
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">

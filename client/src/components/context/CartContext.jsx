@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo, useEffect } from "react";
+import { createContext, useContext, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -124,6 +124,7 @@ export const CartProvider = ({ children }) => {
 
   const cartCount = useMemo(
     () => cartItems.reduce((total, item) => total + item.quantity, 0),
+
     [cartItems]
   );
 
