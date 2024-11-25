@@ -1,4 +1,3 @@
-// Start of Selection
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
@@ -14,6 +13,7 @@ import { useCart } from "../context/CartContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
 import { FaCircleUser } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
+import { lowerCase } from "lodash";
 
 const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
@@ -35,10 +35,9 @@ const Navbar = ({ setshowLogin }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   useEffect(() => {
-    localStorage.setItem("cartCount", cartCount);
-  }, [cartCount]);
+    localStorage.setItem("");
+  });
 
   return (
     <motion.nav
