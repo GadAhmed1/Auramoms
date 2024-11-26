@@ -1,5 +1,5 @@
 import {
-  FaFacebook,
+  FaTiktok,
   FaInstagram,
   FaPhoneAlt,
   FaPinterest,
@@ -7,7 +7,7 @@ import {
   FaCcMastercard,
   FaCcPaypal,
 } from "react-icons/fa";
-import { FaLocationDot, FaXTwitter } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
@@ -48,16 +48,8 @@ const Footer = () => {
                 </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
-<<<<<<< HEAD
-                <NavLink to="/contact">
-                  <li className={listItemClasses}>Contact</li>
-                </NavLink>
-                <NavLink to="/shop">
-                  <li className={listItemClasses}>Shop</li>
-=======
                 <NavLink to="/termsOfServiceCopy">
                   <li className={listItemClasses}>Privacy Policy</li>
->>>>>>> 5ff0fd22cdbd72cb03b222ccc9247c418bdd818a
                 </NavLink>
               </ul>
             </div>
@@ -67,10 +59,15 @@ const Footer = () => {
           <div className="space-y-6">
             <h1 className="text-3xl font-bold">Follow Us</h1>
             <div className="flex items-center gap-3">
-              <FaFacebook className={iconClasses} href="https://www.facebook.com/shimaa.elasnawy" aria-label="Facebook" />
-              <FaInstagram className={iconClasses} href="https://www.instagram.com/auramomsbrand/"  aria-label="Instagram" />
-              {/* <FaXTwitter className={iconClasses} aria-label="Twitter" /> */}
-              <FaPinterest className={iconClasses} href="https://www.pinterest.com/auramomsstore/" aria-label="Pinterest" />
+              <a href="https://www.instagram.com/auramomsbrand/">
+                <FaTiktok className={iconClasses} aria-label="Instagram" />
+              </a>
+              <a href="https://www.instagram.com/auramomsbrand/">
+                <FaInstagram className={iconClasses} aria-label="Instagram" />
+              </a>
+              <a href="https://www.pinterest.com/auramomsstore/">
+                <FaPinterest className={iconClasses} aria-label="Pinterest" />
+              </a>
             </div>
             <div className="space-y-2">
               <p className="text-xl font-bold">Payment Methods</p>

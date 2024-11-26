@@ -1,21 +1,8 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
 import HeroImg from "/image/Snap the moment-pana.png";
 
 function TheCenterPart() {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 282);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 282);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -44,24 +31,36 @@ function TheCenterPart() {
       visible: {
         opacity: 1,
         scale: 1,
-        transition: {
-          duration: 0.3,
-          ease: "easeInOut",
-          staggerChildren: 0.2,
-        },
+        transition: { duration: 0.3, ease: "easeInOut", staggerChildren: 0.2 },
       },
     },
   };
 
+  const socialIcons = [
+    { href: "#", src: "./icons/findusIcons/pinterest.svg", alt: "Pinterest" },
+    {
+      href: "https://www.instagram.com/auramomsbrand?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+      src: "./icons/findusIcons/instagram.svg",
+      alt: "Instagram",
+      target: "_blank",
+    },
+    {
+      href: "https://www.tiktok.com/@auramoms2?_t=8qMmhY31JCs&_r=1",
+      src: "./icons/findusIcons/tiktok.svg",
+      alt: "TikTok",
+      target: "_blank",
+      className: "bg-[#2E2E2E] p-1 rounded-full",
+    },
+  ];
+
   return (
-    <main className="relative flex items-center justify-between bg-[#F9F5F6] text-black font-medium font-Cabin dark:bg-DarkBackground  max-md:px-5 px-10 max-md:flex-col max-md:items-center">
+    <main className="relative flex items-center justify-between bg-[#F9F5F6] text-black pt-10 font-medium font-Cabin dark:bg-DarkBackground max-md:px-5 px-10 max-md:flex-col max-md:items-center">
       <motion.section
         className="flex-1 dark:text-DarkText"
         initial="hidden"
         animate="visible"
         variants={variants}
       >
-        {/* Highlight Badge */}
         <motion.div
           variants={variants.fadeInUp}
           className="inline-flex items-center px-4 py-1.5 mb-6 rounded-full bg-pink-100 dark:bg-pink-900/30"
@@ -70,7 +69,6 @@ function TheCenterPart() {
             Discover Our Collection
           </span>
         </motion.div>
-        {/* Big Text Animation */}
         <motion.h1
           className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
           variants={variants.fadeInUp}
@@ -81,8 +79,6 @@ function TheCenterPart() {
             Every Thoughtful Product Choice
           </span>
         </motion.h1>
-
-        {/* Subtext Animation */}
         <motion.div className="tracking-wider mt-9 text-lg leading-normal dark:text-white">
           <p>
             Supporting moms with practical solutions and resources to make
@@ -91,8 +87,6 @@ function TheCenterPart() {
             easier and more enjoyable. Explore our offerings today!
           </p>
         </motion.div>
-
-        {/* Button Animation */}
         <motion.div className="mt-10 mb-7" variants={variants.button}>
           <NavLink to="/Shop">
             <motion.button
@@ -104,7 +98,6 @@ function TheCenterPart() {
             </motion.button>
           </NavLink>
         </motion.div>
-        {/* Social Media Icons Animation */}
         <motion.div
           className="select-none text-xl flex gap-3 mb-2 ml-2 pb-10 mt-32 max-md:mt-20 max-md:mx-auto max-md:flex-col max-md:items-center"
           initial="hidden"
@@ -112,26 +105,7 @@ function TheCenterPart() {
           variants={variants.icon}
         >
           <div className="flex gap-4 items-center bg-AuraPinkColor dark:bg-slate-800 rounded-2xl p-4 shadow-lg max-md:flex-row max-md:justify-center max-md:items-center">
-            {[
-              {
-                href: "#",
-                src: "./icons/findusIcons/pinterest.svg",
-                alt: "Pinterest",
-              },
-              {
-                href: "https://www.instagram.com/auramomsbrand?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-                src: "./icons/findusIcons/instagram.svg",
-                alt: "Instagram",
-                target: "_blank",
-              },
-              {
-                href: "https://www.tiktok.com/@auramoms2?_t=8qMmhY31JCs&_r=1",
-                src: "./icons/findusIcons/tiktok.svg",
-                alt: "TikTok",
-                target: "_blank",
-                className: "bg-[#2E2E2E] p-1 rounded-full",
-              },
-            ].map((icon, index) => (
+            {socialIcons.map((icon, index) => (
               <motion.a
                 key={index}
                 whileHover={{
@@ -154,8 +128,6 @@ function TheCenterPart() {
           </div>
         </motion.div>
       </motion.section>
-
-      {/* Image Animation */}
       <motion.div
         className="flex-1 flex justify-center mb-10 items-center"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -164,23 +136,10 @@ function TheCenterPart() {
       >
         <img
           src={HeroImg}
-          className="w-full h-auto "
+          className="w-2/3 h-2/3  max-md:w-1/2 "
           alt="Mother Hero Section"
         />
       </motion.div>
-      <motion.div
-        className="absolute right-3 bottom-20"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <img
-          src="/image/HeroImage5.png"
-          alt="Hero Section Image"
-          className="w-auto  object-cover"
-        />
-      </motion.div>
-      {/* https://plus.unsplash.com/premium_vector-1718903763242-a2337752aeed?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */}
     </main>
   );
 }

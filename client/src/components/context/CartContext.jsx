@@ -118,16 +118,6 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-<<<<<<< HEAD
-  const cartCount = useMemo(
-    () => cartItems.reduce((total, item) => total + item.quantity, 0),
-
-    [cartItems]
-  );
-=======
-
-
->>>>>>> 5ff0fd22cdbd72cb03b222ccc9247c418bdd818a
   const value = useMemo(
     () => ({
       cartItems,
