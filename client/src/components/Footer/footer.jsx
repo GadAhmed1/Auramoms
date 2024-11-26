@@ -58,7 +58,7 @@ const Footer = () => {
                 </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
-                <NavLink to="/ContactUS">
+                <NavLink to="/contact">
                   <li className={listItemClasses}>Contact</li>
                 </NavLink>
                 <NavLink to="/shop">
@@ -72,10 +72,10 @@ const Footer = () => {
           <div className="space-y-6">
             <h1 className="text-3xl font-bold">Follow Us</h1>
             <div className="flex items-center gap-3">
-              <FaFacebook className={iconClasses} aria-label="Facebook" />
-              <FaInstagram className={iconClasses} aria-label="Instagram" />
-              <FaXTwitter className={iconClasses} aria-label="Twitter" />
-              <FaPinterest className={iconClasses} aria-label="Pinterest" />
+              <FaFacebook className={iconClasses} href="https://www.facebook.com/shimaa.elasnawy" aria-label="Facebook" />
+              <FaInstagram className={iconClasses} href="https://www.instagram.com/auramomsbrand/"  aria-label="Instagram" />
+              {/* <FaXTwitter className={iconClasses} aria-label="Twitter" /> */}
+              <FaPinterest className={iconClasses} href="https://www.pinterest.com/auramomsstore/" aria-label="Pinterest" />
             </div>
             <div className="space-y-2">
               <p className="text-xl font-bold">Payment Methods</p>

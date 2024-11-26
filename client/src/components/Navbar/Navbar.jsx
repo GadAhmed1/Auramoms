@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
 import NavItem from "./NavItem.jsx";
@@ -12,17 +12,9 @@ import {
   FaCircleUser,
 } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
-<<<<<<< HEAD
-import debounce from "lodash.debounce";
-import { ShopContext } from "../../context/ShopContext.jsx";
-import { FaCircleUser } from "react-icons/fa6";
-import { TbLogout } from "react-icons/tb";
-import { useCart } from "../context/CartContext.jsx";
-=======
 import { TbLogout } from "react-icons/tb";
 import { useCart } from "../context/CartContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
->>>>>>> 49d5448be9e613c84553ceecbabaec7d535da634
 
 const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
@@ -37,19 +29,13 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     setToken("");
-<<<<<<< HEAD
-  };
-
-  useEffect(() => {
-    const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-    
-  }, []);
-=======
   }, [setToken]);
->>>>>>> 49d5448be9e613c84553ceecbabaec7d535da634
-
+  // useEffect(() => {
+  //   const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+    
+  // }, []);
   return (
     <motion.nav
       initial="visible"
