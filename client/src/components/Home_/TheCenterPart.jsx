@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
+import HeroImg from "/image/Snap the moment-pana.png";
 
 function TheCenterPart() {
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 282);
@@ -53,9 +54,9 @@ function TheCenterPart() {
   };
 
   return (
-    <main className="relative flex items-center pl-10 bg-[#F9F5F6] text-black font-medium font-Cabin dark:bg-DarkBackground pt-14 max-md:px-5 px-10 max-md:flex-col max-md:items-center">
+    <main className="relative flex items-center justify-between bg-[#F9F5F6] text-black font-medium font-Cabin dark:bg-DarkBackground  max-md:px-5 px-10 max-md:flex-col max-md:items-center">
       <motion.section
-        className="dark:text-DarkText"
+        className="flex-1 dark:text-DarkText"
         initial="hidden"
         animate="visible"
         variants={variants}
@@ -80,7 +81,7 @@ function TheCenterPart() {
         </motion.div>
 
         {/* Subtext Animation */}
-        <motion.div className="tracking-wider mt-9  text-lg leading-normal dark:text-white">
+        <motion.div className="tracking-wider mt-9 text-lg leading-normal dark:text-white">
           <p>
             Supporting moms with practical solutions and resources to make
             parenting
@@ -154,13 +155,14 @@ function TheCenterPart() {
 
       {/* Image Animation */}
       <motion.div
-        className="absolute right-16 bottom-36"
+        className="flex-1 flex justify-center mb-10 items-center"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
         <img
-          src="/image/MotherHeroSectionImage.png"
+          src={HeroImg}
+          className="w-full h-auto "
           alt="Mother Hero Section"
         />
       </motion.div>

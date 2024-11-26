@@ -1,4 +1,3 @@
-// Start of Selection
 import { motion } from "framer-motion";
 
 const fadeIn = {
@@ -24,7 +23,7 @@ const MainSection = () => {
             <motion.img
               src="/image/Mom1.jpg"
               alt="AuraMoms mission"
-              className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
+              className=" md:w-full rounded-lg shadow-lg object-cover h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
               whileInView={{ scale: 1.05, rotate: -6 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               viewport={{ once: true, amount: 0.3 }}
@@ -88,12 +87,12 @@ const MainSection = () => {
             viewport={{ once: true, amount: 0.3 }}
           >
             <motion.img
-              src="../../../public/image/Woman2.jpg"
+              src="/image/Woman2.jpg"
               alt="AuraMoms goals"
-              className="rounded-lg shadow-lg object-cover w-full h-auto rotate-6 hover:scale-105 transition-transform duration-300"
-              whileInView={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
+              className=" md:w-full rounded-lg shadow-lg object-cover h-auto rotate-6 hover:scale-105 transition-transform duration-300"
+              whileInView={{ scale: 1.05, rotate: 6 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.3 }}
             />
           </motion.div>
         </div>
@@ -113,10 +112,10 @@ const MainSection = () => {
             <motion.img
               src="../../../public/image/Woman1.png"
               alt="Unique features"
-              className="rounded-lg shadow-lg object-cover w-full h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
-              whileInView={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
+              className="  md:w-full rounded-lg shadow-lg object-cover h-auto -rotate-6 hover:scale-105 transition-transform duration-300"
+              whileInView={{ scale: 1.05, rotate: -6 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.3 }}
             />
           </motion.div>
 
