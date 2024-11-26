@@ -4,16 +4,13 @@ import Stripe from 'stripe'; // استيراد مكتبة Stripe
 import userModel from "../models/userModel.js"; // استيراد نموذج المستخدم
 import dotenv from "dotenv";
 dotenv.config();
-// إعداد بيئة PayPal باستخدام البيئة الحية
 const clientId = process.env.PAYPAL_CLIENT_ID;
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
 const environment = new paypal.core.LiveEnvironment(clientId, clientSecret);
 const client = new paypal.core.PayPalHttpClient(environment);
 
-// إعداد Stripe باستخدام المفتاح السري
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// دالة لإنشاء طلب جديد باستخدام PayPal أو Stripe
 const placeOrder = async (req, res) => {
     const { userId, items, amount, address, paymentMethod } = req.body;
 
@@ -22,6 +19,8 @@ const placeOrder = async (req, res) => {
     }
 
     try {
+        console.log(items);
+
         let order;
         if (paymentMethod === 'paypal') {
             const request = new paypal.orders.OrdersCreateRequest();
@@ -85,7 +84,6 @@ const placeOrder = async (req, res) => {
     }
 };
 
-// دالة للتحقق من نجاح عملية الدفع لـ PayPal أو Stripe
 const verifyOrder = async (req, res) => {
     const { orderID, paymentMethod } = req.body;
 
@@ -126,7 +124,6 @@ const verifyOrder = async (req, res) => {
     }
 };
 
-// دالة لجلب جميع الطلبات الخاصة بمستخدم معين
 const userOrders = async (req, res) => {
     const { userId } = req.body;
 
@@ -135,7 +132,12 @@ const userOrders = async (req, res) => {
     }
 
     try {
-        const orders = await orderModel.find({ userId });
+        const orders = await orderModel.find({ userId })
+            .populate({
+                path: 'items.productId',
+                select: 'name image price'
+            });
+
         const paidOrders = orders.filter(order => order.paymentStatus === 'Paid');
         const unpaidOrders = orders.filter(order => order.paymentStatus !== 'Paid');
 
@@ -150,16 +152,20 @@ const userOrders = async (req, res) => {
     }
 };
 
+
 const allOrders = async (req, res) => {
     try {
-        // جلب جميع الطلبات من قاعدة البيانات
-        const orders = await orderModel.find();
+        const orders = await orderModel.find()
+            .populate({
+                path: 'items.productId', // ربط العناصر بالنموذج Product
+                select: 'name image price' // اختيار الحقول التي تريد إرجاعها (الاسم، الصورة، السعر)
+            });
 
         // تقسيم الطلبات إلى مدفوعة وغير مدفوعة
         const paidOrders = orders.filter(order => order.paymentStatus === 'Paid');
         const unpaidOrders = orders.filter(order => order.paymentStatus !== 'Paid');
 
-        // إرجاع جميع الطلبات مصنفة
+        // إرجاع الطلبات مع تفاصيل المنتجات
         res.json({
             success: true,
             paidOrders,
@@ -169,7 +175,8 @@ const allOrders = async (req, res) => {
         console.error(err);
         res.status(500).json({ success: false, message: "Error in allOrders", error: err });
     }
-}
+};
+
 
 
 

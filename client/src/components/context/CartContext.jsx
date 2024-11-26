@@ -49,9 +49,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Updated cartItems:", cartItems);
-  // }, [cartItems]);
 
   const removeFromCart = async (itemToRemove) => {
     try {
@@ -123,10 +120,18 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+<<<<<<< HEAD
+  const cartCount = useMemo(
+    () => cartItems.reduce((total, item) => total + item.quantity, 0),
+ 
+      [cartItems]
+  );
+=======
   const decrementCartCount = () => {
     setCartCount((prev) => prev - 1);
   };
 
+>>>>>>> 49d5448be9e613c84553ceecbabaec7d535da634
   const value = useMemo(
     () => ({
       cartItems,

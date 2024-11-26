@@ -1,91 +1,112 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]); // Single array for all orders
   const [loading, setLoading] = useState(true);
-
-  // دالة لجلب الطلبات من السيرفر
-  const fetchOrders = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/orders/allorders');
-      if (response.data.success) {
-        setOrders(response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/orders/allorders"); // Fetching data
+        const data = await response.json();
+
+        if (data.success) {
+          // Merge paid and unpaid orders into a single array
+          setOrders([...data.paidOrders, ...data.unpaidOrders]);
+        } else {
+          setError("Failed to fetch orders");
+        }
+      } catch (err) {
+        setError("Error fetching orders");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchOrders();
   }, []);
 
-  // استخدام useMemo لتحسين الأداء
-  const paidOrders = useMemo(() => orders.paidOrders || [], [orders]);
-  const unpaidOrders = useMemo(() => orders.unpaidOrders || [], [orders]);
-
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-2xl font-semibold">Loading...</div>
-      </div>
-    );
+    return <div className="text-center text-pink-500">Loading...</div>;
   }
 
+  if (error) {
+    return <div className="text-center text-red-500">{error}</div>;
+  }
+
+  const renderTable = (orders) => {
+    return (
+      <main className="overflow-x-auto mt-5">
+  <table className=" bg-white shadow-xl rounded-lg w-full border-collapse border border-gray-300">
+        <thead className="-500 text-white">
+          <tr className="border-b border-slate-900/20 text-gray-700 regular-14 xs:regular-16">
+            <th className="border p-4 text-left">OrderId</th>
+            <th className="border p-4 text-left">Product</th>
+            <th className="border p-4 text-left">Amount</th>
+            <th className="border p-4 text-left">Price</th>
+            <th className="border p-4 text-left">Payment Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr
+              key={order._id}
+              className="hover:bg-gray-200 border-b border-slate-900/20 text-gray-800 text-left"
+            >
+              <td className="border p-4">{order._id}</td>
+              <td className="border border-gray-300 p-4">
+                {order.items.map((item) => (
+                  
+                  <div
+                    key={item.productId._id}
+                    className="flex items-center space-x-2"
+                  >
+                    <img
+                      src={item.productId.image} // Product image
+                      alt={item.productId.name}
+                      className="w-16 h-16 m-2 object-cover rounded-lg"
+                    />
+                    <span>{item.productId.name}</span>
+                  </div>
+                ))}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                ${order.amount}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                {order.items.map((item, index) => (
+                  <div key={index}>${item.productId.price}</div>
+                ))}
+              </td>
+              <td className="border border-gray-300 px-4 py-2">
+                <span
+                  className={`px-2 py-1 rounded ${
+                    order.paymentStatus === "Paid"
+                      ? "bg-green-500 text-white"
+                      : order.paymentStatus === "Pending"
+                      ? "bg-yellow-500 text-white"
+                      : "bg-red-500 text-white"
+                  }`}
+                >
+                  {order.paymentStatus}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      </main>
+    
+    );
+  };
+
   return (
-    <div className="min-h-screen  py-10">
-      <div className="container mx-auto px-6">
-        <h1 className="text-4xl font-bold mb-10 text-center text-pink-500">All Orders</h1>
-
-        {/* قسم الطلبات المدفوعة */}
-        <section className="mb-12">
-          <h2 className="text-3xl font-semibold mb-6 text-green-600">Paid Orders</h2>
-          {paidOrders.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {paidOrders.map((order) => (
-                <OrderCard key={order._id} order={order} statusColor="green" />
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-center">No paid orders found.</p>
-          )}
-        </section>
-
-        {/* قسم الطلبات غير المدفوعة */}
-        <hr className="my-16 border-gray-300" />
-        <section>
-          <h2 className="text-3xl font-semibold mb-6 text-red-600">Unpaid Orders</h2>
-          {unpaidOrders.length > 0 ? (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {unpaidOrders.map((order) => (
-                <OrderCard key={order._id} order={order} statusColor="red" />
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-center">No unpaid orders found.</p>
-          )}
-        </section>
-      </div>
-    </div>
-  );
-};
-
-// مكون لعرض تفاصيل الطلب
-const OrderCard = ({ order, statusColor }) => {
-  return (
-    <div className={`relative bg-gray-10 shadow-lg rounded-xl p-6 border-l-8 border-${statusColor}-500`}>
-      <div className="absolute top-2 right-2 px-3 py-1 text-sm rounded-full text-white bg-${statusColor}-500">
-        {order.paymentStatus}
-      </div>
-      <p className="text-xl font-bold mb-2">Order ID: <span className="text-gray-700">{order._id}</span></p>
-      <p className="text-lg font-medium text-gray-700 mb-2">Amount: <span className="text-green-600">${order.amount.toFixed(2)}</span></p>
-      <p className="text-gray-600 mb-2">
-        <span className="font-semibold">Address:</span> {order.address.street}, {order.address.city}, {order.address.zip}
-      </p>
-      <p className="text-gray-500 text-sm">Date: {new Date(order.date).toLocaleDateString()}</p>
+    <div className="p-6 max-w-screen-lg mx-auto space-y-6">
+      <h2 className="text-3xl font-bold mb-6 bold-22 uppercase text-pink-500">
+        All Orders
+      </h2>
+      {renderTable(orders)}
     </div>
   );
 };

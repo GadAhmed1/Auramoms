@@ -1,4 +1,3 @@
-// Start of Selection
 import React, { useState, useCallback, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
@@ -13,14 +12,23 @@ import {
   FaCircleUser,
 } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
+<<<<<<< HEAD
+import debounce from "lodash.debounce";
+import { ShopContext } from "../../context/ShopContext.jsx";
+import { FaCircleUser } from "react-icons/fa6";
+import { TbLogout } from "react-icons/tb";
+import { useCart } from "../context/CartContext.jsx";
+=======
 import { TbLogout } from "react-icons/tb";
 import { useCart } from "../context/CartContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
+>>>>>>> 49d5448be9e613c84553ceecbabaec7d535da634
 
 const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const storedUsername = localStorage.getItem("username");
+  // const cartCount = localStorage.getItem("cartCount");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const { token, setToken } = useContext(ShopContext);
@@ -29,7 +37,18 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     setToken("");
+<<<<<<< HEAD
+  };
+
+  useEffect(() => {
+    const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+    
+  }, []);
+=======
   }, [setToken]);
+>>>>>>> 49d5448be9e613c84553ceecbabaec7d535da634
 
   return (
     <motion.nav
@@ -69,8 +88,6 @@ const Navbar = ({ setshowLogin }) => {
         <ThemeMode />
         <NavLink to="/Sign_up">
           {!token ? (
-            // If the token does not exist (user is not logged in), show the login button
-
             <NavButton
               title="Login/Sign Up"
               onClick={() => setshowLogin(true)}
@@ -79,7 +96,6 @@ const Navbar = ({ setshowLogin }) => {
               Sign Up
             </NavButton>
           ) : (
-            // If the token exists (user is logged in), show a user icon with a dropdown menu
             <div className="group relative">
               <div className="flex flex-col justify-center items-center text-center bg-[#F4A7B9] px-2.5 py-1.5 rounded-xl dark:text-black dark:bg-[#d86a84]">
                 <FaCircleUser className="text-2xl text-white" />
@@ -88,7 +104,13 @@ const Navbar = ({ setshowLogin }) => {
 
               <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0 text-black">
                 <li
-                  onClick={logout}
+                  onClick={() => {
+                    if (token) {
+                      alert("You are already signed in.");
+                    } else {
+                      logout();
+                    }
+                  }}
                   className="flex justify-center items-center gap-2"
                 >
                   <TbLogout className="text-black text-2xl" />
@@ -125,6 +147,7 @@ const Navbar = ({ setshowLogin }) => {
         token={token}
         storedUsername={storedUsername}
         logout={logout}
+        cartCount={cartCount}
       />
     </motion.nav>
   );
