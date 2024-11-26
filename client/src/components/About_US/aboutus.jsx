@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Users, Heart, Globe, Award, Zap, Shield } from "lucide-react";
 import FAQs from "./FAQS";
 import ProgressBar from "../Loader/ProgressBar";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import ProductDesign from "./ProductDesign";
 import MainSection from "./MainSection";
 import Footer from "../Footer/Footer";
@@ -147,31 +147,35 @@ const AboutUs = () => {
               hidden: {},
             }}
           >
-            {values.map((value) => (
-              <motion.div
-                key={value.title}
-                className="bg-background border-AuraPinkColor border-2 p-6 dark:bg-DarkBackground dark:text-lightGrayColor dark:border-none rounded-lg shadow-md"
-                variants={{
-                  visible: { opacity: 1, y: 0 },
-                  hidden: { opacity: 0, y: 20 },
-                }}
-                transition={{ duration: 0.3 }} // Reduced duration for faster animation
-              >
+            {values.map((value) => {
+              const ref = useRef(null);
+              const isInView = useInView(ref, { once: true });
+
+              return (
                 <motion.div
-                  className="flex items-center justify-center mb-4"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
+                  key={value.title}
+                  ref={ref}
+                  className="bg-background border-AuraPinkColor border-2 p-6 dark:bg-DarkBackground dark:text-lightGrayColor dark:border-none rounded-lg shadow-md"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.3 }} // Reduced duration for faster animation
                 >
-                  <value.icon className="w-12 h-12 text-primary" />
+                  <motion.div
+                    className="flex items-center justify-center mb-4"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <value.icon className="w-12 h-12 text-primary" />
+                  </motion.div>
+                  <h3 className="text-xl font-semibold mb-2 font-Lora">
+                    {value.title}
+                  </h3>
+                  <p className="text-muted-foreground font-playpen">
+                    {value.description}
+                  </p>
                 </motion.div>
-                <h3 className="text-xl font-semibold mb-2 font-Lora">
-                  {value.title}
-                </h3>
-                <p className="text-muted-foreground font-playpen">
-                  {value.description}
-                </p>
-              </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>

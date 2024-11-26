@@ -1,4 +1,3 @@
-// Start of Selection
 import React, { useState, useCallback, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
@@ -89,8 +88,6 @@ const Navbar = ({ setshowLogin }) => {
         <ThemeMode />
         <NavLink to="/Sign_up">
           {!token ? (
-            // If the token does not exist (user is not logged in), show the login button
-
             <NavButton
               title="Login/Sign Up"
               onClick={() => setshowLogin(true)}
@@ -99,7 +96,6 @@ const Navbar = ({ setshowLogin }) => {
               Sign Up
             </NavButton>
           ) : (
-            // If the token exists (user is logged in), show a user icon with a dropdown menu
             <div className="group relative">
               <div className="flex flex-col justify-center items-center text-center bg-[#F4A7B9] px-2.5 py-1.5 rounded-xl dark:text-black dark:bg-[#d86a84]">
                 <FaCircleUser className="text-2xl text-white" />
@@ -108,7 +104,13 @@ const Navbar = ({ setshowLogin }) => {
 
               <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0 text-black">
                 <li
-                  onClick={logout}
+                  onClick={() => {
+                    if (token) {
+                      alert("You are already signed in.");
+                    } else {
+                      logout();
+                    }
+                  }}
                   className="flex justify-center items-center gap-2"
                 >
                   <TbLogout className="text-black text-2xl" />
@@ -145,6 +147,7 @@ const Navbar = ({ setshowLogin }) => {
         token={token}
         storedUsername={storedUsername}
         logout={logout}
+        cartCount={cartCount}
       />
     </motion.nav>
   );
