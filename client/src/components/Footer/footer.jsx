@@ -43,26 +43,13 @@ const Footer = () => {
             <h1 className="text-3xl font-bold">Quick Links</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-Cabin">
               <ul className="space-y-2 text-lg font-varela">
-                <NavLink to="/">
-                  <li
-                    className={listItemClasses}
-                    onClick={() => {
-                      window.location(0, 0);
-                    }}
-                  >
-                    Home
-                  </li>
-                </NavLink>
-                <NavLink to="/about">
-                  <li className={listItemClasses}>About</li>
+                <NavLink to="/termsOfService">
+                  <li className={listItemClasses}>Terms of Service</li>
                 </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
-                <NavLink to="/ContactUS">
-                  <li className={listItemClasses}>Contact</li>
-                </NavLink>
-                <NavLink to="/shop">
-                  <li className={listItemClasses}>Shop</li>
+                <NavLink to="/termsOfServiceCopy">
+                  <li className={listItemClasses}>Privacy Policy</li>
                 </NavLink>
               </ul>
             </div>
@@ -96,7 +83,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <p className="text-white text-center mt-8 border-t-2 pt-2">
-          © 2024. All Rights Reserved || Obsidian Team
+          © 2026. All Rights Reserved || Obsidian Team
         </p>
       </div>
     </footer>

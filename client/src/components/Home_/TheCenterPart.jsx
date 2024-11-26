@@ -53,7 +53,7 @@ function TheCenterPart() {
   };
 
   return (
-    <main className="relative flex items-center pl-10 bg-[#F9F5F6] text-black font-medium font-Cabin dark:bg-DarkBackground pt-14 max-md:px-5 px-10 max-md:flex-col max-md:items-center">
+    <main className="relative flex items-center pl-10 bg-[#F9F5F6] text-black font-medium font-Cabin dark:bg-DarkBackground pt-24 max-md:px-5 px-10 max-md:flex-col max-md:items-center">
       <motion.section
         className="dark:text-DarkText"
         initial="hidden"
@@ -70,24 +70,24 @@ function TheCenterPart() {
           </span>
         </motion.div>
         {/* Big Text Animation */}
-        <motion.div className="TheBigTxt">
-          <h3
-            className="leading-normal font-extrabold"
-            style={{ fontSize: isSmallScreen ? "1.5rem" : "3rem" }}
-          >
-            Empowering Moms with <br /> Every Thoughtful Product Choice
-          </h3>
-        </motion.div>
+        <motion.h1
+          className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
+          variants={variants.fadeInUp}
+        >
+          Empowering Moms with<br />
+          <span className="text-[#f07a96] dark:text-[#d86a84]">
+            Every Thoughtful Product Choice
+          </span>
+        </motion.h1>
 
         {/* Subtext Animation */}
-        <motion.div className="tracking-wider mt-9  text-lg leading-normal dark:text-white">
-          <p>
-            Supporting moms with practical solutions and resources to make
-            parenting
-            <br />
-            easier and more enjoyable. Explore our offerings today!
-          </p>
-        </motion.div>
+        <motion.p
+          className="text-lg md:text-xl leading-relaxed mb-10 text-gray-700 dark:text-gray-300 max-w-2xl"
+          variants={variants.fadeInUp}
+        >
+          Supporting moms with practical solutions and resources to make parenting
+          easier and more enjoyable. Explore our offerings today!
+        </motion.p>
 
         {/* Button Animation */}
         <motion.div className="mt-10 mb-7" variants={variants.button}>
@@ -103,7 +103,7 @@ function TheCenterPart() {
         </motion.div>
         {/* Social Media Icons Animation */}
         <motion.div
-          className="select-none text-xl flex gap-3 mb-2 ml-2 pb-10 mt-48 max-md:mt-20 max-md:mx-auto max-md:flex-col max-md:items-center"
+          className="select-none text-xl flex gap-3 mb-2 ml-2 pb-10 mt-32 max-md:mt-20 max-md:mx-auto max-md:flex-col max-md:items-center"
           initial="hidden"
           animate="visible"
           variants={variants.icon}
@@ -153,7 +153,7 @@ function TheCenterPart() {
       </motion.section>
 
       {/* Image Animation */}
-      <motion.div
+      {/* <motion.div
         className="absolute right-16 bottom-36"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -163,7 +163,20 @@ function TheCenterPart() {
           src="/image/MotherHeroSectionImage.png"
           alt="Mother Hero Section"
         />
+      </motion.div> */}
+      <motion.div
+        className="absolute right-3 bottom-20"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <img
+          src="/image/HeroImage5.png"
+          alt="Hero Section Image"
+          className="w-auto  object-cover"
+        />
       </motion.div>
+      {/* https://plus.unsplash.com/premium_vector-1718903763242-a2337752aeed?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D */}
     </main>
   );
 }
