@@ -138,33 +138,35 @@ const updateProduct = async (req, res) => {
   }
 };
 
+
+
 const addFav = async (req, res) => {
   try {
-    let userData = await userModel.findOne({ _id: req.body.userId });
-    let favoritesData = await userData.favorites;
+    await userModel.updateOne(
+      { _id: req.body.userId },
+      {
+        $set: {
+          [`favorites.${req.body.itemId}`]: {
+            image: req.body.itemImage,
+            name: req.body.itemName,
+            price: req.body.itemPrice,
+          }
+        }
+      }
+    );
 
-    if (!favoritesData[req.body.itemId]) {
-
-      favoritesData[req.body.itemId] = {
-        image: req.body.itemImage,
-        name: req.body.itemName,
-        price: req.body.itemPrice,
-        category: req.body.itemCategory,
-      };
-      await userModel.findByIdAndUpdate(req.body.userId, { favorites });
-
-
-    } else {
-      return res.status(400).json({ success: false, message: "Product already in favorites" });
-    }
-
-    await userModel.findByIdAndUpdate(req.body.userId, { favorites: favoritesData });
-    res.json({ success: true, message: "Product added to favorites successfully" });
+    res.json({ success: true, message: "Added to favorites" });
   } catch (err) {
-    console.log(err);
-    res.json({ success: false, message: "Error adding to favorites", err });
+    console.error(err);
+    res.status(500).json({
+      success: false,
+      message: "Error adding to favorites",
+      error: err.message,
+    });
   }
 };
+
+
 
 
 const showFavProducts = async (req, res) => {
@@ -188,33 +190,31 @@ const showFavProducts = async (req, res) => {
 
 const removeFavProduct = async (req, res) => {
   try {
-    const { userId, itemId } = req.body; // استخراج معرف المستخدم ومعرف المنتج من الـ params
+    const { userId, itemId } = req.body;
 
-    // البحث عن المستخدم بناءً على معرفه
-    const user = await userModel.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" }); // إذا لم يتم العثور على المستخدم
+    const userData = await userModel.findById(userId);
+    if (!userData) {
+      return res.status(404).json({ success: false, message: "User not found" });
     }
 
-    // التحقق إذا كان المنتج موجودًا في قائمة المفضلة
-    const productIndex = user.favorites.indexOf(itemId);
-    if (productIndex === -1) {
-      return res.status(404).json({ success: false, message: "Product not found in favorites" }); // إذا لم يكن المنتج موجودًا في المفضلة
+    const favorites = userData.favorites;
+
+    if (favorites[itemId]) {
+
+      delete favorites[itemId];
+
+    } else {
+      return res.status(404).json({ success: false, message: "Item not found in favorites" });
     }
 
-    // إزالة معرف المنتج من قائمة المفضلة
-    user.favorites.splice(productIndex, 1);
+    await userModel.findByIdAndUpdate(userId, { favorites });
 
-    // حفظ التغييرات
-    await user.save();
-
-    // إرجاع استجابة ناجحة
-    res.json({ success: true, message: "Product removed from favorites successfully" });
-  } catch (error) {
-    // التعامل مع الأخطاء
-    res.status(400).json({ success: false, message: "Failed to remove product from favorites", error: error.message });
+    res.json({ success: true, message: "Item Removed in favorites successfully" });
+  } catch (err) {
+    console.error("Error removing item from favorites:", err);
+    res.status(500).json({ success: false, message: "Error updating item in favorites" });
   }
+
 };
 
 

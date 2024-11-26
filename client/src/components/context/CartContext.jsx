@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo, useEffect } from "react";
+import { createContext, useContext, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -7,7 +7,7 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const token = localStorage.getItem("token");
-  
+
   const addToCart = async (itemId) => {
     try {
       if (token) {
@@ -124,7 +124,7 @@ export const CartProvider = ({ children }) => {
 
   const cartCount = useMemo(
     () => cartItems.reduce((total, item) => total + item.quantity, 0),
-    
+
     [cartItems]
   );
 

@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 
 const FavoritesContext = createContext();
 
 export const FavoritesProvider = ({ children }) => {
   const [favoritesItems, setFavoritesItems] = useState([]);
 
-  
   // useEffect(() => {
   //   const fetchFavorites = async () => {
   //     try {
@@ -26,56 +26,69 @@ export const FavoritesProvider = ({ children }) => {
   //   };
   //   fetchFavorites();
   // }, []);
+  const token = localStorage.getItem("token");
 
   const addToFavorites = async (item) => {
     try {
-      const response = await fetch("http://localhost:3000/users/favourites/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: USER_ID,
-          itemId: item._id,
-        }),
-      });
+      if (token) {
+        const response = await axios.post(
+          "http://localhost:3000/users/favourites/add",
+          {
+            itemId: item._id,
+            itemImage: item.image,
+            itemName: item.name,
+            itemPrice: item.price,
+          },
+          { headers: { token } }
+        );
 
-      if (!response.ok) throw new Error("Failed to add to favorites");
+        if (response.status !== 200)
+          throw new Error("Failed to add to favorites");
 
-      setFavoritesItems((prev) => {
-        if (prev.some((favItem) => favItem._id === item._id)) {
-          return prev;
-        }
-        return [...prev, item];
-      });
+        setFavoritesItems((prev) => {
+          const updatedFavorites = prev.some(
+            (favItem) => favItem._id === item._id
+          )
+            ? prev
+            : [...prev, item];
+
+          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+          return updatedFavorites;
+        });
+
+        console.log("Item added to favorites successfully!");
+      }
     } catch (error) {
-      console.error("Error adding to favorites:", error);
+      console.error("Error adding to favorites:", error.message);
     }
   };
 
   const removeFromFavorites = async (item) => {
     try {
-      const response = await fetch("http://localhost:3000/users/favourites/remove", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) throw new Error("Failed to remove from favorites");
-
-      setFavoritesItems((prev) => 
-        prev.filter((favItem) => favItem._id !== item._id)
+      const response = await axios.delete(
+        "http://localhost:3000/users/favourites/remove",
+        {
+          headers: { token },
+          data: { itemId: item._id },
+        }
       );
+  
+      if (response.status !== 200) throw new Error("Failed to remove from favorites");
+  
+      setFavoritesItems((prev) => {
+        const updatedFavorites = prev.filter((favItem) => favItem._id !== item._id);
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+        return updatedFavorites;
+      });
+  
+      console.log("Item removed from favorites successfully!");
     } catch (error) {
-      console.error("Error removing from favorites:", error);
+      console.error("Error removing from favorites:", error.message);
     }
   };
+  
 
-  const favoritesCount = useMemo(
-    () => favoritesItems.length,
-    [favoritesItems]
-  );
+  const favoritesCount = useMemo(() => favoritesItems.length, [favoritesItems]);
 
   const value = useMemo(
     () => ({
@@ -83,6 +96,7 @@ export const FavoritesProvider = ({ children }) => {
       addToFavorites,
       removeFromFavorites,
       favoritesCount,
+      setFavoritesItems
     }),
     [favoritesItems, favoritesCount]
   );
