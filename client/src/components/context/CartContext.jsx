@@ -6,7 +6,6 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
   const token = localStorage.getItem("token");
 
   const addToCart = async (itemId) => {
@@ -48,10 +47,6 @@ export const CartProvider = ({ children }) => {
       console.error("Error adding item to cart:", error);
     }
   };
-
-  // useEffect(() => {
-  //   console.log("Updated cartItems:", cartItems);
-  // }, [cartItems]);
 
   const removeFromCart = async (itemToRemove) => {
     try {
@@ -123,22 +118,26 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  const decrementCartCount = () => {
-    setCartCount((prev) => prev - 1);
-  };
+<<<<<<< HEAD
+  const cartCount = useMemo(
+    () => cartItems.reduce((total, item) => total + item.quantity, 0),
 
+    [cartItems]
+  );
+=======
+
+
+>>>>>>> 5ff0fd22cdbd72cb03b222ccc9247c418bdd818a
   const value = useMemo(
     () => ({
       cartItems,
       setCartItems,
       addToCart,
       removeFromCart,
-      cartCount,
       getCartItems,
       decreaseFromCart,
-      decrementCartCount,
     }),
-    [cartItems, cartCount]
+    [cartItems]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

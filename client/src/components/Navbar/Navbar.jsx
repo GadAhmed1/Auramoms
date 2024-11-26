@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useCallback, useContext, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
 import NavItem from "./NavItem.jsx";
@@ -20,6 +20,7 @@ const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const storedUsername = localStorage.getItem("username");
+  // const cartCount = localStorage.getItem("cartCount");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const { token, setToken } = useContext(ShopContext);
@@ -29,7 +30,16 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("username");
     setToken("");
   }, [setToken]);
+<<<<<<< HEAD
+  // useEffect(() => {
+  //   const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+    
+  // }, []);
+=======
 
+>>>>>>> 5ff0fd22cdbd72cb03b222ccc9247c418bdd818a
   return (
     <motion.nav
       initial="visible"

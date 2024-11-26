@@ -13,6 +13,8 @@ const Login = lazy(() => import("./components/Log in/login"));
 const ProductDetails = lazy(() => import("./components/Shop/ProductDetails"));
 const Cart = lazy(() => import("./components/Shop/Cart"));
 const Favorites = lazy(() => import("./components/Shop/Favorites"));
+const TermsOfService = lazy(() => import("./components/TermsPolicy/TermsOfService"));
+const TermsOfServiceCopy = lazy(() => import("./components/TermsPolicy/TermsOfServiceCopy"));
 const ContactForm_Email = lazy(
   () => import("./components/Contact_Us/ContactForm_Email")
 );
@@ -85,6 +87,14 @@ function App() {
               <Route
                 path="/favorites"
                 element={<DelayedRoute element={<Favorites />} />}
+              />
+              <Route
+                path="/termsOfService"
+                element={<DelayedRoute element={<TermsOfService />} />}
+              />
+              <Route
+                path="/termsOfServiceCopy"
+                element={<DelayedRoute element={<TermsOfServiceCopy/>} />}
               />
             </Routes>
           </Suspense>

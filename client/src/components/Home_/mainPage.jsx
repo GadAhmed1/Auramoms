@@ -11,7 +11,7 @@ function HomePage() {
     <div className="dark:bg-DarkBackground overflow-x-hidden">
       <ProgressBar />
       <TheCenterPatInHeroSection />
-      <section className="dark:bg-[#080e1b] my-8">
+      <section className="dark:bg-[#080e1b] py-20">
         <TheGreenMan />
       </section>
       {/* <Divider1 /> */}

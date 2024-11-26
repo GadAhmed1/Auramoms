@@ -68,7 +68,6 @@ const List = ({ url }) => {
                 key={product._id}
                 className="border-b border-slate-900/20 text-gray-800 text-left"
               >
-                {/** الصور هنا تكون مستجيبة للشاشات المختلفة */}
                 {[
                   product.image,
                   product.image2,
