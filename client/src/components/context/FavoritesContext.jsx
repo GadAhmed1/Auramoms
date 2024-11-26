@@ -7,25 +7,6 @@ const FavoritesContext = createContext();
 export const FavoritesProvider = ({ children }) => {
   const [favoritesItems, setFavoritesItems] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchFavorites = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:3000/users/favourites/list", {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ userId: USER_ID }),
-  //       });
-  //       if (!response.ok) throw new Error("Failed to fetch favorites");
-  //       const data = await response.json();
-  //       setFavoritesItems(data);
-  //     } catch (error) {
-  //       console.error("Error fetching favorites:", error);
-  //     }
-  //   };
-  //   fetchFavorites();
-  // }, []);
   const token = localStorage.getItem("token");
 
   const addToFavorites = async (item) => {
@@ -72,21 +53,23 @@ export const FavoritesProvider = ({ children }) => {
           data: { itemId: item._id },
         }
       );
-  
-      if (response.status !== 200) throw new Error("Failed to remove from favorites");
-  
+
+      if (response.status !== 200)
+        throw new Error("Failed to remove from favorites");
+
       setFavoritesItems((prev) => {
-        const updatedFavorites = prev.filter((favItem) => favItem._id !== item._id);
+        const updatedFavorites = prev.filter(
+          (favItem) => favItem._id !== item._id
+        );
         localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
         return updatedFavorites;
       });
-  
+
       console.log("Item removed from favorites successfully!");
     } catch (error) {
       console.error("Error removing from favorites:", error.message);
     }
   };
-  
 
   const favoritesCount = useMemo(() => favoritesItems.length, [favoritesItems]);
 
@@ -96,7 +79,7 @@ export const FavoritesProvider = ({ children }) => {
       addToFavorites,
       removeFromFavorites,
       favoritesCount,
-      setFavoritesItems
+      setFavoritesItems,
     }),
     [favoritesItems, favoritesCount]
   );
