@@ -29,6 +29,8 @@ const uploadImage = async (file) => {
       resource_type: 'auto',
       folder: 'uploads/',
     });
+    console.log("Success");
+    
     return result.secure_url;
   } catch (error) {
     console.error('Error uploading image to Cloudinary:', error);

@@ -9,17 +9,17 @@ import AuraMoms from "./auraMoms.jsx";
 import { FaCartShopping, FaHeartCirclePlus } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import debounce from "lodash.debounce";
-import { useCart } from "../context/CartContext.jsx";
 import { ShopContext } from "../../context/ShopContext.jsx";
 import { FaCircleUser } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
-import { lowerCase } from "lodash";
+import { useCart } from "../context/CartContext.jsx";
 
 const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const storedUsername = localStorage.getItem("username");
+  // const cartCount = localStorage.getItem("cartCount");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const { token, setToken } = useContext(ShopContext);
@@ -34,10 +34,8 @@ const Navbar = ({ setshowLogin }) => {
     const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    
   }, []);
-  useEffect(() => {
-    localStorage.setItem("");
-  });
 
   return (
     <motion.nav

@@ -17,6 +17,7 @@ import orderRouter from "./routes/orderRoute.js";
 import { checkToken } from "./middleware/auth.js";
 import corsOptions from "./config/Cors_Options.js";
 import userModel from "./models/userModel.js";
+import orderModel from "./models/ordermodel.js";
 
 dotenv.config();
 
@@ -58,6 +59,17 @@ app.delete('/deleteAllUsers', async (req, res) => {
     res.status(500).json({ success: false, message: 'Failed to delete users', error: error.message });
   }
 });
+
+app.delete("/deleteALLorders", async (req, res) => {
+  try {
+    await orderModel.deleteMany({}); // حذف جميع الوثائق من مجموعة الطلبات
+    res.json({ success: true, message: 'All orders have been deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error deleting orders', error });
+  }
+});
+
 app.get('/protected', checkToken, (req, res) => {
   res.json({ message: 'Access granted', user: req.user });
 });

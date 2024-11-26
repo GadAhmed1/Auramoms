@@ -48,9 +48,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Updated cartItems:", cartItems);
-  // }, [cartItems]);
 
   const removeFromCart = async (itemToRemove) => {
     try {
@@ -124,10 +121,9 @@ export const CartProvider = ({ children }) => {
 
   const cartCount = useMemo(
     () => cartItems.reduce((total, item) => total + item.quantity, 0),
-
-    [cartItems]
+ 
+      [cartItems]
   );
-
   const value = useMemo(
     () => ({
       cartItems,

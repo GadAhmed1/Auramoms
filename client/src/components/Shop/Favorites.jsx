@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useFavorites } from "../context/FavoritesContext";
 
 const Favorites = () => {
-  const { favoritesItems,setFavoritesItems, removeFromFavorites } = useFavorites();
+  const { favoritesItems, setFavoritesItems, removeFromFavorites } =
+    useFavorites();
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavoritesItems(favorites);
