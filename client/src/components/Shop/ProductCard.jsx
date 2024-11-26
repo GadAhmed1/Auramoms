@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { FaEye } from "react-icons/fa";
+
 const ProductCard = ({ product }) => {
   const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } =
     useFavorites();
@@ -28,8 +28,10 @@ const ProductCard = ({ product }) => {
     try {
       if (isFavorite) {
         await removeFromFavorites(product);
+        setIsFavorite(false);
       } else {
         await addToFavorites(product);
+        setIsFavorite(true);
       }
     } catch (error) {
       console.error("Error toggling favorite:", error);
@@ -41,6 +43,16 @@ const ProductCard = ({ product }) => {
     navigate(`/product/${product._id}`);
   };
 
+  const handleAddToCart = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login to add to cart");
+      return;
+    } else {
+      addToCart(product);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
       <div className="relative w-full h-48 cursor-pointer">
@@ -48,22 +60,22 @@ const ProductCard = ({ product }) => {
           onClick={handleOpenProductDetails}
           src={product.image}
           alt={product.name}
-          className={`w-full rounded-2xl hover:scale-110 h-full object-contain transition-transform duration-500 `}
+          className="w-full rounded-2xl hover:scale-110 h-full object-contain transition-transform duration-500"
         />
-        <motion.button
-          className="block  lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => toggleModal(true)}
-        >
-          <FaEye />
-        </motion.button>
 
         <motion.button
           className="lg:hidden absolute bottom-4 left-4 bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => toggleModal(true)}
+        >
+          <FaEye />
+        </motion.button>
+        <motion.button
+          className=" absolute bottom-2 right-2 dark:bg-slate-800 dark:text-white bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleOpenProductDetails}
         >
           <FaEye />
         </motion.button>
@@ -83,7 +95,7 @@ const ProductCard = ({ product }) => {
       <div className="flex items-center gap-4 mt-3">
         <button
           className="bg-ButtonPinkColor dark:bg-[#d86a84] text-white font-semibold py-2 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
-          onClick={() => addToCart(product)}
+          onClick={handleAddToCart}
         >
           Add to Cart
         </button>
@@ -93,18 +105,20 @@ const ProductCard = ({ product }) => {
           disabled={isLoading}
           className={`text-3xl transition-transform ${
             isFavorite ? "text-red-500 scale-110" : "text-[#F4A7B9] scale-100"
-          } hover:scale-105 active:scale-95 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+          } hover:scale-105 active:scale-95 ${
+            isLoading ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
           {isFavorite ? <FaHeart className="animate-pulse" /> : <FaRegHeart />}
         </button>
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh]">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 transition-opacity duration-300">
+          <div className="bg-white rounded-lg w-11/12 max-w-2xl h-auto relative p-6 overflow-y-auto max-h-[80vh] shadow-2xl transform transition-transform duration-300 scale-95">
             <button
               onClick={() => toggleModal(false)}
-              className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900"
+              className="absolute top-4 right-4 text-2xl font-bold text-gray-700 hover:text-gray-900 transition-colors duration-200 transform hover:rotate-90"
             >
               ✖
             </button>
@@ -158,7 +172,7 @@ const ProductCard = ({ product }) => {
 
                 <div className="flex items-center justify-center gap-4">
                   <button
-                    onClick={() => addToCart(product)}
+                    onClick={handleAddToCart}
                     className="bg-ButtonPinkColor text-white font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
                   >
                     Add to Cart
@@ -171,6 +185,7 @@ const ProductCard = ({ product }) => {
                         ? "text-red-500 scale-110"
                         : "text-ButtonPinkColor scale-100"
                     }`}
+                    disabled={isLoading}
                   >
                     {isFavorite ? (
                       <FaHeart className="animate-pulse" />
@@ -180,7 +195,7 @@ const ProductCard = ({ product }) => {
                   </button>
                   <button
                     onClick={handleOpenProductDetails}
-                    className="bg-transparent border-2 border-ButtonPinkColor  text-black font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
+                    className="bg-transparent border-2 border-ButtonPinkColor text-black font-semibold py-3 px-6 rounded-lg active:scale-95 transition-transform hover:scale-105"
                   >
                     More Details
                   </button>

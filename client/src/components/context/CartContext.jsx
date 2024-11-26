@@ -6,6 +6,7 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
   const token = localStorage.getItem("token");
 
   const addToCart = async (itemId) => {
@@ -119,11 +120,18 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+<<<<<<< HEAD
   const cartCount = useMemo(
     () => cartItems.reduce((total, item) => total + item.quantity, 0),
  
       [cartItems]
   );
+=======
+  const decrementCartCount = () => {
+    setCartCount((prev) => prev - 1);
+  };
+
+>>>>>>> 49d5448be9e613c84553ceecbabaec7d535da634
   const value = useMemo(
     () => ({
       cartItems,
@@ -133,6 +141,7 @@ export const CartProvider = ({ children }) => {
       cartCount,
       getCartItems,
       decreaseFromCart,
+      decrementCartCount,
     }),
     [cartItems, cartCount]
   );
