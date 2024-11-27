@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (itemId) => {
     try {
-      if (token) {
+      if (token) {https://meet.google.com/gzj-ugbu-bbb
         const response = await axios.post(
           "http://localhost:3000/carts/add",
           {
@@ -118,11 +118,6 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 5873195d4539179736f1645210382006e413702f
   const value = useMemo(
     () => ({
       cartItems,
