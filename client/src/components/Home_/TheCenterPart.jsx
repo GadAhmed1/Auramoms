@@ -73,8 +73,8 @@ function TheCenterPart() {
           className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6"
           variants={variants.fadeInUp}
         >
-          Empowering Moms with
-          <br />
+          Empowering Moms with <br/>
+          
           <span className="text-[#f07a96] dark:text-[#d86a84]">
             Every Thoughtful Product Choice
           </span>
@@ -129,14 +129,14 @@ function TheCenterPart() {
         </motion.div>
       </motion.section>
       <motion.div
-        className="flex-1 flex justify-center mb-10 items-center"
-        initial={{ opacity: 0, scale: 0.8 }}
+        className="flex-1 flex justify-end items-center mb-40"
+        initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
       >
         <img
           src={HeroImg}
-          className="w-2/3 h-2/3  max-md:w-1/2 "
+          className="max-w-full lg:w-3/4 hover:scale-105 transition-transform duration-500 rounded-xl shadow-lg"
           alt="Mother Hero Section"
         />
       </motion.div>

@@ -9,6 +9,7 @@ import FormButton from "./FormButton";
 import { UserCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
+
 function SignUpForm() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
@@ -230,21 +231,19 @@ function SignUpForm() {
             />
             <label className="ml-3 text-sm sm:text-base text-gray-600 dark:text-gray-300">
               By creating an account, you accept our{" "}
-              <a
-                href="#"
-                className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] 
-                font-medium transition-colors duration-200"
+              <Link
+                to="/termsOfService"
+                className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] font-medium transition-colors duration-200"
               >
                 terms of service
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a
-                href="#"
-                className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] 
-                font-medium transition-colors duration-200"
+              <Link
+                to="/privacyPolicy"
+                className="text-[#f4a7b9] dark:text-[#d86a84] hover:text-[#d86a84] dark:hover:text-[#f4a7b9] font-medium transition-colors duration-200"
               >
                 privacy policy
-              </a>
+              </Link>
               .
             </label>
           </div>

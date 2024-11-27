@@ -13,8 +13,10 @@ const Login = lazy(() => import("./components/Log in/login"));
 const ProductDetails = lazy(() => import("./components/Shop/ProductDetails"));
 const Cart = lazy(() => import("./components/Shop/Cart"));
 const Favorites = lazy(() => import("./components/Shop/Favorites"));
-const TermsOfService = lazy(() => import("./components/TermsPolicy/TermsOfService"));
-const TermsOfServiceCopy = lazy(() => import("./components/TermsPolicy/TermsOfServiceCopy"));
+const TermsOfService = lazy(() => import("./components/Policies/TermsOfService"));
+const PrivacyPolicy = lazy(() => import("./components/Policies/PrivacyPolicy"));
+const ShippingPolicy = lazy(() => import("./components/Policies/ShippingPolicy"));
+const ReturnAndRefund = lazy(() => import("./components/Policies/ReturnAndRefund"));
 const ContactForm_Email = lazy(
   () => import("./components/Contact_Us/ContactForm_Email")
 );
@@ -93,8 +95,16 @@ function App() {
                 element={<DelayedRoute element={<TermsOfService />} />}
               />
               <Route
-                path="/termsOfServiceCopy"
-                element={<DelayedRoute element={<TermsOfServiceCopy/>} />}
+                path="/privacyPolicy"
+                element={<DelayedRoute element={<PrivacyPolicy/>} />}
+              />
+              <Route
+                path="/shippingPolicy"
+                element={<DelayedRoute element={<ShippingPolicy/>} />}
+              />
+              <Route
+                path="/returnAndRefund"
+                element={<DelayedRoute element={<ReturnAndRefund/>} />}
               />
             </Routes>
           </Suspense>

@@ -23,7 +23,7 @@ export default function TheGreenMan() {
         </h2>
         <p className="leading-relaxed font-Cabin text-gray-700 dark:text-gray-300">
           At{" "}
-          <span className="font-Lora text-pink-600 dark:text-pink-400">
+          <span className="font-playpen text-pink-600 dark:text-pink-400">
             Aura Moms
           </span>
           , we are committed to providing a seamless shopping experience with

@@ -72,7 +72,7 @@ const ProductCard = ({ product }) => {
           <FaEye />
         </motion.button>
         <motion.button
-          className=" absolute max-lg:hidden  bottom-2 right-2 dark:bg-slate-800 dark:text-white bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
+          className=" absolute max-lg:hidden  bottom-2 right-2  bg-white text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-200 transform hover:scale-105"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleOpenProductDetails}
