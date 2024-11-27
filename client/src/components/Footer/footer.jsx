@@ -52,11 +52,16 @@ const Footer = () => {
                 </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
+<<<<<<< HEAD
+                <NavLink to="/termsOfServiceCopy">
+                  <li className={listItemClasses}>Privacy Policy</li>
+=======
                 <NavLink to="/shippingPolicy">
                   <li className={listItemClasses}>Shipping Policy</li>
                 </NavLink>
                 <NavLink to="/returnAndRefund">
                 <li className={listItemClasses}>Return And Refund</li>
+>>>>>>> 5873195d4539179736f1645210382006e413702f
                 </NavLink>
               </ul>
             </div>
