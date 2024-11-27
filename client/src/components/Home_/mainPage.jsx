@@ -15,7 +15,7 @@ function HomePage() {
         <TheGreenMan />
       </section>
       {/* <Divider1 /> */}
-      <section className="bg-AuraPinkColor dark:bg-DarkBackground">
+      <section className="bg-AuraPinkColor">
         <WhoWeAre />
       </section>
       <Footer />
