@@ -120,7 +120,7 @@ const Cart = () => {
                     <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
                       ${item.price.toFixed(2)}
                     </td>
-                    <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
+                    <td className="py-3 px-4 text-gray-600 dark:t`ext-gray-300">
                       <div className="flex items-center justify-center gap-2">
                         <button
                           onClick={() => removeFromCart(item)}
@@ -191,11 +191,17 @@ const Cart = () => {
               <p>Grand Total: ${totalPrice.toFixed(2)}</p>
             </div>
             <div className="mt-8 flex justify-center">
-              <div className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+              <div
+                className="w-full max-w-md p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md"
+                style={{ zIndex: 1 }}
+              >
                 <h2 className="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-gray-100">
                   Proceed to Payment
                 </h2>
-                <div id="paypal-button-container"></div>
+                <div
+                  id="paypal-button-container"
+                  style={{ marginTop: "20px" }}
+                ></div>
               </div>
             </div>
           </div>
