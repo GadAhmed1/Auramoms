@@ -120,7 +120,7 @@ const ContactForm_Email = () => {
                       placeholder="Name"
                       value={formData.user_name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none dark:bg-gray-700 text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-dark:bg-[#d86a84]"
+                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none bg-white text-black dark:bg-gray-700 dark:text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-dark:bg-[#d86a84]"
                     />
                     <input
                       name="user_email"
@@ -129,7 +129,7 @@ const ContactForm_Email = () => {
                       required
                       value={formData.user_email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none dark:bg-gray-700 text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
+                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none bg-white text-black dark:bg-gray-700 dark:text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
                     />
                     <input
                       name="user_subject"
@@ -138,7 +138,7 @@ const ContactForm_Email = () => {
                       placeholder="Subject"
                       value={formData.user_subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none dark:bg-gray-700 text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
+                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none bg-white text-black dark:bg-gray-700 dark:text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
                     />
                     <textarea
                       required
@@ -147,7 +147,7 @@ const ContactForm_Email = () => {
                       rows="4"
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none resize-none dark:bg-gray-700 text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
+                      className="w-full px-4 py-3 rounded-lg border border-PinkyColor focus:border-PinkyColor focus:ring-2 focus:ring-PinkyColor transition-all outline-none resize-none bg-white text-black dark:bg-gray-700 dark:text-white dark:border-PinkyColor dark:focus:ring-2 dark:focus:ring-PinkyColor"
                     />
                     <motion.button
                       type="submit"
