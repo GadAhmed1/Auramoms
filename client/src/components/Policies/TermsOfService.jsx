@@ -1,3 +1,6 @@
+import Footer from "../Footer/Footer.jsx";
+
+
 const TermsAndConditions = () => {
   return (
     <main className="dark:bg-DarkBackground min-h-screen">
@@ -201,6 +204,7 @@ const TermsAndConditions = () => {
           </p>
         </div>
       </div>
+      <Footer/>
     </main>
   );
 };
