@@ -5,6 +5,9 @@ import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 
 const ProductCard = ({ product }) => {
   const { favoritesItems, addToFavorites, removeFromFavorites, isLoading } =
@@ -46,12 +49,34 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Please login to add to cart");
+      Swal.fire({
+        toast: true,
+        icon: "error",
+        title: "Please Sign to add to cart",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#f8d7da",
+        color: "#721c24",
+      });
       return;
     } else {
       addToCart(product);
+      Swal.fire({
+        toast: true,
+        icon: "success",
+        title: "Product added to cart",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#d4edda",
+        color: "#155724",
+      });
     }
   };
+  
 
   return (
     <div className="flex flex-col justify-center gap-4 items-center p-4 bg-white rounded-lg shadow-lg w-full sm:w-80 transition-all duration-300 dark:bg-gray-800 text-white">
