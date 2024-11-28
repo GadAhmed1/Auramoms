@@ -30,16 +30,6 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("username");
     setToken("");
   }, [setToken]);
-<<<<<<< HEAD
-  // useEffect(() => {
-  //   const handleScroll = debounce(() => setHidden(window.scrollY > 0), 100);
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-    
-  // }, []);
-=======
-
->>>>>>> 5ff0fd22cdbd72cb03b222ccc9247c418bdd818a
   return (
     <motion.nav
       initial="visible"

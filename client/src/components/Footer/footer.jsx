@@ -48,16 +48,8 @@ const Footer = () => {
                 </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
-<<<<<<< HEAD
-                <NavLink to="/contact">
-                  <li className={listItemClasses}>Contact</li>
-                </NavLink>
-                <NavLink to="/shop">
-                  <li className={listItemClasses}>Shop</li>
-=======
                 <NavLink to="/termsOfServiceCopy">
                   <li className={listItemClasses}>Privacy Policy</li>
->>>>>>> 5ff0fd22cdbd72cb03b222ccc9247c418bdd818a
                 </NavLink>
               </ul>
             </div>
