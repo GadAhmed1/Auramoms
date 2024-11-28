@@ -66,7 +66,7 @@ const WhoWeAre = () => {
       </motion.h3>
       <motion.div
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-9 mt-8"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-9 mt-8 mx-10"
       >
         {partsData.map((part, index) => (
           <motion.div key={index} variants={itemVariants}>
@@ -74,7 +74,7 @@ const WhoWeAre = () => {
               imageSrc={part.imageSrc}
               title={part.title}
               description={part.description}
-              bgColor="bg-[#F9F5F6] dark:bg-DarkBackground"
+              bgColor="bg-[#F9F5F6] dark:bg-[#080e1b]"
             />
           </motion.div>
         ))}
@@ -91,7 +91,7 @@ const WhoWeAre = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 1 }}
+            transition={{ duration: 0.5}}
           >
             About Us
           </motion.button>

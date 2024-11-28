@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext, useEffect } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
 import NavItem from "./NavItem.jsx";
@@ -20,7 +20,6 @@ const Navbar = ({ setshowLogin }) => {
   const { cartCount } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const storedUsername = localStorage.getItem("username");
-  // const cartCount = localStorage.getItem("cartCount");
   const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
 
   const { token, setToken } = useContext(ShopContext);
@@ -66,40 +65,36 @@ const Navbar = ({ setshowLogin }) => {
           )}
         </NavLink>
         <ThemeMode />
-        <NavLink to="/Sign_up">
-          {!token ? (
+        {!token ? (
+          <NavLink to="/Sign_up">
             <NavButton
               title="Login/Sign Up"
-              onClick={() => setshowLogin(true)}
+              onClick={() => setshowLogin(true)} // Simplified
               className="w-full text-sm px-2 py-4 bg-[#F4A7B9] dark:bg-[#d86a84] hover:scale-105 hover:bg-[#e790b0] border-none"
             >
               Sign Up
             </NavButton>
-          ) : (
-            <div className="group relative">
-              <div className="flex flex-col justify-center items-center text-center bg-[#F4A7B9] px-2.5 py-1.5 rounded-xl dark:text-black dark:bg-[#d86a84]">
-                <FaCircleUser className="text-2xl text-white" />
-                <span className="text-white">{storedUsername}</span>
-              </div>
-
-              <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0 text-black">
-                <li
-                  onClick={() => {
-                    if (token) {
-                      alert("You are already signed in.");
-                    } else {
-                      logout();
-                    }
-                  }}
-                  className="flex justify-center items-center gap-2"
-                >
-                  <TbLogout className="text-black text-2xl" />
-                  <p>Logout</p>
-                </li>
-              </ul>
+          </NavLink>
+        ) : (
+          <div className="group relative">
+            <div className="flex flex-col justify-center items-center text-center bg-[#F4A7B9] px-2.5 py-1.5 rounded-xl dark:text-black dark:bg-[#d86a84]">
+              <FaCircleUser className="text-2xl text-white" />
+              <span className="text-white">
+                {storedUsername || "User"}
+              </span>{" "}
+              {/* Fallback for username */}
             </div>
-          )}
-        </NavLink>
+            <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0 text-black">
+              <li
+                onClick={logout}
+                className="flex justify-center items-center gap-2"
+              >
+                <TbLogout className="text-black text-2xl" />
+                <p>Logout</p>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
       <button
         onClick={toggleMenu}

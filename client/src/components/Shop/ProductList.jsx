@@ -100,6 +100,7 @@ const ProductList = () => {
   return (
     <div>
       {/* Filter Section */}
+
       <div className="flex justify-center gap-4 mb-6 flex-wrap">
         {[
           "All",
@@ -121,7 +122,9 @@ const ProductList = () => {
           </button>
         ))}
       </div>
-
+      <h1 className="text-4xl font-semibold text-center mb-4 text-[#F4A7B9] dark:text-[#d86a84] font-Lora">
+        Our Products
+      </h1>
       {/* Product Grid */}
       <motion.div
         className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4"

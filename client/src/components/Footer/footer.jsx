@@ -1,5 +1,5 @@
 import {
-  FaFacebook,
+  FaTiktok,
   FaInstagram,
   FaPhoneAlt,
   FaPinterest,
@@ -7,7 +7,7 @@ import {
   FaCcMastercard,
   FaCcPaypal,
 } from "react-icons/fa";
-import { FaLocationDot, FaXTwitter } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
@@ -38,18 +38,30 @@ const Footer = () => {
             </address>
           </div>
 
+
           {/* Quick Links Section */}
           <nav className="space-y-6">
             <h1 className="text-3xl font-bold">Quick Links</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-Cabin">
               <ul className="space-y-2 text-lg font-varela">
-                <NavLink to="/termsOfService">
+              <NavLink to="/termsOfService">
                   <li className={listItemClasses}>Terms of Service</li>
+                </NavLink>
+                <NavLink to="/termsOfServiceCopy">
+                  <li className={listItemClasses}>Privacy Policy</li>
                 </NavLink>
               </ul>
               <ul className="space-y-2 text-lg font-varela">
+<<<<<<< HEAD
                 <NavLink to="/termsOfServiceCopy">
                   <li className={listItemClasses}>Privacy Policy</li>
+=======
+                <NavLink to="/shippingPolicy">
+                  <li className={listItemClasses}>Shipping Policy</li>
+                </NavLink>
+                <NavLink to="/returnAndRefund">
+                <li className={listItemClasses}>Return And Refund</li>
+>>>>>>> 5873195d4539179736f1645210382006e413702f
                 </NavLink>
               </ul>
             </div>
@@ -59,10 +71,15 @@ const Footer = () => {
           <div className="space-y-6">
             <h1 className="text-3xl font-bold">Follow Us</h1>
             <div className="flex items-center gap-3">
-              <FaFacebook className={iconClasses} href="https://www.facebook.com/shimaa.elasnawy" aria-label="Facebook" />
-              <FaInstagram className={iconClasses} href="https://www.instagram.com/auramomsbrand/"  aria-label="Instagram" />
-              {/* <FaXTwitter className={iconClasses} aria-label="Twitter" /> */}
-              <FaPinterest className={iconClasses} href="https://www.pinterest.com/auramomsstore/" aria-label="Pinterest" />
+              <a href="https://www.instagram.com/auramomsbrand/">
+                <FaTiktok className={iconClasses} aria-label="Instagram" />
+              </a>
+              <a href="https://www.instagram.com/auramomsbrand/">
+                <FaInstagram className={iconClasses} aria-label="Instagram" />
+              </a>
+              <a href="https://www.pinterest.com/auramomsstore/">
+                <FaPinterest className={iconClasses} aria-label="Pinterest" />
+              </a>
             </div>
             <div className="space-y-2">
               <p className="text-xl font-bold">Payment Methods</p>

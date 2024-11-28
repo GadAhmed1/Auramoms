@@ -37,6 +37,13 @@ const ContactForm_Email = () => {
             text: "We will reply to you in the next 24 hours", // Success message
             icon: "success", // Show success icon
           });
+          // Reset form fields
+          setFormData({
+            user_name: "",
+            user_email: "",
+            user_subject: "",
+            message: "",
+          });
         },
         (error) => {
           console.log("FAILED...", error.text); // Log error message if email sending fails
@@ -145,6 +152,11 @@ const ContactForm_Email = () => {
                     <motion.button
                       type="submit"
                       disabled={!isFormValid}
+                      onClick={() => {
+                        if (!isFormValid) {
+                          alert("Please fill out all fields.");
+                        }
+                      }}
                       className={`w-full py-3 px-6 rounded-lg outline-none  text-white font-medium flex items-center justify-center space-x-2 bg-pink-600 hover:bg-pink-700 transition-colors ${!isFormValid ? "opacity-50 cursor-not-allowed" : ""}`}
                       whileHover={{ scale: 1.01 }}
                       whileTap={{ scale: 0.99 }}
