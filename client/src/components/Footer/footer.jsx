@@ -38,13 +38,12 @@ const Footer = () => {
             </address>
           </div>
 
-
           {/* Quick Links Section */}
           <nav className="space-y-6">
             <h1 className="text-3xl font-bold">Quick Links</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-Cabin">
               <ul className="space-y-2 text-lg font-varela">
-              <NavLink to="/termsOfService">
+                <NavLink to="/termsOfService">
                   <li className={listItemClasses}>Terms of Service</li>
                 </NavLink>
                 <NavLink to="/termsOfServiceCopy">
@@ -56,7 +55,7 @@ const Footer = () => {
                   <li className={listItemClasses}>Shipping Policy</li>
                 </NavLink>
                 <NavLink to="/returnAndRefund">
-                <li className={listItemClasses}>Return And Refund</li>
+                  <li className={listItemClasses}>Return And Refund</li>
                 </NavLink>
               </ul>
             </div>
