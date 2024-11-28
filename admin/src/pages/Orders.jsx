@@ -44,9 +44,8 @@ function PaymentStatus({ status }) {
 
   return (
     <span
-      className={`px-3 py-1 rounded-full text-xs font-medium border flex items-center gap-1 w-fit ${
-        statusStyles[status]
-      }`}
+      className={`px-3 py-1 rounded-full text-xs font-medium border flex items-center gap-1 w-fit ${statusStyles[status]
+        }`}
     >
       <span>{statusIcons[status]}</span>
       {status}
@@ -93,6 +92,7 @@ function OrdersTable({ orders }) {
   const columns = [
     { header: 'OrderId', className: 'w-1/6' },
     { header: 'Product', className: 'w-2/6' },
+    { header: 'Quantity', className: 'w-1/6' },
     { header: 'Amount', className: 'w-1/6' },
     { header: 'Price', className: 'w-1/6' },
     { header: 'Payment Status', className: 'w-1/6' },
@@ -106,9 +106,8 @@ function OrdersTable({ orders }) {
             {columns.map((column, index) => (
               <th
                 key={index}
-                className={`p-4 text-left text-xs font-medium text-white uppercase tracking-wider ${
-                  column.className || ''
-                }`}
+                className={`p-4 text-left text-xs font-medium text-white uppercase tracking-wider ${column.className || ''
+                  }`}
               >
                 {column.header}
               </th>
@@ -131,6 +130,11 @@ function OrdersTable({ orders }) {
                 ))}
               </td>
               <td className="p-4 text-sm">{order.amount}</td>
+              <td className="border border-gray-300 px-4 py-2">
+                {order.items.map((item) => (
+                  <div key={item.productId._id}>{item.quantity}</div>
+                ))}
+              </td>
               <td className="p-4">
                 {order.items.map((item, index) => (
                   <div key={index} className="text-sm">
@@ -138,6 +142,7 @@ function OrdersTable({ orders }) {
                   </div>
                 ))}
               </td>
+
               <td className="p-4">
                 <PaymentStatus status={order.paymentStatus} />
               </td>
@@ -218,7 +223,7 @@ export default function Orders() {
           <Package className="w-8 h-8 text-pink-500" />
           <h1 className="text-3xl font-bold text-gray-900">Orders</h1>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <Filter className="w-5 h-5 text-gray-500" />
           <select
@@ -251,13 +256,13 @@ export default function Orders() {
               </div>
             ))}
           </div>
-          
+
           <div className="mb-6">
             <p className="text-gray-600">
               Showing {filteredOrders.length} of {orders.length} total orders
             </p>
           </div>
-          
+
           <OrdersTable orders={filteredOrders} />
         </>
       )}
