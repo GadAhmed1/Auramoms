@@ -6,6 +6,8 @@ import Footer from "../Footer/Footer.jsx";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -74,11 +76,31 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      alert("Please login to add to cart");
+      Swal.fire({
+        toast: true,
+        icon: "error",
+        title: "Please Sign to add to cart",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#f8d7da",
+        color: "#721c24",
+      });
       return;
-    }
-    if (product) {
+    } else {
       addToCart(product);
+      Swal.fire({
+        toast: true,
+        icon: "success",
+        title: "Product added to cart",
+        position: "top-right",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#d4edda",
+        color: "#155724",
+      });
     }
   };
 
