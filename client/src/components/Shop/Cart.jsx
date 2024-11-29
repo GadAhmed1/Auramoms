@@ -4,9 +4,12 @@ import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import CheckoutForm from "./CheckoutForm"; // Import the CheckoutForm component
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Swal from "sweetalert2"; // Import SweetAlert
 
 // Initialize Stripe with your publishable key
-const stripePromise = loadStripe("your-publishable-key-here"); // Replace with your Stripe publishable key
+const stripePromise = loadStripe(
+  "pk_live_51Q9Qyi06H149q3Q2RFO83AKs0RUPPEblb5am1DwItuvmwsmfjKRSH7W1TkXzGIcLFkwIubGvv8h99hseIQrEpNyL00sO1jQyhx"
+);
 
 const Cart = () => {
   const { cartItems, addToCart, setCartItems, removeFromCart } = useCart();
@@ -30,7 +33,7 @@ const Cart = () => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "https://www.paypal.com/sdk/js?client-id=AeWKXj9EboM1B02HNJ7GjVy3q4DiKD6rG8anuwqDuzAImh81wOUNpdZP9OxVhFPKEeu-dmMgR21J3ghM&currency=USD";
+      "https://www.paypal.com/sdk/js?client-id=ARAmH3HAUK-vARDJpOR_udJXK6LCuXUyELwjwsbW0BFqiL7LNPfCNaKEUvzEBwzF2UkoG3iPtkNd3W9H&currency=USD";
     script.onload = () => {
       console.log("PayPal SDK loaded");
       if (window.paypal) {
@@ -49,9 +52,18 @@ const Cart = () => {
             },
             onApprove: (data, actions) => {
               return actions.order.capture().then((details) => {
-                alert(
-                  `Transaction completed by ${details.payer.name.given_name}`
-                );
+                console.log(data, details);
+                /* 
+                you can See the details from the Console here and Configure the 
+                Back depend on the  data of the//  Two account to make test - (seller and buyer at the last lines ) ↓ ↓ ↓ 
+                */
+                Swal.fire({
+                  icon: "success",
+                  title: "Purchase done",
+                  text: `Transaction completed by ${details.payer.name.given_name}`,
+                });
+                setCartItems([]); // Clear the cart
+                localStorage.removeItem("cartdata"); // Remove cart data from localStorage
               });
             },
             onError: (err) => {
@@ -183,3 +195,54 @@ const Cart = () => {
 };
 
 export default Cart;
+
+/*
+{
+  "data": {
+    "billingToken": null,
+    "facilitatorAccessToken": "A21AAJibUj3iHy-5bpHCwLW5uJFyKp-p_Mx9oEbA5b_c8HW3UlODjeS912ENFkZSEd1NpfbPJy6bYXNfFB7Y9FukYRzHKF-PA",
+    "orderID": "5WF85715KY156673R",
+    "payerID": "F24E23BJMWKH2",
+    "paymentID": "5WF85715KY156673R",
+    "paymentSource": "paypal"
+  },
+  "details": {
+    "create_time": "2024-11-29T15:34:38Z",
+    "id": "5WF85715KY156673R",
+    "intent": "CAPTURE",
+    "links": [
+      // Add link objects here if available
+    ],
+    "payer": {
+      "address": {
+        "country_code": "GB"
+      },
+      "email_address": "sb-9vq3j33352788@personal.example.com",
+      "name": {
+        "given_name": "John",
+        "surname": "Doe"
+      },
+      "payer_id": "F24E23BJMWKH2"
+    },
+    "purchase_units": [
+      // Add purchase unit objects here if available
+    ],
+    "status": "COMPLETED",
+    "update_time": "2024-11-29T15:34:49Z"
+  },
+  "sandbox_url": "https://www.sandbox.paypal.com",
+  "seller_test_account": {
+    "email": "sb-k7chb33354269@business.example.com",
+    "password": "C%M5jHw-"
+  },
+  "buyer_test_account": {
+    "email": "sb-9vq3j33352788@personal.example.com",
+    "password": "[at5$LXO",
+    "name": "John Doe",
+    "phone": "01212357053",
+    "country": "GB",
+    "account_type": "Personal",
+    "account_id": "F24E23BJMWKH2"
+  }
+}
+*/
