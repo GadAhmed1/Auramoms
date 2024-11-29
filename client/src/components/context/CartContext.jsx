@@ -118,11 +118,6 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 5873195d4539179736f1645210382006e413702f
   const value = useMemo(
     () => ({
       cartItems,
