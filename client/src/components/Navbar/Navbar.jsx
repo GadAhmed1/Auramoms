@@ -27,6 +27,8 @@ const Navbar = ({ setshowLogin }) => {
   const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("cartdata");
+    localStorage.removeItem("favorites");
     setToken("");
   }, [setToken]);
   return (
@@ -155,8 +157,8 @@ const MobileMenu = React.memo(
             </select>
             <ThemeMode />
 
-            <NavLink to="/Sign_up" className="w-full">
-              {!token ? (
+            {!token ? (
+              <NavLink to="/Sign_up" className="w-full">
                 <NavButton
                   title="Login/Sign Up"
                   onClick={() => setshowLogin(true)}
@@ -164,24 +166,24 @@ const MobileMenu = React.memo(
                 >
                   Sign Up
                 </NavButton>
-              ) : (
-                <div className="group relative w-full">
-                  <div className="flex flex-col justify-center items-center text-center w-full">
-                    <FaCircleUser className="text-2xl flex justify-center items-center text-center" />
-                    {storedUsername}
-                  </div>
-                  <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0">
-                    <li
-                      onClick={logout}
-                      className="flex justify-center items-center gap-2"
-                    >
-                      <TbLogout className="text-black text-2xl" />
-                      <p>Logout</p>
-                    </li>
-                  </ul>
+              </NavLink>
+            ) : (
+              <div className="group relative w-full">
+                <div className="flex flex-col justify-center items-center text-center w-full">
+                  <FaCircleUser className="text-2xl flex justify-center items-center text-center" />
+                  {storedUsername}
                 </div>
-              )}
-            </NavLink>
+                <ul className="bg-white shadow-sm p-3 w-36 ring-1 ring-slate-900/15 group-hover:flex hidden cursor-pointer absolute rounded right-0">
+                  <li
+                    onClick={logout}
+                    className="flex justify-center items-center gap-2"
+                  >
+                    <TbLogout className="text-black text-2xl" />
+                    <p>Logout</p>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </motion.div>
       )}

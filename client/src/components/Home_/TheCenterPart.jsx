@@ -37,7 +37,7 @@ function TheCenterPart() {
   };
 
   const socialIcons = [
-    { href: "#", src: "./icons/findusIcons/pinterest.svg", alt: "Pinterest" },
+    { href: "https://www.pinterest.com/auramomsstore/", src: "./icons/findusIcons/pinterest.svg", alt: "Pinterest" },
     {
       href: "https://www.instagram.com/auramomsbrand?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
       src: "./icons/findusIcons/instagram.svg",

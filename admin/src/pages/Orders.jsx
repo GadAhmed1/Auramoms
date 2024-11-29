@@ -51,6 +51,7 @@ const Orders = () => {
             <tr className="border-b border-slate-900/20 text-gray-700 regular-14 xs:regular-16">
               <th className="border p-4 text-left">OrderId</th>
               <th className="border p-4 text-left">Product</th>
+              <th className="border p-4 text-left">Quantity</th>
               <th className="border p-4 text-left">Amount</th>
               <th className="border p-4 text-left">Price</th>
               <th className="border p-4 text-left">Payment Status</th>
@@ -70,7 +71,7 @@ const Orders = () => {
                       className="flex items-center space-x-2"
                     >
                       <img
-                        src={item.productId.image} // Product image
+                        src={item.productId.image}
                         alt={item.productId.name}
                         className="w-16 h-16 m-2 object-cover rounded-lg"
                       />
@@ -82,10 +83,16 @@ const Orders = () => {
                   ${order.amount}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
+                  {order.items.map((item) => (
+                    <div key={item.productId._id}>{item.quantity}</div>
+                  ))}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
                   {order.items.map((item, index) => (
                     <div key={index}>${item.productId.price}</div>
                   ))}
                 </td>
+
                 <td className="border border-gray-300 px-4 py-2">
                   <span
                     className={`px-2 py-1 rounded ${

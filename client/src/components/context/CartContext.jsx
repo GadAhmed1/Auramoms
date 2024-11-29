@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (itemId) => {
     try {
-      if (token) {https://meet.google.com/gzj-ugbu-bbb
+      if (token) {
         const response = await axios.post(
           "http://localhost:3000/carts/add",
           {
