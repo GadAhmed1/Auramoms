@@ -1,86 +1,98 @@
-import orderModel from "../models/ordermodel.js"; // استيراد نموذج الطلب
-import paypal from '@paypal/checkout-server-sdk'; // استيراد مكتبة PayPal
-import Stripe from 'stripe'; // استيراد مكتبة Stripe
-import userModel from "../models/userModel.js"; // استيراد نموذج المستخدم
+import orderModel from "../models/ordermodel.js";
+import paypal from "@paypal/checkout-server-sdk";
+import Stripe from "stripe";
+import userModel from "../models/userModel.js";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 const clientId = process.env.PAYPAL_CLIENT_ID;
 const clientSecret = process.env.PAYPAL_CLIENT_SECRET;
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
 const environment = new paypal.core.LiveEnvironment(clientId, clientSecret);
 const client = new paypal.core.PayPalHttpClient(environment);
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const createPaypalOrder = async (amount) => {
+    const request = new paypal.orders.OrdersCreateRequest();
+    request.prefer("return=representation");
+    request.requestBody({
+        intent: "CAPTURE",
+        purchase_units: [
+            {
+                amount: {
+                    currency_code: "GBP",
+                    value: amount,
+                },
+            },
+        ],
+    });
+    return await client.execute(request);
+};
+
+const createStripeOrder = async (amount) => {
+    return await stripe.paymentIntents.create({
+        amount: Math.round(amount * 100),
+        currency: "GBP",
+        payment_method_types: ["card"],
+    });
+};
 
 const placeOrder = async (req, res) => {
-    const { userId, items, amount, address, paymentMethod } = req.body;
+    const { userId, items, amount, paymentMethod } = req.body;
 
-    if (!userId || !items || !amount || !address || !paymentMethod) {
+    if (!userId || !items || !amount || !paymentMethod) {
         return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
     try {
-        console.log(items);
-
-        let order;
-        if (paymentMethod === 'paypal') {
-            const request = new paypal.orders.OrdersCreateRequest();
-            request.prefer('return=representation');
-            request.requestBody({
-                intent: 'CAPTURE',
-                purchase_units: [{
-                    amount: {
-                        currency_code: 'USD',
-                        value: amount
-                    }
-                }]
-            });
-            order = await client.execute(request); // إرسال الطلب إلى PayPal
-
-        } else if (paymentMethod === 'stripe') {
-            order = await stripe.paymentIntents.create({
-                amount: Math.round(amount * 100), // Stripe يتعامل بالسنتات
-                currency: 'USD',
-                payment_method_types: ['card'],
-            });
-        } else {
-            return res.status(400).json({ success: false, message: "Invalid payment method" });
-        }
-
-        const user = await userModel.findById(userId);
+        const user = await userModel.findById(userId).select("orders cartData");
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        let paymentResponse, approveLink = null, clientSecret = null;
+
+        switch (paymentMethod) {
+            case "paypal":
+                paymentResponse = await createPaypalOrder(amount);
+                approveLink = paymentResponse.result.links.find((link) => link.rel === "approve")?.href || null;
+                break;
+            case "stripe":
+                paymentResponse = await createStripeOrder(amount);
+                clientSecret = paymentResponse.client_secret;
+                break;
+            default:
+                return res.status(400).json({ success: false, message: "Invalid payment method" });
         }
 
         const newOrder = new orderModel({
             userId,
             items,
             amount,
-            address,
-            paymentStatus: 'Pending',
-            paypalOrderId: paymentMethod === 'paypal' ? order.result.id : null,
-            stripeOrderId: paymentMethod === 'stripe' ? order.id : null,
+            paymentStatus: "Pending",
+            status: "Product Loading",
+            date: new Date(),
+            ...(paymentMethod === "paypal" && { paypalOrderId: paymentResponse.result.id }),
+            ...(paymentMethod === "stripe" && { stripeOrderId: paymentResponse.id }),
         });
 
-        await newOrder.save();
+        const savedOrder = await newOrder.save();
 
-        user.orders.push(newOrder._id);
+        user.orders.push(savedOrder._id);
+        user.cartData = {};
         await user.save();
 
-        await userModel.findByIdAndUpdate(userId, { cartData: {} }, { new: true });
-        console.log(userId);
-        res.json({
+        res.status(201).json({
             success: true,
-            items,
-            id: paymentMethod === 'paypal' ? order.result.id : order.id,
-            approveLink: order.result.links.find(link => link.rel === 'approve').href,
-            clientSecret: paymentMethod === 'stripe' ? order.client_secret : null,
+            message: "Order placed successfully",
+            orderId: savedOrder._id,
+            approveLink,
+            clientSecret,
         });
-
-
-
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Error in placeOrder", error });
+        console.error("Error in placeOrder:", error);
+        res.status(500).json({ success: false, message: "An error occurred while placing the order", error: error.message });
     }
 };
 

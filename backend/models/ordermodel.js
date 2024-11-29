@@ -1,47 +1,35 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    // userId: { 
-    //     type: mongoose.Schema.Types.ObjectId, 
-    //     ref: "user", 
-    //     required: true 
-    // },
-    // items: [{
-    //     productId: { type: mongoose.Schema.Types.ObjectId, ref: "product", required: true },
-    // }],
-    // amount: { type: Number, required: true },
-    // address: { 
-    //     street: { type: String, required: true },
-    //     city: { type: String, required: true },
-    //     zip: { type: String, required: true }
-    // },
-    // status: { type: String, default: "Product Loading" },
-    // date: { type: Date, default: Date.now },
-    // paymentStatus: { 
-    //     type: String, 
-    //     enum: ['Pending', 'Paid', 'Failed'], 
-    //     default: 'Pending' 
-    // }
-    userId: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "user", 
-        required: true 
+
+
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true,
+        index: true
     },
     items: [{
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "product", required: true },
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true, min: 1 }
     }],
-    amount: { type: Number, required: true },
-    address: { 
-        street: { type: String, required: true },
-        city: { type: String, required: true },
-        zip: { type: String, required: true }
+    amount: { type: Number, required: true, min: 0 },
+    status: {
+        type: String,
+        enum: ['Product Loading', 'Shipped', 'Delivered', 'Cancelled'],
+        default: 'Product Loading'
     },
-    status: { type: String, default: "Product Loading" },
-    date: { type: Date, default: Date.now },
-    paymentStatus: { 
-        type: String, 
-        enum: ['Pending', 'Paid', 'Failed'], 
-        default: 'Pending' 
+    date: {
+        type: Date,
+        default: Date.now,
+        index: true
+    },
+    paymentStatus: {
+        type: String,
+        enum: ['Pending', 'Paid', 'Failed'],
+        default: 'Pending'
     }
 });
 
