@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "react-paypal-button-v2": "^2.6.3",
     "@emailjs/browser": "^4.4.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^6.1.1",
     "@mui/material": "^6.1.1",
     "@react-oauth/google": "^0.12.1",
+    "@stripe/react-stripe-js": "^3.0.0",
+    "@stripe/stripe-js": "^5.2.0",
     "axios": "^1.7.7",
     "david-ui-angular": "^1.1.0",
     "debounce": "^2.2.0",
