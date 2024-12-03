@@ -164,20 +164,17 @@ const userOrders = async (req, res) => {
     }
 };
 
-
 const allOrders = async (req, res) => {
     try {
         const orders = await orderModel.find()
             .populate({
-                path: 'items.productId', // ربط العناصر بالنموذج Product
-                select: 'name image price' // اختيار الحقول التي تريد إرجاعها (الاسم، الصورة، السعر)
+                path: 'items.productId',
+                select: 'name image price'
             });
 
-        // تقسيم الطلبات إلى مدفوعة وغير مدفوعة
         const paidOrders = orders.filter(order => order.paymentStatus === 'Paid');
         const unpaidOrders = orders.filter(order => order.paymentStatus !== 'Paid');
 
-        // إرجاع الطلبات مع تفاصيل المنتجات
         res.json({
             success: true,
             paidOrders,
@@ -188,8 +185,5 @@ const allOrders = async (req, res) => {
         res.status(500).json({ success: false, message: "Error in allOrders", error: err });
     }
 };
-
-
-
 
 export { placeOrder, verifyOrder, userOrders, allOrders };

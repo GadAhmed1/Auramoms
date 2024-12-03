@@ -13,11 +13,12 @@ import path from "path";
 import userROUTE from "./routes/userRoute.js";
 import productRouter from "./routes/productRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
-import orderRouter from "./routes/orderRoute.js";
+// import orderRouter from "./routes/orderRoute.js";
 import { checkToken } from "./middleware/auth.js";
 import corsOptions from "./config/Cors_Options.js";
 import userModel from "./models/userModel.js";
 import orderModel from "./models/ordermodel.js";
+import paymentRouter from "./routes/paymentRoutes.js";
 
 dotenv.config();
 
@@ -50,7 +51,8 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 app.use("/users", userROUTE);
 app.use("/products", productRouter);
 app.use("/carts", cartRouter);
-app.use("/orders", orderRouter);
+// app.use("/orders", orderRouter);
+app.use('/payment', paymentRouter);
 app.delete('/deleteAllUsers', async (req, res) => {
   try {
     await userModel.deleteMany({});
@@ -62,7 +64,7 @@ app.delete('/deleteAllUsers', async (req, res) => {
 
 app.delete("/deleteALLorders", async (req, res) => {
   try {
-    await orderModel.deleteMany({}); // حذف جميع الوثائق من مجموعة الطلبات
+    await orderModel.deleteMany({});
     res.json({ success: true, message: 'All orders have been deleted successfully.' });
   } catch (error) {
     console.error(error);

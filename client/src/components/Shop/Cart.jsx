@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
-import CheckoutForm from "./CheckoutForm"; // Import the CheckoutForm component
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Swal from "sweetalert2"; // Import SweetAlert
 
-// Initialize Stripe with your publishable key
-const stripePromise = loadStripe(
-  "pk_live_51Q9Qyi06H149q3Q2RFO83AKs0RUPPEblb5am1DwItuvmwsmfjKRSH7W1TkXzGIcLFkwIubGvv8h99hseIQrEpNyL00sO1jQyhx"
-);
+import Swal from "sweetalert2"; // Import SweetAlert
 
 const Cart = () => {
   const { cartItems, addToCart, setCartItems, removeFromCart } = useCart();
@@ -176,9 +169,7 @@ const Cart = () => {
                 <h2 className="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-gray-100">
                   Pay with Stripe
                 </h2>
-                <Elements stripe={stripePromise}>
-                  <CheckoutForm />
-                </Elements>
+
                 <button
                   className="mt-4 w-full text-center text-blue-500"
                   onClick={() => setShowStripePayment(!showStripePayment)}
