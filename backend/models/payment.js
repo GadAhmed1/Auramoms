@@ -29,6 +29,6 @@ const paymentSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-const Payment = mongoose.model("Payment", paymentSchema);
+const Payment = mongoose.model("order", paymentSchema);
 
 export default Payment;
