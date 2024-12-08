@@ -1,38 +1,41 @@
 import Payment from "../models/payment.js";
 
 const paymentPost = async (req, res) => {
-    const {
-        orderID,
-        payerID,
-        paymentID,
-        paymentSource,
-        billingToken,
-        status,
-        payer,
-        purchase_units,
-        create_time,
-        update_time,
-    } = req.body;
-
     try {
-        const payment = new Payment({
-            orderID,
+        const { payerID, paymentID, orderID, totalAmount, payerInfo, items, paymentStatus } = req.body;
+
+        const newOrder = new Payment({
             payerID,
             paymentID,
-            paymentSource,
-            billingToken,
-            status,
-            payer,
-            purchase_units,
-            create_time,
-            update_time,
+            orderID,
+            totalAmount,
+            payerInfo,
+            items,
+            paymentStatus,
         });
-        await payment.save();
-        res.status(201).json({ message: 'Payment processed successfully', payment });
+
+        await newOrder.save();
+        console.log("Order saved: ");
+        console.log("Request body: ", req.body);
+
+
+        res.status(200).json({ success: true, newOrder });
     } catch (error) {
-        console.error('Error processing payment:', error);
-        res.status(500).json({ message: 'Failed to process payment', error });
+        console.error("Error: ", error);
+        res.status(500).json({ message: 'Error saving order', error });
+    }
+
+};
+const getAllPayments = async (req, res) => {
+    try {
+        const payments = await Payment.find();
+        res.status(200).json({success: true ,  payments });
+    } catch (error) {
+        console.error("Error fetching payments: ", error);
+        res.status(500).json({ message: 'Error fetching payments', error }); // في حال حدوث خطأ
     }
 };
 
-export default paymentPost;
+
+
+export { paymentPost, getAllPayments };

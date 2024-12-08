@@ -19,6 +19,7 @@ import corsOptions from "./config/Cors_Options.js";
 import userModel from "./models/userModel.js";
 import orderModel from "./models/ordermodel.js";
 import paymentRouter from "./routes/paymentRoutes.js";
+import Payment from "./models/payment.js";
 
 dotenv.config();
 
@@ -53,24 +54,6 @@ app.use("/products", productRouter);
 app.use("/carts", cartRouter);
 // app.use("/orders", orderRouter);
 app.use('/payment', paymentRouter);
-app.delete('/deleteAllUsers', async (req, res) => {
-  try {
-    await userModel.deleteMany({});
-    res.status(200).json({ success: true, message: 'All users deleted successfully!' });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to delete users', error: error.message });
-  }
-});
-
-app.delete("/deleteALLorders", async (req, res) => {
-  try {
-    await orderModel.deleteMany({});
-    res.json({ success: true, message: 'All orders have been deleted successfully.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Error deleting orders', error });
-  }
-});
 
 app.get('/protected', checkToken, (req, res) => {
   res.json({ message: 'Access granted', user: req.user });

@@ -1,28 +1,34 @@
-// models/Payment.js
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const PaymentSchema = new mongoose.Schema({
-    orderID: { type: String, required: true },
-    payerID: { type: String, required: true },
-    paymentID: { type: String, required: true },
-    paymentSource: { type: String, required: true },
-    billingToken: { type: String, default: null },
-    status: { type: String, required: true },
-    payer: {
-        name: {
-            given_name: { type: String, required: true },
-            surname: { type: String, required: true },
-        },
-        email_address: { type: String, required: true },
+const paymentSchema = new mongoose.Schema({
+    totalAmount: { type: Number, required: true },
+    payerInfo: {
+        name: { type: String, required: true },
+        email: { type: String, required: true },
+        country: { type: String, required: true },
         address: {
-            country_code: { type: String, required: true },
+            street: { type: String, required: true },
+            city: { type: String, required: true },
+            state: { type: String, required: true },
+            postalCode: { type: String, required: true },
         },
     },
-    purchase_units: { type: Array, default: [] },
-    create_time: { type: Date, required: true },
-    update_time: { type: Date, required: true },
-}, { timestamps: true });
+    items: [
+        {
+            productID: { type: mongoose.Schema.Types.ObjectId },
+            name: { type: String, required: true },
+            price: { type: Number, required: true },
+            quantity: { type: Number, required: true },
+        },
+    ],
+    paymentStatus: {
+        type: String, required: true,
+        enum: ['pending', 'completed', 'failed', 'refunded', 'canceled'],
+        default: 'pending',
+    },
+    createdAt: { type: Date, default: Date.now },
+});
 
-const Payment = mongoose.model('Payment', PaymentSchema) || mongoose.models.payment;
+const Payment = mongoose.model("Payment", paymentSchema);
 
 export default Payment;
