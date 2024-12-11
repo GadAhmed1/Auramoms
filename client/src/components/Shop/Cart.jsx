@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
-import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 const Cart = () => {
   const { cartItems, addToCart, setCartItems, removeFromCart } = useCart();
@@ -35,7 +35,7 @@ const Cart = () => {
                 purchase_units: [
                   {
                     amount: {
-                      value: totalPrice.toFixed(2), // Use the total price
+                      value: totalPrice.toFixed(2), 
                     },
                   },
                 ],
@@ -126,14 +126,14 @@ const Cart = () => {
                           onClick={() => removeFromCart(item)}
                           className="text-lg text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
                         >
-                          <AiOutlineDelete size={24} />
+                          <AiOutlineMinus />
                         </button>
                         <span className="text-lg text-gray-600 dark:text-white font-bold">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => increaseQuantity(item)}
-                          className="text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                          className="text-lg text-green-500 dark:text-green-300 hover:text-gray-900 dark:hover:text-gray-100"
                         >
                           <AiOutlinePlus />
                         </button>
@@ -172,7 +172,7 @@ const Cart = () => {
                       onClick={() => removeFromCart(item)}
                       className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
                     >
-                      <AiOutlineDelete size={24} />
+                      <AiOutlineMinus size={24} />
                     </button>
                     <span className="text-lg dark:text-white">
                       {item.quantity}
