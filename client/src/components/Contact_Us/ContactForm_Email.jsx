@@ -4,8 +4,7 @@ import { FaTiktok, FaInstagram, FaPinterestP } from "react-icons/fa"; // Import 
 import { useRef, useState, useEffect } from "react"; // Import useRef, useState, and useEffect hooks from React
 import emailjs from "@emailjs/browser"; // Import emailjs for sending emails via forms
 import { motion } from "framer-motion"; // Import motion for animations
-import Footer from "../Footer/Footer";
-
+import Footer from "../Footer/Footer.jsx";
 // Define the ContactForm_Email functional component
 const ContactForm_Email = () => {
   const form = useRef(); // Create a ref for the form element
@@ -67,9 +66,9 @@ const ContactForm_Email = () => {
     const { user_name, user_email, user_subject, message } = formData;
     setIsFormValid(
       user_name.trim() !== "" &&
-        user_email.trim() !== "" &&
-        user_subject.trim() !== "" &&
-        message.trim() !== ""
+      user_email.trim() !== "" &&
+      user_subject.trim() !== "" &&
+      message.trim() !== ""
     );
   }, [formData]);
 
@@ -90,8 +89,10 @@ const ContactForm_Email = () => {
         >
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden mx-auto dark:bg-gray-800 border-2 border-gray-200 dark:border-none flex flex-col md:flex-row">
             <div className="w-full md:w-1/2 h-64 md:h-auto order-1 md:order-2">
+
+
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110574.2913660733!2d32.549806!3d29.973709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145a9f8f8f8f8f8f%3A0x4c5b4c5b4c5b4c5b!2sSuez%2C%20Egypt!5e0!3m2!1sen!2sus!4v1633021234567!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317716.60641541134!2d-0.4312404702776712!3d51.52860701840184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon!5e0!3m2!1sen!2suk!4v1734090152683!5m2!1sen!2suk"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

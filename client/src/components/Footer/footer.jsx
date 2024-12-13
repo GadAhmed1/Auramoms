@@ -34,7 +34,7 @@ const Footer = () => {
               </p>
               <p className="flex items-center gap-2">
                 <FaLocationDot />
-                Suez, Egypt
+                London, UK
               </p>
             </address>
           </div>
