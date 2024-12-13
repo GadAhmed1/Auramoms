@@ -6,11 +6,11 @@ const productSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     category: { type: String, required: true },
     color: { type: String, required: false },
-    image: { type: String, required: false }, // غير مطلوب
-    image2: { type: String, required: false }, // غير مطلوب
-    image3: { type: String, required: false }, // غير مطلوب
-    image4: { type: String, required: false }, // غير مطلوب
-    image5: { type: String, required: false }, // غير مطلوب
+    image: { type: String, required: false }, 
+    image2: { type: String, required: false }, 
+    image3: { type: String, required: false }, 
+    image4: { type: String, required: false }, 
+    image5: { type: String, required: false }, 
 });
 
 const productModel = mongoose.model.product || mongoose.model("product", productSchema);
