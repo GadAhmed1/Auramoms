@@ -1,19 +1,13 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
-// import CheckoutForm from "./CheckoutForm"; // Import the CheckoutForm component
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
-import Swal from "sweetalert2"; // Import SweetAlert
-
-// Initialize Stripe with your publishable key
-// const stripePromise = loadStripe(
-//   "pk_live_51Q9Qyi06H149q3Q2RFO83AKs0RUPPEblb5am1DwItuvmwsmfjKRSH7W1TkXzGIcLFkwIubGvv8h99hseIQrEpNyL00sO1jQyhx"
-// );
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const Cart = () => {
   const { cartItems, addToCart, setCartItems, removeFromCart } = useCart();
-  // const [showStripePayment, setShowStripePayment] = useState(false); // State to toggle Stripe payment form
+  const [showStripePayment, setShowStripePayment] = useState(false); // State to toggle Stripe payment form
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const cartdata = JSON.parse(localStorage.getItem("cartdata")) || [];
@@ -52,20 +46,65 @@ const Cart = () => {
             },
             onApprove: (data, actions) => {
               return actions.order.capture().then((details) => {
-                console.log(data, details);
-                /* 
-                you can See the details from the Console here and Configure the 
-                Back depend on the  data of the//  Two account to make test - (seller and buyer at the last lines ) ↓ ↓ ↓ 
-                */
-                Swal.fire({
-                  icon: "success",
-                  title: "Purchase done",
-                  text: `Transaction completed by ${details.payer.name.given_name}`,
-                });
-                setCartItems([]); // Clear the cart
-                localStorage.removeItem("cartdata"); // Remove cart data from localStorage
+                console.log("Details", details);
+                console.log("Data", data);
+
+                const paymentData = {
+                  totalAmount: totalPrice.toFixed(2),
+                  payerInfo: {
+                    name:
+                      details.payer.name.given_name +
+                      " " +
+                      details.payer.name.surname,
+                    email: details.payer.email_address,
+                    country: details.payer.address.country_code,
+                    address: {
+                      street:
+                        details.payer.address.address_line_1 || "Not provided",
+                      city:
+                        details.payer.address.admin_area_2 || "Not provided",
+                      state:
+                        details.payer.address.admin_area_1 || "Not provided",
+                      postalCode:
+                        details.payer.address.postal_code || "Not provided",
+                      country: details.payer.address.country_code,
+                    },
+                  },
+                  items: cartItems.map((item) => ({
+                    productID: item.productID,
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity,
+                  })),
+                  paymentStatus: "completed",
+                };
+
+                axios
+                  .post("http://localhost:3000/payment/proccess", paymentData, {
+                    headers: { token },
+                  })
+                  .then((response) => {
+                    Swal.fire({
+                      icon: "success",
+                      title: "Purchase done",
+                      text: `Transaction completed by ${details.payer.name.given_name}`,
+                    });
+                    console.log("Cart Items", cartItems);
+
+                    setCartItems([]); // Clear the cart
+                    localStorage.removeItem("cartdata"); // Remove cart data from localStorage
+                  })
+                  .catch((error) => {
+                    console.error("Error saving order to DB:", error);
+                    Swal.fire({
+                      icon: "error",
+                      title: "Error",
+                      text: "There was an issue saving the order.",
+                    });
+                  });
               });
             },
+
             onError: (err) => {
               console.error("PayPal error:", err);
             },
@@ -176,9 +215,7 @@ const Cart = () => {
                 <h2 className="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-gray-100">
                   Pay with Stripe
                 </h2>
-                <Elements stripe={stripePromise}>
-                  <CheckoutForm />
-                </Elements>
+
                 <button
                   className="mt-4 w-full text-center text-blue-500"
                   onClick={() => setShowStripePayment(!showStripePayment)}
@@ -195,55 +232,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-/*
-{
-  "data": {
-    "billingToken": null,
-    "facilitatorAccessToken": "A21AAJibUj3iHy-5bpHCwLW5uJFyKp-p_Mx9oEbA5b_c8HW3UlODjeS912ENFkZSEd1NpfbPJy6bYXNfFB7Y9FukYRzHKF-PA",
-    "orderID": "5WF85715KY156673R",
-    "payerID": "F24E23BJMWKH2",
-    "paymentID": "5WF85715KY156673R",
-    "paymentSource": "paypal"
-  },
-  "details": {
-    "create_time": "2024-11-29T15:34:38Z",
-    "id": "5WF85715KY156673R",
-    "intent": "CAPTURE",
-    "links": [
-      // Add link objects here if available
-    ],
-    "payer": {
-      "address": {
-        "country_code": "GB"
-      },
-      "email_address": "sb-9vq3j33352788@personal.example.com",
-      "name": {
-        "given_name": "John",
-        "surname": "Doe"
-      },
-      "payer_id": "F24E23BJMWKH2"
-    },
-    "purchase_units": [
-      // Add purchase unit objects here if available
-    ],
-    "status": "COMPLETED",
-    "update_time": "2024-11-29T15:34:49Z"
-  },
-  
-  "sandbox_url": "https://www.sandbox.paypal.com",
-  "seller_test_account": {
-    "email": "sb-k7chb33354269@business.example.com",
-    "password": "C%M5jHw-"
-  },
-  "buyer_test_account": {
-    "email": "sb-9vq3j33352788@personal.example.com",
-    "password": "[at5$LXO",
-    "name": "John Doe",
-    "phone": "01212357053",
-    "country": "GB",
-    "account_type": "Personal",
-    "account_id": "F24E23BJMWKH2"
-  }
-}
-*/

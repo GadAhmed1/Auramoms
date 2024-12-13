@@ -284,7 +284,7 @@ const PrivacyPolicy = () => {
           Contact
         </h2>
         <p className="mb-4 leading-7">
-          Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please call or email us at support@auramoms.com or contact us at 71-75 Shelton Street, Covent Garden, , London, ENG, WC2H 9JQ, GB.
+            Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please call or email us at Contact page or contact us at 71-75 Shelton Street, Covent Garden, , London, ENG, WC2H 9JQ, GB.
           For the purpose of applicable data protection laws and if not explicitly stated otherwise, we are the data controller of your personal information.
 
         </p>

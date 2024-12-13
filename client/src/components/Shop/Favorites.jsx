@@ -63,7 +63,7 @@ const Favorites = () => {
                     onClick={() => handleRemove(item)}
                     className="flex items-center justify-center gap-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md px-4 py-2 transition-all duration-300 ease-in-out"
                   >
-                    <span className="font-semibold text-sm">Remove</span>
+                    <span className="font-semibold text-sm ">Remove</span>
                   </button>
                 </div>
               </div>

@@ -199,12 +199,18 @@ const TermsAndConditions = () => {
 
           <h2 className="text-2xl font-semibold mt-6">SECTION 20 - CONTACT INFORMATION </h2>
           <p>
-            Questions about the Terms of Service should be sent to us at Contact Form
-            At AuraMoms website
+            Questions about the Terms of Service should be sent to us at Contact page in our website
+            , Our contact information is posted below:<br />
+            AuraMoms
+            <br />
+            71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, UNITED KINGDOM
+            <br />
+            15974154
+
           </p>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </main>
   );
 };
