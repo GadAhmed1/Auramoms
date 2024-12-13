@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
-import CheckoutForm from "./CheckoutForm"; // Import the CheckoutForm component
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import CheckoutForm from "./CheckoutForm"; // Import the CheckoutForm component
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import Swal from "sweetalert2"; // Import SweetAlert
 
 // Initialize Stripe with your publishable key
-const stripePromise = loadStripe(
-  "pk_live_51Q9Qyi06H149q3Q2RFO83AKs0RUPPEblb5am1DwItuvmwsmfjKRSH7W1TkXzGIcLFkwIubGvv8h99hseIQrEpNyL00sO1jQyhx"
-);
+// const stripePromise = loadStripe(
+//   "pk_live_51Q9Qyi06H149q3Q2RFO83AKs0RUPPEblb5am1DwItuvmwsmfjKRSH7W1TkXzGIcLFkwIubGvv8h99hseIQrEpNyL00sO1jQyhx"
+// );
 
 const Cart = () => {
   const { cartItems, addToCart, setCartItems, removeFromCart } = useCart();
-  const [showStripePayment, setShowStripePayment] = useState(false); // State to toggle Stripe payment form
+  // const [showStripePayment, setShowStripePayment] = useState(false); // State to toggle Stripe payment form
 
   useEffect(() => {
     const cartdata = JSON.parse(localStorage.getItem("cartdata")) || [];
@@ -172,7 +172,7 @@ const Cart = () => {
                 className="w-full md:w-1/2"
               ></div>
 
-              <div className="w-full md:w-1/2 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+              {/* <div className="w-full md:w-1/2 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-gray-100">
                   Pay with Stripe
                 </h2>
@@ -185,7 +185,7 @@ const Cart = () => {
                 >
                   {showStripePayment ? "Hide Stripe Form" : "Show Stripe Form"}
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         )}
@@ -230,6 +230,7 @@ export default Cart;
     "status": "COMPLETED",
     "update_time": "2024-11-29T15:34:49Z"
   },
+  
   "sandbox_url": "https://www.sandbox.paypal.com",
   "seller_test_account": {
     "email": "sb-k7chb33354269@business.example.com",
