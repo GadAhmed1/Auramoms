@@ -43,6 +43,7 @@ function LoginForm() {
           setToken(response.data.accessToken);
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem("username", response.data.email);
+          localStorage.setItem("userId", response.data.userId);
           Swal.fire({
             title: "Welcome Back!",
             text: "Successful Login",

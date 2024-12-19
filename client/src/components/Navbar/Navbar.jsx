@@ -29,6 +29,7 @@ const Navbar = ({ setshowLogin }) => {
     localStorage.removeItem("username");
     localStorage.removeItem("cartdata");
     localStorage.removeItem("favorites");
+    localStorage.removeItem("userId");
     setToken("");
   }, [setToken]);
   return (

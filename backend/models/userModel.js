@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     country: { type: String, required: true },
     phone: { type: Number, required: true },
-    cartData: { type: Object, default: {} },
+    cartData: { type: Object, default:{}},
     favorites: { type: Object, default: {} },
     orders: [{ type: mongoose.Schema.Types.ObjectId, ref: 'order' }],
     resetPasswordToken: String,

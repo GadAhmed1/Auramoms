@@ -22,7 +22,7 @@ import Payment from "./models/payment.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 connection();
 

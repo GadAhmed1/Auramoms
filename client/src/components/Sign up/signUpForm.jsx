@@ -9,7 +9,6 @@ import FormButton from "./FormButton";
 import { UserCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
-
 function SignUpForm() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState("");
@@ -89,6 +88,8 @@ function SignUpForm() {
           setToken(response.data.accessToken);
           localStorage.setItem("token", response.data.accessToken);
           localStorage.setItem("username", response.data.firstname);
+          localStorage.setItem("userId", response.data.userId);
+
           Swal.fire({
             icon: "success",
             title: "Welcome!",

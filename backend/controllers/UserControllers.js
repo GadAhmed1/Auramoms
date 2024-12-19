@@ -65,6 +65,7 @@ const registerUSER = async (req, res) => {
             password: hashedPassword,
             country: user.country,
             phone: user.phone,
+            userId: user._id
         });
     } catch (error) {
         console.log(error);
