@@ -86,9 +86,9 @@ function SignUpForm() {
 
         if (response.data.success) {
           setToken(response.data.accessToken);
-          localStorage.setItem("token", response.data.accessToken);
+          localStorage.setItem("randomkey", response.data.accessToken);
           localStorage.setItem("username", response.data.firstname);
-          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("randomnumber", response.data.userId);
 
           Swal.fire({
             icon: "success",

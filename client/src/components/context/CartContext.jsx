@@ -6,8 +6,8 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("randomkey");
+  const userId = localStorage.getItem("randomnumber");
 
   const addToCart = async (item) => {
     try {
@@ -144,7 +144,7 @@ export const CartProvider = ({ children }) => {
       setCartItems,
       addToCart,
       removeFromCart,
-      getCartItems,
+      // getCartItems,
       decreaseFromCart,
     }),
     [cartItems]

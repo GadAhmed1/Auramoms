@@ -7,7 +7,7 @@ const FavoritesContext = createContext();
 export const FavoritesProvider = ({ children }) => {
   const [favoritesItems, setFavoritesItems] = useState([]);
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("randomkey");
 
   const addToFavorites = async (item) => {
     try {

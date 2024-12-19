@@ -8,7 +8,7 @@ const ShopContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
+    const storedToken = localStorage.getItem("randomkey");
     if (storedToken) {
       setToken(storedToken);
     }
