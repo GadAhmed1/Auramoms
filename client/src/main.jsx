@@ -14,7 +14,7 @@ import ShopContextprovider from "./context/ShopContext.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ShopContextprovider>
-        <App />
+      <App />
     </ShopContextprovider>
   </StrictMode>
 );

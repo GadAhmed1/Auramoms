@@ -15,6 +15,7 @@ const Footer = () => {
   const paymentIconClasses =
     "text-4xl hover:scale-125 duration-300 cursor-pointer";
   const listItemClasses = "hover:translate-x-1 duration-300 hover:underline";
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-[#be7c8b] dark:bg-[#2C2C2C] pt-12 pb-8 text-white">
@@ -33,7 +34,7 @@ const Footer = () => {
               </p>
               <p className="flex items-center gap-2">
                 <FaLocationDot />
-                Suez, Egypt
+                London, UK
               </p>
             </address>
           </div>
@@ -94,7 +95,7 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <p className="text-white text-center mt-8 border-t-2 pt-2">
-          © 2026. All Rights Reserved || Obsidian Team
+          © {currentYear} . All Rights Reserved || Obsidian Team
         </p>
       </div>
     </footer>

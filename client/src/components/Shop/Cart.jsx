@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import Swal from "sweetalert2";
@@ -211,7 +211,7 @@ const Cart = () => {
                 className="w-full md:w-1/2"
               ></div>
 
-              <div className="w-full md:w-1/2 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+              {/* <div className="w-full md:w-1/2 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-center mb-4 text-gray-800 dark:text-gray-100">
                   Pay with Stripe
                 </h2>
@@ -222,7 +222,7 @@ const Cart = () => {
                 >
                   {showStripePayment ? "Hide Stripe Form" : "Show Stripe Form"}
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         )}
