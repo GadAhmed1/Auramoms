@@ -1,5 +1,6 @@
 import userModel from "../models/userModel.js";
-const addtoCart = async (req, res) => {
+
+const addToFavorites = async (req, res) => {
   try {
     const { userId, itemId, itemImage, itemName, itemPrice } = req.body;
 
@@ -16,46 +17,48 @@ const addtoCart = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
-    let cartData = userData.cartData || {};
+    let favorites = userData.favorites || {};
 
-    if (!cartData[itemId]) {
-      cartData[itemId] = {
+    if (!favorites[itemId]) {
+      favorites[itemId] = {
         _id: itemId,
         image: itemImage,
         name: itemName,
         price: itemPrice,
-        quantity: 1,
       };
     } else {
-      cartData[itemId].quantity += 1;
+      return res.status(400).json({
+        success: false,
+        message: "Item is already in favorites",
+      });
     }
 
     const updatedUser = await userModel.findByIdAndUpdate(
       userId,
-      { cartData },
+      { favorites },
       { new: true }
     );
 
     if (!updatedUser) {
       return res
         .status(500)
-        .json({ success: false, message: "Error updating cart data" });
+        .json({ success: false, message: "Error updating favorites data" });
     }
 
     res.json({
       success: true,
-      message: "Item added to cart",
-      cartData: updatedUser.cartData,
+      message: "Item added to favorites",
+      favorites: updatedUser.favorites,
     });
   } catch (err) {
-    console.error("Error adding to cart:", err);
+    console.error("Error adding to favorites:", err);
     res
       .status(500)
       .json({ success: false, message: "Internal server error", error: err });
   }
 };
 
-const removeCart = async (req, res) => {
+const removeFromFavorites = async (req, res) => {
   try {
     const { userId, itemId } = req.body;
 
@@ -72,46 +75,42 @@ const removeCart = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
-    const cartData = userData.cartData;
+    const favorites = userData.favorites;
 
-    if (!cartData[itemId]) {
+    if (!favorites[itemId]) {
       return res
         .status(404)
-        .json({ success: false, message: "Item not found in cart" });
+        .json({ success: false, message: "Item not found in favorites" });
     }
 
-    if (cartData[itemId].quantity > 1) {
-      cartData[itemId].quantity -= 1;
-    } else {
-      delete cartData[itemId];
-    }
+    delete favorites[itemId];
 
     const updatedUser = await userModel.findByIdAndUpdate(
       userId,
-      { cartData },
+      { favorites },
       { new: true }
     );
 
     if (!updatedUser) {
       return res
         .status(500)
-        .json({ success: false, message: "Error updating cart data" });
+        .json({ success: false, message: "Error updating favorites data" });
     }
 
     res.json({
       success: true,
-      message: "Item removed from cart successfully",
-      cartData: updatedUser.cartData,
+      message: "Item removed from favorites successfully",
+      favorites: updatedUser.favorites,
     });
   } catch (err) {
-    console.error("Error removing item from cart:", err);
+    console.error("Error removing item from favorites:", err);
     res
       .status(500)
       .json({ success: false, message: "Internal server error", error: err });
   }
 };
 
-const getCart = async (req, res) => {
+const getFavorites = async (req, res) => {
   try {
     const { userId } = req.body;
 
@@ -131,19 +130,19 @@ const getCart = async (req, res) => {
       });
     }
 
-    const cartData = userData.cartData || {};
+    const favorites = userData.favorites || {};
 
     return res.status(200).json({
       success: true,
-      cartData,
+      favorites,
     });
   } catch (err) {
-    console.error("Error fetching cart data:", err);
+    console.error("Error fetching favorites data:", err);
     return res.status(500).json({
       success: false,
-      message: "Failed to retrieve cart data. Please try again later.",
+      message: "Failed to retrieve favorites data. Please try again later.",
     });
   }
 };
 
-export { addtoCart, removeCart, getCart };
+export { addToFavorites, removeFromFavorites, getFavorites };

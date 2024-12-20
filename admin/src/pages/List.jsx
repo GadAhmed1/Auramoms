@@ -5,12 +5,12 @@ import { TbTrash } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { CiEdit } from "react-icons/ci";
 
-const List = ({ url }) => {
+const List = () => {
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
     try {
-      const res = await axios.get(`${url}/products/list`);
+      const res = await axios.get(`http://localhost:3000/products/list`);
       console.log(res.data);
       if (res.data.success) {
         setList(res.data.data);
@@ -24,7 +24,7 @@ const List = ({ url }) => {
 
   const removeProduct = async (productId) => {
     try {
-      const res = await axios.post(`${url}/products/remove`, { id: productId });
+      const res = await axios.post(`http://localhost:3000/products/remove`, { id: productId });
       await fetchList();
       if (res.data.success) {
         toast.success(res.data.message);

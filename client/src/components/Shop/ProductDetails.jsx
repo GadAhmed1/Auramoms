@@ -74,7 +74,7 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("randomkey");
     if (!token) {
       Swal.fire({
         toast: true,

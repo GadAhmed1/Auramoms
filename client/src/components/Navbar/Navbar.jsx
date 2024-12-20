@@ -25,10 +25,11 @@ const Navbar = ({ setshowLogin }) => {
   const { token, setToken } = useContext(ShopContext);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("randomkey");
     localStorage.removeItem("username");
     localStorage.removeItem("cartdata");
     localStorage.removeItem("favorites");
+    localStorage.removeItem("randomnumber");
     setToken("");
   }, [setToken]);
   return (
