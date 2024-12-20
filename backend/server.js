@@ -18,6 +18,7 @@ import corsOptions from "./config/Cors_Options.js";
 import userModel from "./models/userModel.js";
 import paymentRouter from "./routes/paymentRoutes.js";
 import Payment from "./models/payment.js";
+import favoritesRouter from "./routes/favouritesRoutes.js";
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/users", userROUTE);
 app.use("/products", productRouter);
 app.use("/carts", cartRouter);
+app.use("/favourites", favoritesRouter);
 app.use("/payment", paymentRouter);
 
 app.delete("/deleteAllUsers", async (req, res) => {

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartContext";
-import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
+import { FiMinus } from "react-icons/fi";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -12,7 +13,22 @@ const Cart = () => {
     const cartdata = JSON.parse(localStorage.getItem("cartdata")) || [];
     setCartItems(cartdata);
   }, []);
-
+  const handleRemove = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to remove this item from your Cart?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeFromCart(item);
+        Swal.fire("Removed!", "The item has been removed.", "success");
+      }
+    });
+  };
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -175,10 +191,10 @@ const Cart = () => {
                       <td className="py-3 px-4 text-gray-600 dark:text-gray-300">
                         <div className="flex items-center justify-center gap-2">
                           <button
-                            onClick={() => removeFromCart(item)}
+                            onClick={() => handleRemove(item)}
                             className="text-lg text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-500"
                           >
-                            <AiOutlineDelete size={24} />
+                            <FiMinus size={24} />
                           </button>
                           <span className="text-lg text-gray-600 dark:text-white font-bold">
                             {item.quantity}

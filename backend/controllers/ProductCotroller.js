@@ -106,47 +106,47 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const addFav = async (req, res) => {
-  try {
-    const { userId, itemId, itemImage, itemName, itemPrice } = req.body;
+// const addFav = async (req, res) => {
+//   try {
+//     const { userId, itemId, itemImage, itemName, itemPrice } = req.body;
 
-    await userModel.updateOne(
-      { _id: userId },
-      { $set: { [`favorites.${itemId}`]: { image: itemImage, name: itemName, price: itemPrice } } }
-    );
+//     await userModel.updateOne(
+//       { _id: userId },
+//       { $set: { [`favorites.${itemId}`]: { image: itemImage, name: itemName, price: itemPrice } } }
+//     );
 
-    res.json({ success: true, message: "Added to favorites" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to add to favorites", error: error.message });
-  }
-};
+//     res.json({ success: true, message: "Added to favorites" });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: "Failed to add to favorites", error: error.message });
+//   }
+// };
 
-const showFavProducts = async (req, res) => {
-  try {
-    const user = await userModel.findById(req.body.userId).populate("favorites");
-    if (user) {
-      res.json({ success: true, message: "Favorites retrieved successfully", favorites: user.favorites });
-    } else {
-      res.status(404).json({ success: false, message: "User not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to retrieve favorites", error: error.message });
-  }
-};
+// const showFavProducts = async (req, res) => {
+//   try {
+//     const user = await userModel.findById(req.body.userId).populate("favorites");
+//     if (user) {
+//       res.json({ success: true, message: "Favorites retrieved successfully", favorites: user.favorites });
+//     } else {
+//       res.status(404).json({ success: false, message: "User not found" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: "Failed to retrieve favorites", error: error.message });
+//   }
+// };
 
-const removeFavProduct = async (req, res) => {
-  try {
-    const { userId, itemId } = req.body;
-    const user = await userModel.findById(userId);
-    if (!user || !user.favorites[itemId]) {
-      return res.status(404).json({ success: false, message: "Item not found in favorites" });
-    }
-    delete user.favorites[itemId];
-    await user.save();
-    res.json({ success: true, message: "Item removed from favorites successfully" });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to remove item from favorites", error: error.message });
-  }
-};
+// const removeFavProduct = async (req, res) => {
+//   try {
+//     const { userId, itemId } = req.body;
+//     const user = await userModel.findById(userId);
+//     if (!user || !user.favorites[itemId]) {
+//       return res.status(404).json({ success: false, message: "Item not found in favorites" });
+//     }
+//     delete user.favorites[itemId];
+//     await user.save();
+//     res.json({ success: true, message: "Item removed from favorites successfully" });
+//   } catch (error) {
+//     res.status(500).json({ success: false, message: "Failed to remove item from favorites", error: error.message });
+//   }
+// };
 
-export { addProduct, updateProduct, fetchProductById, listProduct, removeProduct, addFav, showFavProducts, removeFavProduct };
+export { addProduct, updateProduct, fetchProductById, listProduct, removeProduct};
