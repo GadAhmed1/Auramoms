@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 const FormInput = ({ label, error, ...props }) => {
-  const inputClass = `w-full  border-2 rounded-xl p-4 mt-1 bg-transparent transition-all duration-300 
+  const inputClass = `w-full  border-2 rounded-xl p-4 mt-1 bg-transparent transition-colors duration-300 
     ${
       error
         ? "border-red-500 dark:border-red-400 shadow-sm shadow-red-200 dark:shadow-red-900/30"

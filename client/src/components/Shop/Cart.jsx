@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Cart = () => {
   const { cartItems, addToCart, setCartItems, removeFromCart } = useCart();
-  const [showStripePayment, setShowStripePayment] = useState(false); // State to toggle Stripe payment form
+  // const [showStripePayment, setShowStripePayment] = useState(false); // State to toggle Stripe payment form
   const token = localStorage.getItem("token");
 
   useEffect(() => {
