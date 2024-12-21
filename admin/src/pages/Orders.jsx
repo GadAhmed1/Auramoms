@@ -243,7 +243,7 @@ export default function Payments() {
         );
 
         if (response.data.success) {
-          setPayments(response.data.payments); // Assuming the API response has a 'payments' key
+          setPayments(response.data.data); // Assuming the API response has a 'payments' key
         }
       } catch (err) {
         setError("Error fetching payments", err);
